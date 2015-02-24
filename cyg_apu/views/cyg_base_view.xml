@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="view_cyg_jornada_search">
+	      <field name="name">cyg.jornada.search</field>
+	      <field name="model">cyg.jornada</field>
+	      <field name="type">search</field>
+	      <field name="arch" type="xml">
+			<search>
+			  <field name="name"/>
+			  <field name="hora"/>
+			</search>
+	      </field>
+	    </record>
+	    
+	    <record model="ir.ui.view" id="view_cyg_jornada_tree">
+	      <field name="name">cyg.jornada.tree</field>
+	      <field name="model">cyg.jornada</field>
+	      <field name="arch" type="xml">
+			<tree  string="Jornada">
+			  <field name="name"/>
+			  <field name="hora"/>
+			</tree>
+	      </field>
+	    </record>
+	    
+	    <record model="ir.ui.view" id="view_cyg_jornada_form">
+	      <field name="name">cyg.jornada.form</field>
+	      <field name="model">cyg.jornada</field>
+	      <field name="type">form</field>
+	      <field name="arch" type="xml">
+			<form string="Horas/Dia Trabajo" version="7.0">
+			<sheet>
+				<group>
+				  <field name="name" on_change="onchange_mayusculas(name)"/>
+				  <field name="hora"/>
+			  	</group>
+			</sheet>
+			</form>
+	      </field>
+	    </record>
+	    <record id="action_cyg_jornada" model="ir.actions.act_window">
+            <field name="name">Jornada de Trabajo</field>
+            <field name="res_model">cyg.jornada</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click para crear Horas de Trabajo por día.
+              </p><p>
+                Defina las hora por día de trabajo.
+              </p>
+            </field>
+        </record>
+        
+        <!-- CAPITULOS -->
+         <record model="ir.ui.view" id="view_cyg_capitulo_search">
+	      <field name="name">cyg.apu.capitulo.search</field>
+	      <field name="model">cyg.apu.capitulo</field>
+	      <field name="type">search</field>
+	      <field name="arch" type="xml">
+			<search>
+			  <field name="name"/>
+			  <field name="code"/>
+			</search>
+	      </field>
+	    </record>
+	    
+	    <record model="ir.ui.view" id="view_cyg_capitulo_tree">
+	      <field name="name">cyg.apu.capitulo.tree</field>
+	      <field name="model">cyg.apu.capitulo</field>
+	      <field name="arch" type="xml">
+			<tree  string="Capitulo">
+			  <field name="code"/>
+			  <field name="name"/>
+			</tree>
+	      </field>
+	    </record>
+	    
+	    <record model="ir.ui.view" id="view_cyg_capitulo_form">
+	      <field name="name">cyg.apu.capitulo.form</field>
+	      <field name="model">cyg.apu.capitulo</field>
+	      <field name="type">form</field>
+	      <field name="arch" type="xml">
+			<form string="Capitulo" version="7.0">
+			<sheet>
+				<group>
+				  <field name="name" on_change="onchange_mayusculas(name)" required='1'/>
+				  <field name="code" required='1'/>
+			  	</group>
+			</sheet>
+			</form>
+	      </field>
+	    </record>
+	    <record id="action_cyg_capitulo" model="ir.actions.act_window">
+            <field name="name">Capitulo de Trabajo</field>
+            <field name="res_model">cyg.apu.capitulo</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click para crear capitulos de presuesto o analisis de precios unitarios.
+              </p><p>
+                Defina las capitulos que usaran para creacion de APU y Presupuestos.
+              </p>
+            </field>
+        </record>
+        
+       
+	    
+    </data>
+</openerp>

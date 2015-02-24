@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+
+        <record id="cyg_payment_type_ef" model="cyg.payment.type">
+            <field name="name">Efectivo</field>
+            <field name="code">EF</field>
+        </record>
+        <record id="cyg_payment_type_bc" model="cyg.payment.type">
+            <field name="name">Banco</field>
+            <field name="code">BC</field>
+        </record>
+       
+	</data>
+</openerp>
+        

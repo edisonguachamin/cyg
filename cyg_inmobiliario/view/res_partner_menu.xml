@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+       <record id="cyg_view_res_partner_filter" model="ir.ui.view">
+            <field name="name">res.partner.select</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <search string="Buscar empresas">
+                   <field name="name"
+                       filter_domain="['|','|',('name','ilike',self),('parent_id','ilike',self),('ref','=',self)]"/>
+
+                   <field name="apellido"
+                       filter_domain="[('apellido','ilike',self)]"/>
+                   <filter help="Mis empresas" icon="terp-personal+" domain="[('user_id','=',uid)]"/>
+                   <separator/>
+                   <filter string="Personas" name="type_person" domain="[('is_company','=',0)]"/>
+                   <filter string="Compañias" name="type_company" domain="[('is_company','=',1)]"/>
+                   <separator/>
+                   <filter string="Clientes" name="customer" domain="[('customer','=',1)]" help="Customer Partners"/>
+                   <filter string="Proveedores" name="supplier" domain="[('supplier','=',1)]" help="Supplier Partners"/>
+                   <filter string="Terceros" name="supplier" domain="[('tercero','=',1)]" help="Supplier Partners"/>
+                   <separator/>
+                   <field name="category_id" string="Tag" filter_domain="[('category_id','ilike', self)]"/>
+                   <field name="user_id"/>
+                   <field name="parent_id" domain="[('is_company','=',1)]" filter_domain="[('parent_id','child_of',[self])]"/>
+                   <group expand="0" string="Agrupar por...">
+                       <filter string="Vendedor" icon="terp-personal" domain="[]" context="{'group_by' : 'user_id'}" />
+                       <filter string="Compañia" context="{'group_by': 'parent_id'}"/>
+                       <filter string="Pais" context="{'group_by': 'country_id'}"/>
+                   </group>
+               </search>
+            </field>
+        </record>
+
+
+        <record id="action_partner_other_form" model="ir.actions.act_window">
+            <field name="name">Terceros</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+            <field name="domain">[]</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="search_view_id" ref="cyg_view_res_partner_filter"/>
+            <field name="context">{'search_default_tercero': 1,'default_customer': 0,'default_supplier': 0, 'default_tercero': 1}</field>
+            <field name="filter" eval="True"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to add a contact in your address book.
+              </p><p>
+                OpenERP helps you easily track all activities related to
+                a supplier: discussions, history of purchases,
+                documents, etc.
+              </p>
+            </field>
+        </record>
+
+    <menuitem id="cyg_menu_partner_other_form_comercial"
+              name="Terceros"
+              parent="menu_cyg_proyecto_inmobiliario"
+              action="action_partner_other_form"
+              groups="group_cyg_inmo_manager_proyectos,group_cyg_inmo_user_proyectos,group_cyg_inmo_read_proyectos,group_cyg_inmo_manager_trans_dominio,group_cyg_inmo_user_trans_domino,group_cyg_inmo_read_trans_domino"
+              sequence="30"/>
+
+    <menuitem id="cyg_menu_partner_other_form_proyectos"
+              name="Terceros"
+              parent="menu_cyg_second_level_proyecto_inmobiliario"
+              action="action_partner_other_form"
+              sequence="30"/>
+
+
+  </data>
+</openerp>

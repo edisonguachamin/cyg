@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+    <!--Menu Principal  -->
+    
+    <menuitem name="Precios Unitarios" id="root_apu"
+   		      sequence="0"/>
+    
+   	<menuitem name="Base de Precios Unitario" id="base_apu"
+   			  parent="root_apu"
+   		      sequence="0"/>
+   		     
+   		<menuitem  name="Catalogo de Bases de A.P.U" id="menu_base_apu" 
+	   			 parent="base_apu"
+	   			sequence="0"
+	   			action="action_cyg_base_apu"/>
+   		      
+   		<menuitem  name="Crear A.P.U" id="menu_apu" 
+	   			 parent="base_apu"
+	   			sequence="10"
+	   			action="action_cyg_apu"/>
+	   			
+	   	<!-- 
+	   	<menuitem  name="Escenarios" id="menu_esce" 
+	   			parent="base_apu" 
+	   			sequence="20"
+	   			action="action_cyg_apu_line"/>
+	   	 -->
+	   <menuitem  name="Categorias" id="menu_categorias" 
+	   			parent="base_apu" 
+	   			sequence="30"
+	   			action="product.product_category_action"/>
+	   	
+	   			
+	   <menuitem  name="Productos" id="menu_productos" 
+	   			parent="base_apu" 
+	   			sequence="40"
+	   			action="product.product_normal_action"/>
+    	
+    	 <menuitem name="Capitulos" id="menu_cyg_capitulos"
+	      parent="base_apu" action="action_cyg_capitulo"
+	      sequence="50"/>
+    </data>
+</openerp>

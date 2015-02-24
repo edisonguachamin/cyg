@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data>
+
+        <record id="view_cambio_precio_inmueble_wiz_form" model="ir.ui.view">
+            <field name="name">Cambio de precios</field>
+            <field name="model">cyg.cambio_precios_inmueble_wiz</field>
+            <field name="arch" type="xml">
+                <form string="Cambio de precios">
+                    <group colspan="4" col="6">
+                        <field name="precio" colspan="4" />
+                        <button name="cambio_precio" type="object" string="Aplicar"
+                                confirm="¿Desea cambiar el precio de este inmueble?"/>
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_view_cambio_precio_inmueble_wiz" model="ir.actions.act_window">
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">cyg.cambio_precios_inmueble_wiz</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</openerp>

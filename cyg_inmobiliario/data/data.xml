@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+
+         <record id="cyg_tasa_01" model="cyg.tasa.interes">
+            <field name="name">Tasa de Interes Anual 2014</field>
+            <field name="tasa">0.10</field>
+            <field name="anio">2014</field>
+        </record>
+        
+        <record id="cyg_tipo_presupuesto_01" model="cyg.type.presupuesto">
+            <field name="name">Costos directos</field>
+            <field name="code">directo</field>
+        </record>
+        <record id="cyg_tipo_presupuesto_02" model="cyg.type.presupuesto">
+            <field name="name">Costos indirectos</field>
+            <field name="code">indirecto</field>
+        </record>
+        <record id="cyg_tipo_presupuesto_03" model="cyg.type.presupuesto">
+            <field name="name">Cartera</field>
+            <field name="code">cartera</field>
+        </record>
+        <record id="cyg_tipo_presupuesto_04" model="cyg.type.presupuesto">
+            <field name="name">Sala de ventas</field>
+            <field name="code">sala_ventas</field>
+        </record>
+        <record id="cyg_tipo_presupuesto_05" model="cyg.type.presupuesto">
+            <field name="name">Oficina</field>
+            <field name="code">oficina</field>
+        </record>
+	</data>
+</openerp>
+        

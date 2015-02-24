@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+
+        <record id="cyg_ramo_01" model="cyg.broker.ramo">
+            <field name="name">Casco Áereo</field>
+            <field name="code">CA</field>
+            <field name="descripcion">Casco Áereo</field>
+        </record>
+        <record id="cyg_ramo_02" model="cyg.broker.ramo">
+            <field name="name">Casco Marítimo</field>
+            <field name="code">CM</field>
+            <field name="descripcion">Casco Marítimo</field>
+        </record>
+        <record id="cyg_ramo_03" model="cyg.broker.ramo">
+            <field name="name">Multiriesgo</field>
+            <field name="code">MR</field>
+            <field name="descripcion">Multiriesgo</field>
+        </record>
+        <record id="cyg_ramo_04" model="cyg.broker.ramo">
+            <field name="name">Responsabilidad Civil</field>
+            <field name="code">RC</field>
+            <field name="descripcion">Responsabilidad Civil</field>
+        </record>
+        <record id="cyg_ramo_05" model="cyg.broker.ramo">
+            <field name="name">Vida y Accidentes Personales</field>
+            <field name="code">VAP</field>
+            <field name="descripcion">Vida y Accidentes Personales</field>
+        </record>
+        <record id="cyg_ramo_06" model="cyg.broker.ramo">
+            <field name="name">Líneas Financieras</field>
+            <field name="code">LF</field>
+            <field name="descripcion">Líneas Financieras</field>
+        </record>
+        <record id="cyg_ramo_07" model="cyg.broker.ramo">
+            <field name="name">Transporte</field>
+            <field name="code">TRS</field>
+            <field name="descripcion">Transporte</field>
+        </record>
+        <record id="cyg_ramo_08" model="cyg.broker.ramo">
+            <field name="name">Montaje Construcción</field>
+            <field name="code">MC</field>
+            <field name="descripcion">Montaje</field>
+        </record>
+        <record id="cyg_ramo_10" model="cyg.broker.ramo">
+            <field name="name">Obras Arte</field>
+            <field name="code">OA</field>
+            <field name="descripcion">Obras Arte</field>
+        </record>
+        
+	</data>
+</openerp>
+        

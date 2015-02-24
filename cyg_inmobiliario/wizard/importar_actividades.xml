@@ -1,0 +1,60 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data>
+
+        <!--
+            Importar Actividades
+         -->
+         <record id="cyg_import_actividades_wiz" model="ir.ui.view">
+      	<field name="name">cyg.import_actividades_wiz</field>
+      	<field name="model">cyg.import_actividades_wiz</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form string="Actividades" version="7.0">
+					<label string="Oprima el Botón Buscar para seleccionar actividades que desea agregar" />
+					<group col="4">
+						<field name="tipo_actividad_id" readonly="0"/>
+						<label string="Dejar vacio para mostrar todo" colspan="2"/>
+						<!--  <field name="department_id" readonly="1" />-->
+					</group>
+				    <footer>
+						<button name="search_actividades" string="Buscar" type="object" class="oe_highlight"/>
+						or
+						<button special="cancel"  string="Cancel" icon='gtk-cancel'/>
+					</footer>
+			</form>
+		</field>
+	 </record>
+	 
+	 <record id="cyg_import_actividades_wiz_lines" model="ir.ui.view">
+      	<field name="name">cyg.import_actividades_wiz</field>
+      	<field name="model">cyg.import_actividades_wiz</field>
+		<field name="type">form</field>
+		<field name="arch" type="xml">
+			<form string="Buscar Actividades" version="7.0">
+					<group>
+						<label string="Oprima el boton 'Agregar' y luego marque las actividades que necesita y finalmente oprima 'Añadir a la lista'"/>
+						<newline/>
+						<field name="cyg_actividad_ids" nolabel="1" context="{'search_view_ref': 'cyg_inmobiliario.view_cyg_actividad_search'}"/>
+	                </group>
+					<footer>
+						<button name="add_actividades" string="Añadir a la lista" type="object" class="oe_highlight"/>
+						or
+						<button special="cancel"  string="Cancel" icon='gtk-cancel'/>
+					</footer>
+			</form>
+		</field>
+	 </record>
+		
+	<record id="action_cyg_import_actividades_wiz" model="ir.actions.act_window">
+		<field name="name">Importar Actividades</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">cyg.import_actividades_wiz</field>
+		<field name="view_type">form</field>
+		<field name="view_mode">form</field>
+		<field name="view_id" ref="cyg_import_actividades_wiz"/>
+		<field name="target">new</field>
+	</record>
+    </data>
+</openerp>
+     

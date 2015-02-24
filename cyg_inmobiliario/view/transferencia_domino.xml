@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+    <record model="ir.ui.view" id="view_cyg_transferencia_dominio_search">
+      <field name="name">cyg.transferencia_dominio.search</field>
+      <field name="model">cyg.transferencia_dominio</field>
+      <field name="arch" type="xml">
+          <search>
+              <field name="proyecto_id"/>
+              <field name="comprador_id"/>
+              <field name="inmueble_id"/>
+              <field name="nro_tramite"/>
+              <field name="vendedor_id"/>
+              <field name="banco_prestamista_id"/>
+              <field name="producto_prestamo"/>
+          </search>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="view_cyg_transferencia_dominio_form">
+        <field name="name">cyg.transferencia_dominio.form</field>
+        <field name="model">cyg.transferencia_dominio</field>
+        <field name="arch" type="xml">
+	<form string="Tranferencia de dominio" version="7.0">
+        <header>
+        </header>
+        <sheet>
+            <group colspan="2" col="4">
+                <label for="nro_tramite" class="oe_edit_only"/>
+                <div class="oe_right oe_button_box" name="buttons" groups="base.group_user">
+                      <button name="attachment_tree_view" string="Documentos adjuntos" type="object"/>
+                </div>
+                <h1 colspan="4"> <field name="nro_tramite"/> </h1>
+                <label for="proyecto_id" class="oe_edit_only"/>
+                <h1 colspan="4">
+                    <field name="proyecto_id" placeholder="Proyecto"
+                           on_change="onchange_proyecto(proyecto_id)"/>
+                </h1>
+                <group colspan="4" col="4">
+                    <field name='fecha_asignacion_tramite'/>
+                    <field name='recepcion_carpeta'/>
+                    <field name='fecha_minuta'/>
+                    <field name='fecha_entrega'/>
+                    <field name='fecha_estimada_desembolso'/>
+                    <field name='fecha_desembolso'/>
+                </group>
+            </group>
+            <group colspan="2" col="4" string="Datos generales">
+                <field name='estudio_juridico_id'/>
+                <field name='constructor_id'/>
+                <field name="vendedor_id"/>
+                <field name='comprador_id' on_change="on_change_comprador_id(comprador_id)"/>
+                <field name='conyuge_id' attrs="{'invisible':[('estado_civil','in',(False,'soltera','viuda','divorciada'))]}"/>
+                <field name='separacion_bienes' attrs="{'invisible':[('estado_civil','in',(False,'soltera','viuda','divorciada'))]}"/>
+                <field name='estado_civil' invisible="1"/>
+                <newline/>
+                <field name='inmueble_id' domain="[('proyecto_id','=',proyecto_id)]" context="{'default_proyecto_id': proyecto_id}"/>
+                <field name="calificado_biess"/>
+                <field name='responsable'/>
+                <field name='country_id'/>
+                <separator string="Notaría" colspan="4" col="6"/>
+                <field name='country_id'/>
+                <field name='state_id'/>
+                <field name='city_id'/>
+                <field name='notaria'/>
+                <separator string="Apoderado" colspan="4" col="6"/>
+                <field name='apoderado'/>
+                <newline/>
+                <field name='apoderado_id' attrs="{'invisible':[('apoderado','=',False)]}"/>
+                <field name='fecha_poder' attrs="{'invisible':[('apoderado','=',False)]}"/>
+                <field name='fecha_vigencia' attrs="{'invisible':[('apoderado','=',False)]}"/>
+                <field name='notaria_apoderado' attrs="{'invisible':[('apoderado','=',False)]}"/>
+                <separator string="Datos prestamo" colspan="4"/>
+                <field name='banco_prestamista_id' colspan="4"/>
+                <field name='producto_prestamo'/>
+                <field name='valor_prestamo' on_change="onchange_valor_prestamo(valor_prestamo,inmueble_id)"/>
+                <field name='nombre_ejecutivo'/>
+                <field name='email_ejecutivo'/>
+                <separator string="Facturación" colspan="4"/>
+                <field name='factura_ids' nolabel="1" colspan="4"/>
+                <separator string="Actividades" colspan="4"/>
+                <label string="Para añadir las actividades oprima el botón 'Buscar'" colspan="3"/>
+                <button name='%(action_cyg_import_actividades_wiz)d' type='action' string='Buscar' icon="gtk-find"/>
+                <field name='actividades_ids' nolabel="1" colspan="4"/>
+                <separator string="Observaciones generales" colspan="4"/>
+                <field name='observaciones' nolabel="1" colspan="4"/>
+            </group>
+        </sheet>
+    </form>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="view_cyg_transferencia_dominio_tree">
+        <field name="name">cyg.transferencia_dominio.tree</field>
+        <field name="model">cyg.transferencia_dominio</field>
+        <field name="arch" type="xml">
+            <tree string="Transferencia_Dominios">
+                <field name="nro_tramite"/>
+                <field name="proyecto_id"/>
+                <field name="vendedor_id"/>
+                <field name="comprador_id"/>
+                <field name="inmueble_id"/>
+                <field name="banco_prestamista_id"/>
+                <field name="producto_prestamo"/>
+            </tree>
+        </field>
+    </record>
+    <record model="ir.actions.act_window" id="action_cyg_transferencia_dominio">
+        <field name="name">Transferencia dominio</field>
+        <field name="res_model">cyg.transferencia_dominio</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_cyg_transferencia_dominio_search"/>
+    </record>
+    <menuitem id="menu_cyg_transferencia_dominio" name="Transferencia de dominio"
+              action="action_cyg_transferencia_dominio"
+              parent="menu_cyg_proyecto_inmobiliario"
+              sequence="1"
+            />
+
+    <record model="ir.ui.view" id="view_cyg_trans_dominio_actividad_form">
+        <field name="name">cyg.trans_dominio_actividad.form</field>
+        <field name="model">cyg.trans_dominio_actividad</field>
+        <field name="arch" type="xml">
+            <form string="Actividad" version="7.0">
+                <header>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <field name="id" invisible="1"/>
+                    <group colspan="2" col="4">
+                        <group colspan="4" col="6">
+                            <field name="id" invisible="1"/>
+                            <field name='actividad_id'
+                                   on_change="onchange_actividad(actividad_id)"
+                                   context="{'form_view_ref':'view_cyg_simple_actividad_form'}"/>
+                            <field name='grupo_id' invisible="1"/>
+                            <field name='fecha_ini' on_change="onchange_date(fecha_ini,fecha_fin)"/>
+                            <field name='fecha_fin' on_change="onchange_date(fecha_ini,fecha_fin)"/>
+                            <field name='dias_diferencia'/>
+                            <field name='persona_entrega_id'/>
+                            <field name='persona_recibe_id'/>
+                            <field name='ubicacion'/>
+                            <field name='dias_programados' invisible="1"/>
+                            <newline/>
+                            </group>
+                        <separator string="Observaciones" colspan="4"/>
+                        <field name="ultima_observacion" invisible="1"/>
+                        <field name='observacion' colspan="4" nolabel="1">
+                            <tree editable="top">
+                                <field name="date"/>
+                                <field name="observacion"/>
+                                <field name="usuario_id" readonly="1"/>
+                                <field name="fecha" readonly="1"/>
+                            </tree>
+                        </field>
+                        <separator string="Facturas" colspan="4"/>
+                        <field name='factura_ids' nolabel="1" colspan="4"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="view_cyg_trans_dominio_actividad_tree">
+        <field name="name">cyg.trans_dominio_actividad.tree</field>
+        <field name="model">cyg.trans_dominio_actividad</field>
+        <field name="arch" type="xml">
+            <tree string="Actividades">
+                <field name='grupo_id'/>
+                <field name='actividad_id'/>
+                <field name='dias_programados'/>
+                <field name='fecha_ini'/>
+                <field name='fecha_fin'/>
+                <field name='dias_diferencia'/>
+                <field name="ultima_observacion"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record model="ir.ui.view" id="view_cyg_actividad_factura_form">
+        <field name="name">cyg.actividad_factura.form</field>
+        <field name="model">cyg.actividad_factura</field>
+        <field name="arch" type="xml">
+            <form string="Factura" version="7.0">
+                <header>
+                </header>
+                <sheet>
+                    <group colspan="2" col="4">
+                        <field name='tercero_id' />
+                        <group colspan="4" col="4">
+                            <field name='name' />
+                            <field name='fecha_factura' />
+                            <field name='valor_factura' />
+                            <field name='state' />
+                            <field name='pagada_tercero'/>
+                        </group>
+                        <field name='factura_escaneada' colspan="4" />
+                        <newline/>
+                        <field name='persona_pago_id' attrs="{'invisible':[('pagada_tercero','!=','tercero')]}"/>
+                        <field name='forma_pago_id' attrs="{'invisible':[('pagada_tercero','!=','tercero')]}"/>
+                        <field name='num_doc_pago' attrs="{'invisible':[('pagada_tercero','!=','tercero')]}"/>
+                        <field name='repuesto' attrs="{'invisible':[('pagada_tercero','!=','tercero')]}"/>
+                        <field name='banco_pago_id' attrs="{'invisible':[('pagada_tercero','!=','banco')]}"/>
+                        <field name="observacion" colspan="4"/>
+                        <newline/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="view_cyg_actividad_factura_tree">
+        <field name="name">cyg.actividad_factura.tree</field>
+        <field name="model">cyg.actividad_factura</field>
+        <field name="arch" type="xml">
+            <tree string="Facturas">
+                <field name='name'/>
+                <field name='valor_factura'/>
+                <field name='state'/>
+                <field name='pagada_tercero' />
+                <field name="observacion"/>
+            </tree>
+        </field>
+    </record>
+
+    <menuitem id="menu_cyg_transdominio" name="Tranferencia de dominio"
+              parent="cyg_base.cyg_conf_inmobiliario"
+              sequence="200"
+            />
+
+    <record model="ir.ui.view" id="view_cyg_actividad_grupo_search">
+        <field name="name">cyg.actividad_grupo.search</field>
+        <field name="model">cyg.actividad_grupo</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+            </search>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="view_cyg_actividad_grupo_form">
+        <field name="name">cyg.actividad_grupo.form</field>
+        <field name="model">cyg.actividad_grupo</field>
+        <field name="arch" type="xml">
+            <form string="Grupo" version="7.0">
+                <header>
+                </header>
+                <sheet>
+                    <group colspan="2" col="4">
+                        <h1 colspan="4"><field name="name" placeholder="Nombre del grupo"/>  </h1>
+                        <field colspan="4" nolabel="1" name="description" placeholder="Descripción del grupo de actividades"/>
+                        <field name="sequence"/>
+                    </group>
+                    <separator string="Actividades"/>
+                    <field name="actividad_ids" nolabel="1" colspan="4">
+                        <tree>
+                            <field name="secuencia"/>
+                            <field name="name"/>
+                            <field name="description"/>
+                        </tree>
+                        <form string="Grupo" version="7.0">
+                            <sheet>
+                                <group colspan="2" col="4">
+                                    <field name="name" placeholder="Nombre de la actividad"/>
+                                    <field name="dias" required="1"/>
+                                    <field name="secuencia" required="1"/>
+                                    <field name="code" required="1"/>
+                                    <field colspan="4" nolabel="1" name="description" placeholder="Descripción de la actividad"/>
+                                </group>
+                            </sheet>
+                        </form>
+                    </field>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="view_cyg_actividad_grupo_tree">
+        <field name="name">cyg.actividad_grupo.tree</field>
+        <field name="model">cyg.actividad_grupo</field>
+        <field name="arch" type="xml">
+            <tree string="Grupos">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+    <record model="ir.actions.act_window" id="action_cyg_actividad_grupo">
+        <field name="name">Grupos</field>
+        <field name="res_model">cyg.actividad_grupo</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_cyg_actividad_grupo_search"/>
+    </record>
+    <menuitem id="menu_cyg_actividad_grupo" name="Grupos para actividades"
+              action="action_cyg_actividad_grupo"
+              parent="menu_cyg_transdominio"
+              sequence="200"
+            />
+
+
+    <record model="ir.ui.view" id="view_cyg_actividad_search">
+        <field name="name">cyg.actividad.search</field>
+        <field name="model">cyg.actividad</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="group_id"/>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_cyg_simple_actividad_form">
+        <field name="name">cyg.actividad.simple.form</field>
+        <field name="model">cyg.actividad</field>
+        <field name="arch" type="xml">
+            <form string="Grupo" version="7.0">
+                <header>
+                </header>
+                <sheet>
+                    <group colspan="2" col="4">
+                        <field colspan="4" name="group_id" required="1"/>
+                        <field name="name" placeholder="Nombre de la actividad"/>
+                        <field name="dias" required="1"/>
+                        <field name="secuencia" required="1"/>
+                        <field name="code" required="1"/>
+                        <field colspan="4" nolabel="1" name="description" placeholder="Descripción de la actividad"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="view_cyg_actividad_tree">
+        <field name="name">cyg.actividad.tree</field>
+        <field name="model">cyg.actividad</field>
+        <field name="arch" type="xml">
+            <tree string="Actividades">
+                <field name="group_id"/>
+                <field name="secuencia"/>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="description"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_cyg_actividad_form">
+        <field name="name">cyg.actividad.form</field>
+        <field name="model">cyg.actividad</field>
+        <field name="arch" type="xml">
+            <form string="Actividad" version="7.0">
+                <header>
+                </header>
+                <sheet>
+                    <group colspan="2" col="4">
+                        <field colspan="4" name="group_id"/>
+                        <field name="name" placeholder="Nombre de la actividad"/>
+                        <field name="dias" required="1"/>
+                        <field name="secuencia" required="1"/>
+                        <field name="code" required="1"/>
+                        <field colspan="4" nolabel="1" name="description" placeholder="Descripción de la actividad"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="view_cyg_actividad_tree">
+        <field name="name">cyg.actividad.tree</field>
+        <field name="model">cyg.actividad</field>
+        <field name="arch" type="xml">
+            <tree string="Actividades">
+                <field name="group_id"/>
+                <field name="secuencia"/>
+                <field name="name"/>
+                <field name="description"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record model="ir.actions.act_window" id="action_cyg_actividad">
+        <field name="name">Actividades</field>
+        <field name="res_model">cyg.actividad</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_cyg_actividad_search"/>
+    </record>
+    <menuitem id="menu_cyg_actividad" name="Actividades"
+              action="action_cyg_actividad"
+              parent="menu_cyg_transdominio"
+              sequence="300"
+            />
+
+    <record model="ir.ui.view" id="view_cyg_control_facturacion_form">
+        <field name="name">cyg.control_facturacion.form</field>
+        <field name="model">cyg.control_facturacion</field>
+        <field name="arch" type="xml">
+            <form string="Grupo" version="7.0">
+                <header>
+                </header>
+                <sheet>
+                    <group colspan="2" col="4">
+                        <field colspan="4" name="tranferencia_id" invisible="1"/>
+                        <field name="cliente_id"/>
+                        <field name="fecha_factura"/>
+                        <field name="num_factura"/>
+                        <field name="valor_factura"/>
+                        <field name="estado_factura"/>
+                        <field name="estado_pago"/>
+                        <field name="fecha_pago"/>
+                        <field name="doc_pago"/>
+                        <field name="factura_escaneada"/>
+                        <field name="observacion" colspan="4"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="view_cyg_control_facturacion_tree">
+        <field name="name">cyg.control_facturacion.tree</field>
+        <field name="model">cyg.control_facturacion</field>
+        <field name="arch" type="xml">
+            <tree string="Control facturacion">
+                <field colspan="4" name="tranferencia_id" invisible="1"/>
+                <field name="cliente_id"/>
+                <field name="num_factura"/>
+                <field name="valor_factura"/>
+                <field name="estado_factura"/>
+                <field name="estado_pago"/>
+                <field name="fecha_pago"/>
+                <field name="doc_pago"/>
+            </tree>
+        </field>
+    </record>
+
+
+</data>
+</openerp>

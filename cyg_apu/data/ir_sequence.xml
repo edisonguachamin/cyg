@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+    	<record forcecreate="1" id="seq_type_cyg_base_apu" model="ir.sequence.type">
+            <field name="name">BASE APU</field>
+            <field name="code">cyg.base.apu</field>
+        </record>
+        
+        <record forcecreate="1" id="seq_cyg_base_apu" model="ir.sequence">
+            <field name="name">APU</field>
+            <field name="code">cyg.base.apu</field>
+            <field eval="5" name="padding"/>
+            <field name="prefix">BASE-%(year)s/</field>
+            <field name="company_id" ref="base.main_company" />
+        </record>
+    	<!-- //////////////////////////////////// -->
+        <record forcecreate="1" id="seq_type_cyg_apu" model="ir.sequence.type">
+            <field name="name">APU</field>
+            <field name="code">cyg.apu</field>
+        </record>
+        
+        <record forcecreate="1" id="seq_cyg_apu" model="ir.sequence">
+            <field name="name">APU</field>
+            <field name="code">cyg.apu</field>
+            <field eval="5" name="padding"/>
+            <field name="prefix">APU-%(year)s/</field>
+            <field name="company_id" ref="base.main_company" />
+        </record>
+        <!-- Secuencias para los productos de acuerdo a las categorias -->
+        <record forcecreate="1" id="seq_type_categoria_equipo" model="ir.sequence.type">
+            <field name="name">Equipo</field>
+            <field name="code">cyg.categoria.equipo</field>
+        </record>
+        
+        <record forcecreate="1" id="seq_cyg_categoria_equipo" model="ir.sequence">
+            <field name="name">Equipo</field>
+            <field name="code">cyg.categoria.equipo</field>
+            <field eval="5" name="padding"/>
+            <field name="prefix">EH-</field>
+            <field name="company_id" ref="base.main_company" />
+        </record>
+        
+        <!-- ///////////////// -->
+        <record forcecreate="1" id="seq_type_categoria_materiales" model="ir.sequence.type">
+            <field name="name">Materiales</field>
+            <field name="code">cyg.categoria.materiales</field>
+        </record>
+        
+        <record forcecreate="1" id="seq_cyg_categoria_materiales" model="ir.sequence">
+            <field name="name">Materiales</field>
+            <field name="code">cyg.categoria.materiales</field>
+            <field eval="5" name="padding"/>
+            <field name="prefix">M-</field>
+            <field name="company_id" ref="base.main_company" />
+        </record>
+        
+        <!-- ///////////////// -->
+         <record forcecreate="1" id="seq_type_categoria_transporte" model="ir.sequence.type">
+            <field name="name">Transporte</field>
+            <field name="code">cyg.categoria.transporte</field>
+        </record>
+        
+        <record forcecreate="1" id="seq_cyg_categoria_transporte" model="ir.sequence">
+            <field name="name">Transporte</field>
+            <field name="code">cyg.categoria.transporte</field>
+            <field eval="5" name="padding"/>
+            <field name="prefix">TR-</field>
+            <field name="company_id" ref="base.main_company" />
+        </record>
+        
+        <!-- ///////////////// -->
+         <record forcecreate="1" id="seq_type_categoria_manoobra" model="ir.sequence.type">
+            <field name="name">Mano de Obra</field>
+            <field name="code">cyg.categoria.mano_obra</field>
+        </record>
+        
+        <record forcecreate="1" id="seq_cyg_categoria_manoobra" model="ir.sequence">
+            <field name="name">Mano de Obra</field>
+            <field name="code">cyg.categoria.mano_obra</field>
+            <field eval="5" name="padding"/>
+            <field name="prefix">MO-</field>
+            <field name="company_id" ref="base.main_company" />
+        </record>
+        
+        
+        <!-- ///////////////// -->
+         <record forcecreate="1" id="seq_type_categoria_otros" model="ir.sequence.type">
+            <field name="name">Otros</field>
+            <field name="code">cyg.categoria.otros</field>
+        </record>
+        
+        <record forcecreate="1" id="seq_cyg_categoria_otros" model="ir.sequence">
+            <field name="name">Otros</field>
+            <field name="code">cyg.categoria.otros</field>
+            <field eval="5" name="padding"/>
+            <field name="prefix">OT-</field>
+            <field name="company_id" ref="base.main_company" />
+        </record>
+        
+    </data>
+</openerp>

@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="view_cyg_project_charter_search">
+	      <field name="name">cyg.project.charter.search</field>
+	      <field name="model">cyg.project.charter</field>
+	      <field name="type">search</field>
+	      <field name="arch" type="xml">
+			<search>
+			  <field name="name"/>
+			</search>
+	      </field>
+	    </record>
+	    
+	    <record model="ir.ui.view" id="view_cyg_project_charter_tree">
+	      <field name="name">cyg.project.charter.tree</field>
+	      <field name="model">cyg.project.charter</field>
+	      <field name="arch" type="xml">
+			<tree  string="Proyectos">
+			  <field name="name"/>
+			  <field name="code"/>
+			  <field name="fecha_primer_contacto"/>
+			</tree>
+	      </field>
+	    </record>
+	    
+	    <record model="ir.ui.view" id="view_cyg_project_charter_form">
+	      <field name="name">cyg.project.charter.form</field>
+	      <field name="model">cyg.project.charter</field>
+	      <field name="type">form</field>
+	      <field name="arch" type="xml">
+			<form string="Project Charter" version="7.0">
+			<header>
+				<field name="state" widget="statusbar"/>
+			</header>
+			<sheet>
+				<field name="image_medium" widget='image' class="oe_left oe_avatar"/>
+				<div class="oe_right oe_button_box" name="buttons" groups="base.group_user">
+                 	<button name="attachment_tree_view" string="Adjuntar Archivos" type="object"/>
+             	</div>
+             	<h1><field name="code" class="oe_inline" readonly="1"/></h1>
+             	<group col="4" colspan="4">
+            		<field name="name" colspan="4" required="1"/>
+				    <field name="fecha_primer_contacto"  />
+				  	<field name="fecha_firma_contrato"  />
+				  	<field name="fecha_inicio_proyecto"  />
+				  	<field name="fecha_tentativa_cierre"  />
+				  	<field name="partner_id"  />
+				  	<field name="unidad_negocio_id"  />
+				  	<group col="4" colspan="4">
+  						<separator string="Responsable" colspan="2"/>
+  						<separator string="Proveedor" colspan="2"/>
+	  					<field name="responsable_ids"  colspan='2' nolabel="1">
+			  				<tree string="Responsables">
+				  				<field name="project_id" invisible="1"/>
+				  				<field name="partner_id"  />
+				  				<field name="observacion"  />
+			  				</tree>
+			  				<form string="Responsables">
+			  					<field name="project_id" invisible="1"/>
+				  				<field name="partner_id"  />
+				  				<field name="observacion"  />
+			  				</form>
+			  			</field>
+	  					<field name="proveedor_ids"  colspan='2' nolabel="1">
+			  				<tree string="Proveedor">
+				  				<field name="project_id" invisible="1"/>
+				  				<field name="partner_id"  />
+				  				<field name="observacion"  />
+			  				</tree>
+			  				<form string="Proveedor">
+			  					<field name="project_id" invisible="1"/>
+				  				<field name="partner_id"  />
+				  				<field name="observacion"  />
+			  				</form>
+			  			</field>
+	  				</group>
+	  			</group>
+             	<notebook>
+             		<page string="Project Charter">
+             		<group col="4">
+					  <separator string="Resumen Ejecutivo" colspan="4"/>
+					  <field name="resumen_ejecutivo"  nolabel="1" colspan="4" placeholder="(Breve descripción de la situación, necesidad del proyecto y beneficios)"/>
+					  <separator string="Objetivos del Proyecto" colspan="4"/>
+					  <field name="objetivos_proyecto" nolabel="1" colspan="4" placeholder="(Específicos, medibles, acordados, realistas y enmarcados en el tiempo)"/>
+					  <group string="Alcance de Proyecto" colspan="4">
+						  <separator string="Alcance" colspan="4"/>
+						  <field name="alcance"  nolabel="1" colspan="4" />
+						  <separator string="Entregables" colspan="4"/>
+						  <field name="entregables"  nolabel="1" colspan="4"/>
+					  </group>
+					  <group  string="Enfoque de Gestión" colspan="4">
+						  <separator string="Estructura del Proyecto" colspan="4"/>
+						  <field name="estructura_proyectos"  nolabel="1" colspan="4" />
+						  <separator string="Gobernanza de Proyecto" colspan="4"/>
+						  <field name="gobernanza_proyecto"  nolabel="1" colspan="4" placeholder="(Gobernanza, roles y responsabilidades clave)"/>
+					  </group>
+					  <separator string="Riesgos de Proyecto" colspan="4"/>
+					  <field name="riesgos_proyecto"  nolabel="1" colspan="4"/>
+					  <separator string="Supuestos de Proyecto" colspan="4"/>
+					  <field name="supuestos" nolabel="1" colspan="4" />
+					  <separator string="Hitos fundamentales" colspan="4"/>
+					  <field name="hitos_fundamentales" nolabel="1" colspan="4" placeholder="(Incluir fechas)"/>
+					  <separator string="Presupuesto de Proyecto" colspan="4"/>
+					  <field name="presupuestos" nolabel="1" colspan="4" />
+					  <separator string="Anexos" colspan="4"/>
+					  <field name="anexos" nolabel="1" colspan="4" placeholder="(Detallar y adjuntar los documentos)"/>
+					  <separator string="Observaciones Generales" colspan="4"/>
+					  <field name="observaciones" nolabel="1" colspan="4" />
+				  	</group>
+				  	</page>
+				  	<page string="Grupos de Interés">
+				  		<group>
+				  		<field name="script_interes"  colspan="4" readonly="1"/>
+				  		</group>
+				  		<group>
+				  		<field name="grupos_interes_ids"  colspan='4' nolabel="1">
+			  				<tree string="Grupos de Interés" >
+				  				<field name="project_id" invisible="1"/>
+				  				<field name="paso_uno"  />
+				  				<field name="paso_dos"  />
+				  				<field name="paso_tres"  />
+				  				<field name="paso_impacto_id"  />
+				  				<field name="paso_cinco"  />
+			  				</tree>
+			  				<form string="Grupos de Interés">
+			  				 <group col="4" colspan="4">
+			  					<field name="project_id" invisible="1"/>
+			  					<separator string="Paso 1 Grupos de Interés" colspan="4"/>
+				  				<field name="paso_uno"  colspan="4" nolabel="1"/>
+				  				<separator string="Paso 2 Necesidades" colspan="4"/>
+				  				<field name="paso_dos"  colspan="4" nolabel="1"/>
+				  				<separator string="Paso 3 Que esperamos como resultado" colspan="4"/>
+				  				<field name="paso_tres"  colspan="4" nolabel="1" />
+				  				<field name="paso_impacto_id"  colspan="4" nolabel="0"/>
+				  				<separator string="Paso 5 Posibles Estrategias" colspan="4"/>
+				  				<field name="paso_cinco"  colspan="4" nolabel="1"/>
+				  			</group>
+			  				</form>
+			  			</field>
+			  			</group>
+			  			<group>
+			  			<field name="script_paso1"  colspan="4" readonly="1"/>
+			  			<field name="script_paso2"  colspan="4" readonly="1"/>
+			  			<field name="script_paso3"  colspan="4" readonly="1"/>
+			  			<field name="script_paso4"  colspan="4" readonly="1"/>
+			  			<field name="script_paso5"  colspan="4" readonly="1"/>
+			  			<!--  <field name="script_paso6"  colspan="4" readonly="1"/>-->
+			  			</group>
+				  	</page>
+				  	<page string="Matriz de Riesgos">
+				  		<separator string="Calificaciones - Indicadores" colspan="4"/>
+				  		<group col="8">
+				  			<separator string="Ocurrencia (O)" colspan="2"/>
+				  			<separator string="Severidad (S)" colspan="2"/>
+				  			<separator string="Detección (D)" colspan="2"/>
+				  			<separator string="Factor de Daño (FD)" colspan="2"/>
+				  			<field name="ocurrencia_1"  colspan="2" readonly="1" nolabel="1"/>
+				  			<field name="gravedad_1"  colspan="2" readonly="1" nolabel="1"/>
+				  			<field name="deteccion_1"  colspan="2" readonly="1" nolabel="1"/>
+				  			<field name="factor_1"  colspan="2" readonly="1" nolabel="1"/>
+				  		</group>
+				  		<separator string="AMFE Análisis Modal de Fallos y Efecto" colspan="4"/>
+				  		<field name="matrix_riesgos_ids"  colspan='4' nolabel="1">
+			  				<tree string="Matriz de Riegos">
+				  				<field name="project_id" invisible="1"/>
+				  				<field name="sequence"  />
+				  				<field name="riesgo_id"  />
+				  				<field name="modo_fallo"  />
+				  				<field name="efecto_falla"  />
+				  				<field name="causa_falla"  />
+				  				<field name="ocurrencia"  />
+				  				<field name="severidad"  />
+				  				<field name="deteccion"  />
+				  				<field name="factor_danio"  />
+				  				<field name="recomendaciones"  />
+				  				<field name="responsable"  />
+				  				<field name="fecha_limite_accion"  />
+				  				<field name="acciones_tomadas"  />
+				  				<field name="ocurrencia_01"  />
+				  				<field name="severidad_01"  />
+				  				<field name="deteccion_01"  />
+				  				<field name="factor_danio_01"  />
+				  				<field name="ok"  />
+			  				</tree>
+			  				<form string="Matriz de Riesgos">
+				  				<group col="4">
+					  				<field name="sequence"  />
+					  				<field name="riesgo_id"  />
+					  				<field name="modo_fallo"  string="Modo de Fallos" colspan="4" nolabel="0"/>
+					  				<field name="efecto_falla" string="Efecto de Fallo" colspan="4" nolabel="0"  />
+					  				<field name="causa_falla" string="Causas de Falla" colspan="4" nolabel="0" />
+					  				<field name="ocurrencia" string="Ocurrencia (O)" on_change="on_change_calificaciones(ocurrencia,severidad,deteccion)"/>
+					  				<field name="severidad"  string="Severidad (S)" on_change="on_change_calificaciones(ocurrencia,severidad,deteccion)"/>
+					  				<field name="deteccion"  string="Detección (D)" on_change="on_change_calificaciones(ocurrencia,severidad,deteccion)"/>
+					  				<field name="factor_danio"  string="Factor Daño (FD)"/>
+					  				<separator string="Recomendaciones de control" colspan="4"/>
+					  				<field name="recomendaciones" colspan="4" nolabel="1"/>
+					  				<field name="responsable" string="Responsable" colspan="4" nolabel="0"/>
+					  				<field name="fecha_limite_accion"  />
+					  				<separator string="Acciones Tomadas" colspan="4"/>
+					  				<field name="acciones_tomadas"  colspan="4" nolabel="1"/>
+					  				<field name="ocurrencia_01"  string="Ocurrencia (O)" on_change="on_change_calificaciones01(ocurrencia_01,severidad_01,deteccion_01)"/>
+					  				<field name="severidad_01"  string="Severidad (S)" on_change="on_change_calificaciones01(ocurrencia_01,severidad_01,deteccion_01)"/>
+					  				<field name="deteccion_01"  string="Detección (D)" on_change="on_change_calificaciones01(ocurrencia_01,severidad_01,deteccion_01)"/>
+					  				<field name="factor_danio_01"  string="Factor Daño (FD)"/>
+					  				<field name="ok"  />
+					  				<field name="project_id" invisible="1"/>
+					  			</group>
+			  				</form>
+			  			</field>
+			  			<separator string="Observaciones Generales" colspan="4"/>
+			  			<field name="observacion_matrix" nolabel="1" />
+				  	</page>
+				  	<page string="Project Plan">
+				  		<group>
+				  			<button name="button_target_actividades" states="abierto,ejecucion" string="(Añadir Actividades)" type="object"/>
+				  		</group>
+				  		<separator string="Project Plan Cronograma" colspan="4"/>
+				  		<field name="project_plan_ids"  colspan='4' nolabel="1">
+			  				<tree string="Project Plan /Cronograma">
+				  				<field name="project_id" invisible="1"/>
+				  				<field name="sequence"  />
+				  				<field name="sequence_grupo"  invisible="1"/>
+				  				<field name="grupo_id"  />
+				  				<field name="actividad_id"  />
+				  				<field name="partner_id"  />
+				  				<field name="recursos"  />
+				  				<field name="fecha_inicio"  />
+				  				<field name="fecha_cumplimiento"  />
+				  				<field name="duracion"  />
+				  				<field name="fecha_real_fin"  />
+				  				<field name="tiempo_transcurrido"  />
+				  				<field name="porcentage"  />
+			  				</tree>
+			  				<form string="Project Plan /Cronograma">
+			  					<group col="4">
+				  				<field name="sequence"  string="Secuencia de la Actividad"/>
+				  				<field name="sequence_grupo" string="Secuencia del Grupo" />
+				  				<field name="grupo_id"  />
+				  				<newline/>
+				  				<field name="actividad_id" required="1" colspan="4" on_change="onchange_actividad(actividad_id)"/>
+				  				<field name="partner_id"  />
+				  				<separator string="Recursos" colspan="4"/>
+				  				<field name="recursos"  colspan="4" nolabel="1"/>
+				  				<group col="6" colspan="4">
+					  				<field name="fecha_inicio"  string="Fecha Inicio" on_change="onchange_fechas(fecha_inicio,fecha_cumplimiento,fecha_real_fin)"/>
+					  				<field name="fecha_cumplimiento" string="Fecha de Cumplimiento" on_change="onchange_fechas(fecha_inicio,fecha_cumplimiento,fecha_real_fin)"/>
+					  				<field name="fecha_real_fin" string="Fecha real de fin" on_change="onchange_fechas(fecha_inicio,fecha_cumplimiento,fecha_real_fin)"/>
+					  				<field name="duracion"  />
+					  				<field name="tiempo_transcurrido"  string="Tiempo Transcurrido"/>
+				  				</group>
+				  				<field name="porcentage"  string="Porcentaje Completado" on_change="valida_porcentaje(porcentage)"/>
+				  				<separator string="Observación" colspan="4"/>
+				  				<field name="observacion"  colspan="4" nolabel="1"/>
+				  				<field name="project_id" invisible="1"/>
+				  				</group>
+			  				</form>
+			  			</field>
+				  	</page>
+				  	<page string="Presupuesto Ejecutivo">
+				  		<group>
+				  		<field name="currency_id"  invisible="1"/>
+				  		<separator string="Presupuesto Ejecutivo" colspan="4"/>
+				  		<field name="project_budget_ids"  colspan='4' nolabel="1">
+			  				<tree string="Presupuesto Ejecutivo">
+				  				<field name="project_id" invisible="1"/>
+				  				<field name="fase_id"  />
+				  				<field name="descripcion"  />
+				  				<field name="presupuesto_aprobado"  sum='Total'/>
+				  				<field name="ejecucion_presupuestaria" sum='Total' />
+				  				<field name="diferencia"  sum='Total'/>
+				  				<field name="observacion"  />
+			  				</tree>
+			  				<form string="Presupuesto Ejecutivo">
+			  					<group col="4">
+				  				<field name="fase_id"  />
+				  				<separator string="Descripción" colspan="4"/>
+				  				<field name="descripcion"  nolabel="1" colspan="4"/>
+				  				<group col="6">
+				  				<field name="presupuesto_aprobado"  on_change="onchange_presupuesto(presupuesto_aprobado,ejecucion_presupuestaria)"/>
+				  				<field name="ejecucion_presupuestaria"  on_change="onchange_presupuesto(presupuesto_aprobado,ejecucion_presupuestaria)"/>
+				  				<field name="diferencia"  />
+				  				</group>
+				  				<separator string="Observación" colspan="4"/>
+				  				<field name="observacion"  nolabel="1" colspan="4"/>
+				  				<field name="project_id" invisible="1"/>
+				  				</group>
+			  				</form>
+			  			</field>
+			  			 <group class="oe_subtotal_footer oe_right" colspan="2" name="budget_total">
+          						<field name="valor_contrato" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                                <field name="costos"  widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                                <label for="utilidad_costos"/>
+                                <div>
+                                <field name="utilidad_costos"  widget='percentage' class="oe_inline"/>%%
+                                </div>
+                                <label for="utilidad_ingresos"/>
+                                <div>
+                                <field name="utilidad_ingresos" widget='percentage' class="oe_inline"/>%%
+                                </div>
+                                <div class="oe_subtotal_footer_separator oe_inline">
+                                    
+                                    <button name="button_dummy"
+                                        states="abierto,ejecucion" string="(update)" type="object" class="oe_edit_only oe_link"/>
+                                </div>
+                                
+                                <div class="oe_clear"/>
+                         </group>
+                         </group>
+				  	</page>
+				  	<page string="Gestión de Cambios">
+				  		<separator string="Gestión de Cambios" colspan="4"/>
+				  		<field name="project_cambios_ids"  colspan='4' nolabel="1">
+			  				<tree string="Gestión de Cambios">
+				  				<field name="project_id" invisible="1"/>
+				  				<field name="name"  />
+				  				<field name="persona_solicita"  />
+				  				<field name="descripcion"  />
+			  				</tree>
+			  				<form string="Gestión de Cambios">
+			  					<group col="4">
+				  				<field name="name"  readonly='1'/>
+				  				<field name="persona_solicita"  />
+				  				<separator string="Descripción detallada de la modificación" colspan="4"/>
+				  				<field name="descripcion" nolabel="1" colspan="4" />
+				  				<separator string="Justificación del cambio" colspan="4"/>
+				  				<field name="justificacion"  nolabel="1" colspan="4" placeholder="(Explicar claramente la justificación para el cambio)"/>
+				  				<separator string="Impacto al Presupuesto" colspan="4"/>
+				  				<field name="impacto"  nolabel="1" colspan="4"/>
+				  				<separator string="Impacto al Cronograma" colspan="4"/>
+				  				<field name="cronograma"  nolabel="1" colspan="4"/>
+				  				<separator string="Otros Impactos" colspan="4"/>
+				  				<field name="otros" nolabel="1" colspan="4" />
+				  				<separator string="Calendario para implementación del cambio" colspan="4"/>
+				  				<field name="calendario"  nolabel="1" colspan="4"/>
+				  				<separator string="Conocimiento y acuerdos con partes interesadas" colspan="4"/>
+				  				<group col="4">
+				  				<separator string="Proveedores" colspan="2"/>
+				  				<separator string="Clientes" colspan="2"/>
+				  				<field name="proveedor"  />
+				  				<field name="cliente"  />
+				  				<field name="cargo"  />
+				  				<field name="cargo_cliente"  />
+				  				<field name="fecha"  />
+				  				<field name="fecha_cliente"  />
+				  				</group>
+				  				<separator string="Observaciones" colspan="4"/>
+				  				<field name="observacion"  nolabel="1" colspan="4"/>
+				  				</group>
+				  				<field name="project_id" invisible="1"/>
+			  				</form>
+			  			</field>
+				  	</page>
+				  	<page string="Cierre Proyecto">
+				  		<group>
+				  		<field name="fecha_real_cierre"  />
+				  		<separator string="Cierre de Proyecto" colspan="4"/>
+				  		<button name="button_target_requisitos" states="abierto,ejecucion" string="(Añadir Requisitos)" type="object"/>
+				  		<field name="project_cierre_ids"  colspan='4' nolabel="1">
+			  				<tree string="Cierre Proyecto" editable="bottom">
+				  				<field name="project_id" invisible="1"/>
+				  				<field name="name"  invisible="1"/>
+				  				<field name="requisito_id"  on_change="onchange_requisito(requisito_id)" required="1"/>
+				  				<field name="requisito_aceptacion" />
+				  				<field name="pendiente"  on_change="onchange_pendiente(pendiente)"/>
+				  				<field name="cerrado"  on_change="onchange_cerrado(cerrado)"/>
+				  				<field name="no_aplica"  on_change="onchange_noaplica(no_aplica)"/>
+			  				</tree>
+			  				<form string="Cierre de Proyecto">
+			  					<group col="4">
+			  					<field name="project_id" invisible="1"/>
+				  				<field name="name"  />
+				  				<field name="requisito_id"  />
+				  				<field name="pendiente"  />
+				  				<field name="cerrado"  />
+				  				<field name="no_aplica"  />
+				  				<field name="observacion"  />
+				  				</group>
+			  				</form>
+			  			</field>
+			  			<group col="4">
+			  				<separator string="Proveedores" colspan="2"/>
+			  				<separator string="Clientes" colspan="2"/>
+			  				<field name="proveedor"  />
+			  				<field name="cliente"  />
+			  				<field name="cargo"  />
+			  				<field name="cargo_cliente"  />
+			  				<field name="fecha"  />
+			  				<field name="fecha_cliente"  />
+			  			</group>
+			  			</group>
+				  	</page>
+				  	<page string="Lecciones Aprendidas">
+				  		<separator string="Lecciones Aprendidas" colspan="4"/>
+				  		<field name="project_lecciones_ids"  colspan='4' nolabel="1">
+			  				<tree string="Lecciones Aprendidas">
+				  				<field name="project_id" invisible="1"/>
+				  				<field name="name"  />
+				  				<field name="persona_lidera"  />
+				  				<field name="fecha_registro"  />
+				  				<field name="progreso_id"  />
+				  				<field name="fecha_ejecucion"  />
+			  				</tree>
+			  				<form string="Lecciones Aprendidas">
+			  					<group col="4">
+			  					<field name="project_id" invisible="1"/>
+				  				<field name="name"  readonly='1'/>
+				  				<field name="persona_lidera"  />
+				  				<field name="fecha_registro"  />
+				  				<field name="progreso_id"  />
+				  				<field name="fecha_ejecucion"  />
+				  				<separator string="Actividad específica" colspan="4"/>
+				  				<field name="actividad"  colspan='4' nolabel="1"/>
+				  				<separator string="Descripción de la lección aprendida" colspan="4"/>
+				  				<field name="descripcion"  colspan='4' nolabel="1"/>
+				  				<separator string="¿Cómo se puede identificar una situación similar en el futuro?" colspan="4"/>
+				  				<field name="identificar"  colspan='4' nolabel="1"/>
+				  				<separator string="¿Qué conducta se recomienda para el futuro?" colspan="4"/>
+				  				<field name="conducta"  colspan='4' nolabel="1"/>
+				  				<separator string="¿Dónde y cómo se puede usar este conocimiento en el presente Proyecto?" colspan="4"/>
+				  				<field name="conocimiento_presente"  colspan='4' nolabel="1"/>
+				  				<separator string="¿Dónde y cómo se puede usar este conocimiento en un futuro Proyecto?" colspan="4"/>
+				  				<field name="conocimiento_futuro"  colspan='4' nolabel="1"/>
+				  				<separator string="Planos, fotos, sketches que se adjuntan para aclarar la propuesta (Mencionar y adjuntar)" colspan="4"/>
+				  				<field name="planos"  colspan='4' nolabel="1"/>
+				  				<separator string="Procedimientos que se mejoraron o que deberían mejorarse a partir de la incorporación de esta 'LECCIÓN APRENDIDA'" colspan="4"/>
+				  				<field name="procedimientos"  colspan='4' nolabel="1"/>
+				  				<separator string="Observaciones" colspan="4"/>
+				  				<field name="observacion"  colspan='4' nolabel="1"/>
+				  				<separator string="Documentos Adjuntos" colspan="4"/>
+				  				<field name="adjunto_lecciones_ids"  colspan='4' nolabel="1">
+				  				</field>		
+				  				</group>
+			  				</form>
+			  			</field>
+				  	</page>
+  				</notebook>
+			</sheet>
+			</form>
+	      </field>
+	    </record>
+	    <record id="action_cyg_project_charter" model="ir.actions.act_window">
+            <field name="name">Proyectos</field>
+            <field name="res_model">cyg.project.charter</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click para crear nuevo proyectos
+              </p>
+              <p>
+                Defina nuevos proyectos
+              </p>
+            </field>
+        </record>
+                
+    </data>
+</openerp>
+        

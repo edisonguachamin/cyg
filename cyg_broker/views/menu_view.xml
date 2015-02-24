@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+    <!--Menu Principal  -->
+    
+    <menuitem name="Broker" id="root_broker"
+   		      sequence="0"/>
+    
+   	<menuitem name="Gestión de Broker" id="base_broker"
+   			  parent="root_broker"
+   		      sequence="0"/>
+   		     
+   		<menuitem  name="Crear Broker" id="menu_broker" 
+	   			 parent="base_broker"
+	   			sequence="10"
+	   			action="action_cyg_broker"/>
+	
+	<menuitem name="Gestión de Pagos" id="base_payment_broker"
+   			  parent="root_broker"
+   		      sequence="0"/>
+	   		<menuitem id="menu_cyg_broker_payment_cuota_cliente" name="Pago"
+		      action="action_cyg_broker_payment"
+		      parent="base_payment_broker"
+		      sequence="10"
+		      />
+	<menuitem name="Configuración" id="conf_broker"
+   			  parent="root_broker"
+   		      sequence="1"/>
+	   		<menuitem name="Ramo Broker" id="menu_cyg_broker_ramo"
+		      parent="cyg_broker.conf_broker" 
+		      action="action_cyg_broker_ramo"
+		      sequence="10"/>
+		    <menuitem name="Tipo Broker" id="menu_cyg_broker_tipo"
+		      parent="cyg_broker.conf_broker" 
+		      action="action_cyg_broker_tipo"
+		      sequence="10"/>
+		    <!--  			
+		     <menuitem name="Uso Broker" id="menu_cyg_broker_uso"
+		      parent="cyg_broker.conf_broker" 
+		      action="action_cyg_broker_uso"
+		      sequence="10"/>
+		    -->
+		    <!-- 
+		    <menuitem name="Definiciones Broker" id="menu_cyg_broker_definiciones"
+		      parent="cyg_broker.conf_broker" 
+		      action="action_cyg_broker_definiciones"
+		      sequence="10"/>
+		     -->
+		     <menuitem name="Cobertura Broker" id="menu_cyg_broker_cobertura"
+		      parent="cyg_broker.conf_broker" 
+		      action="action_cyg_broker_cobertura"
+		      sequence="10"/>
+		    <menuitem name="Cobertura Adicional Broker" id="menu_cyg_broker_cobertura_adicional"
+		      parent="cyg_broker.conf_broker" 
+		      action="action_cyg_broker_cobertura_adicional"
+		      sequence="10"/>
+		    <menuitem name="Amparo Adicional Broker" id="menu_action_cyg_broker_amparo_adicional"
+		      parent="cyg_broker.conf_broker" 
+		      action="action_cyg_broker_amparo_adicional"
+		      sequence="10"/>
+		      
+		    <menuitem name="Cláusula Broker" id="menu_cyg_broker_clausula"
+		      parent="cyg_broker.conf_broker" 
+		      action="action_cyg_broker_clausula"
+		      sequence="10"/>
+		      
+		     <menuitem name="Exclusiones Broker" id="menu_cyg_broker_exclusiones"
+		      parent="cyg_broker.conf_broker" 
+		      action="action_cyg_broker_exclusiones"
+		      sequence="10"/>
+		     
+		     <menuitem id="cyg_menu_broker_partner"
+              name="Terceros"
+              parent="cyg_broker.conf_broker"
+              action="action_broker_partner_form"
+              sequence="30"/>
+		     
+		     
+    </data>
+</openerp>

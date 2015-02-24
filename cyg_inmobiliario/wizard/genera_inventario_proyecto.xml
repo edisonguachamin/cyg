@@ -1,0 +1,106 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data>
+
+        <!--
+            Poblado de inventario en proyectos
+         -->
+        <record id="view_genera_inventario_proyecto_form" model="ir.ui.view">
+            <field name="name">Genera inventario</field>
+            <field name="model">cyg.genera_inventario_proyecto</field>
+            <field name="arch" type="xml">
+                <form string="Genera inventario"  version="7.0">
+                    <field name="pagina" invisible="1"/>
+                    <field name="proyecto_id" invisible="1"/>
+                    <field name="etapas" invisible="1"/>
+                    <field name="pisos" invisible="1"/>
+                    <field name="inmuebles" invisible="1"/>
+                    <separator string="Etapas/bloques/torres" attrs="{'invisible':[('pagina','!=',1)]}"/>
+                    <field name="etapa_ids" nolabel="1" colspan="4"
+                           mode="tree"
+                           attrs="{'invisible':[('pagina','!=',1)]}"
+                           context="{'proyecto_id':proyecto_id}">
+                        <tree editable="bottom">
+                            <field name="proyecto_id" invisible="1"/>
+                            <field name="name" required="1"/>
+                            <field name="pisos"/>
+                            <field name="unidades"/>
+                            <field name="presupuesto_id" required="1"
+                                   domain="[('proyecto_id','=',proyecto_id),('codigo','=','cartera')]"
+                                   context="{'form_view_ref':'view_cyg_proyecto_presupuesto_form','proyecto_id':proyecto_id,'default_proyecto_id':proyecto_id}"/>
+                        </tree>
+                    </field>
+                    <group colspan="4" col="6" attrs="{'invisible':[('pagina','!=',1)]}">
+                        <button string="Generar etapas" name="genera_etapas" type="object"
+                                attrs="{'invisible':[('etapas','=',True)]}"/>
+                        <button string="Siguiente" name="etapa_ir_siguiente" type="object"
+                            attrs="{'invisible':[('etapas','=',False)]}"/>
+                        <button string="Cancelar" name="cancel" type="object" class="oe_link"
+                            confirm="Todos los cambios serán descartados ¿Desea cancelar?"/>
+                    </group>
+
+                    <separator string="Pisos" attrs="{'invisible':[('pagina','!=',2)]}"/>
+                    <field name="piso_ids" nolabel="1" colspan="4"
+                           mode="tree"
+                           attrs="{'invisible':[('pagina','!=',2)]}">
+                        <tree editable="bottom">
+                            <field name="etapa_id"/>
+                            <field name="name" required="1"/>
+                            <field name="numero" required="1"/>
+                            <field name="num_inmuebles" required="1"/>
+                        </tree>
+                    </field>
+                    <group colspan="4" col="6" attrs="{'invisible':[('pagina','!=',2)]}">
+                        <button string="Generar pisos" name="genera_pisos" type="object"
+                                attrs="{'invisible':[('pisos','=',True)]}"/>
+                        <button string="Siguiente" name="piso_ir_siguiente" type="object"
+                            attrs="{'invisible':[('pisos','=',False)]}"/>
+                        <button string="Cancelar" name="cancel" type="object" class="oe_link"
+                            confirm="Todos los cambios serán descartados ¿Desea cancelar?"/>
+                    </group>
+                    <separator string="Inmuebles" attrs="{'invisible':[('pagina','!=',3)]}"/>
+                    <field name="inmueble_ids" nolabel="1" colspan="4"
+                           mode="tree"
+                           attrs="{'invisible':[('pagina','!=',3)]}">
+                        <tree editable="bottom">
+                            <field name="proyecto_id"/>
+                            <field name="etapa_id"/>
+                            <field name="piso_id"/>
+                            <field name="name" required="1"/>
+                            <field name="numero" required="1"/>
+                            <field name="tipo_inmueble_id"
+                                   domain="[('proyecto_id','=',proyecto_id)]"
+                                   on_change="onchange_tipo_inmueble(tipo_inmueble_id)" required="1"/>
+                            <field name="area_terraza" invisible="1"/>
+                            <field name="area_balcon" invisible="1"/>
+                            <field name="area_cubierta" invisible="1"/>
+                            <field name="area_patio_privado" invisible="1"/>
+                            <field name="rooms" invisible="1"/>
+                            <field name="bathrooms" invisible="1"/>
+                            <field name="precio_actual"/>
+                            <field name="tiene_precio" invisible="1"/>
+                            <field name="state" readonly="1"/>
+                        </tree>
+                    </field>
+                    <group colspan="4" col="6" attrs="{'invisible':[('pagina','!=',3)]}">
+                        <button string="Generar inmuebles" name="genera_inmuebles" type="object"
+                                attrs="{'invisible':[('inmuebles','=',True)]}"/>
+                        <button string="Finalizar" name="inmueble_ir_siguiente" type="object"
+                            attrs="{'invisible':[('inmuebles','=',False)]}"/>
+                        <button string="Cancelar" name="cancel" type="object" class="oe_link"
+                            confirm="Todos los cambios serán descartados ¿Desea cancelar?"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_view_genera_inventario_proyecto" model="ir.actions.act_window">
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">cyg.genera_inventario_proyecto</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</openerp>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+
+    <record model="ir.ui.view" id="view_cyg_lote_search">
+      <field name="name">cyg.lote.search</field>
+      <field name="model">cyg.lote</field>
+      <field name="arch" type="xml">
+	<search>
+	  <field name="proyecto_id"/>
+	  <field name="propietario_id"/>
+	  <field name="hipotecado"/>
+	</search>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="view_cyg_lote_form">
+      <field name="name">cyg.lote.form</field>
+      <field name="model">cyg.lote</field>
+      <field name="arch" type="xml">
+	<form string="Lote" version="7.0">
+	  <header>
+	  </header>
+	  <sheet>
+	    <group colspan="2" col="4">
+            <label for="proyecto_id" class="oe_edit_only"/>
+            <h1 colspan="4"><field name="proyecto_id" placeholder="Proyecto"/>  </h1>
+            <label for="propietario_id" class="oe_edit_only"/>
+            <field name='propietario_id' domain="[('tercero','=',1)]" context="{'default_supplier':0,'default_customer':0,'default_tercero':1}"/>
+            <label for="representante_prop_id" class="oe_edit_only"/>
+            <field name='representante_prop_id' domain="[('tercero','=',1)]" context="{'default_supplier':0,'default_customer':0,'default_tercero':1}"/>
+	    </group>
+	    <group colspan="2" col="4" strin="Datos generales">
+	      <field name='predio'/>
+	      <field name='superficie_bruta'/>
+	      <field name='forma'/>
+	      <field name='asolamiento'/>
+	      <field name='iluminacion'/>
+	      <field name='topografia'/>
+	      <field name='pendiente'/>
+	      <field name='vistas'/>
+	      <field name='ventilacion'/>
+	      <field name='suelo'/>
+	      <field name='fecha_otorgamiento'/>
+	      <field name='notaria'/>
+	      <field name='notario'/>
+	      <field name='fecha_inscripcion'/>
+ 	      <separator string="Hipoteca" colspan="4"/>
+	      <field name='hipotecado'/>
+	      <field name='fecha_escritura_hipoteca' attrs="{'invisible':[('hipotecado','=',False)]}"/>
+	      <field name='fecha_inscripcion_hipoteca'/>
+	      <field name='notaria_hipoteca' attrs="{'invisible':[('hipotecado','=',False)]}"/>
+	      <field name='notario_hipoteca' attrs="{'invisible':[('hipotecado','=',False)]}"/>
+	      <field name='acreedor_hipotecario' attrs="{'invisible':[('hipotecado','=',False)]}"/>
+	      <separator string="Observaciones" colspan="4" />
+	      <field name='observaciones' colspan="4" nolabel="1"/>
+	    </group>
+	    </sheet>
+	</form>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="view_cyg_lote_tree">
+      <field name="name">cyg.lote.tree</field>
+      <field name="model">cyg.lote</field>
+      <field name="arch" type="xml">
+	<tree string="Lotes">
+	  <field name="proyecto_id"/>
+	  <field name="propietario_id"/>
+	  <field name="hipotecado"/>
+	  <field name="superficie_bruta"/>
+	</tree>
+      </field>
+    </record>
+    <record model="ir.actions.act_window" id="action_cyg_lote">
+      <field name="name">Lotes</field>
+      <field name="res_model">cyg.lote</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="search_view_id" ref="view_cyg_lote_search"/>
+    </record>
+    <!-- <menuitem id="menu_cyg_lote" name="Lotes"
+	      action="action_cyg_lote"
+	      parent="menu_cyg_proyecto_inmobiliario"
+	      sequence="1"
+	      />
+    -->
+
+
+  </data>
+</openerp>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data noupdate="0">
+      <record model="ir.rule" id="domus_rule001">
+          <field name="name">Regla para usuarios externos de transferencias de dominio</field>
+          <field name="model_id" ref="cyg_inmobiliario.model_cyg_transferencia_dominio" model="ir.model" />
+          <field eval="False" name="global"/>
+          <field name="groups" eval="[(4, ref('cyg_inmobiliario.group_cyg_inmo_usuario_externo_tranferencias'))]"/>
+          <field name="perm_read" eval="True"/>
+          <field name="perm_write" eval="False"/>
+          <field name="perm_create" eval="False"/>
+          <field name="perm_unlink" eval="False"/>
+          <field name="domain_force">[('comprador_id','=',user.partner_id.id)]</field>
+      </record>
+
+      <record model="ir.rule" id="domus_rule002">
+          <field name="name">Regla para cotizaciones</field>
+          <field name="model_id" ref="sale.model_sale_order" model="ir.model" />
+          <field eval="False" name="global"/>
+          <field name="groups" eval="[(4, ref('cyg_sale.group_cyg_usuario_externo'))]"/>
+          <field name="perm_read" eval="True"/>
+          <field name="perm_write" eval="False"/>
+          <field name="perm_create" eval="False"/>
+          <field name="perm_unlink" eval="False"/>
+          <field name="domain_force">[('partner_id','=',user.partner_id.id)]</field>
+      </record>
+
+      <record model="ir.rule" id="domus_rule003">
+          <field name="name">Regla para pagos</field>
+          <field name="model_id" ref="cyg_plan_pagos.model_cyg_payment" model="ir.model" />
+          <field eval="False" name="global"/>
+          <field name="groups" eval="[(4, ref('cyg_sale.group_cyg_usuario_externo'))]"/>
+          <field name="perm_read" eval="True"/>
+          <field name="perm_write" eval="False"/>
+          <field name="perm_create" eval="False"/>
+          <field name="perm_unlink" eval="False"/>
+          <field name="domain_force">[('partner_id','=',user.partner_id.id)]</field>
+      </record>
+
+      <record model="ir.rule" id="domus_rule004">
+          <field name="name">Regla para cuotas</field>
+          <field name="model_id" ref="cyg_sale.model_cyg_inmueble_cuota" model="ir.model" />
+          <field eval="False" name="global"/>
+          <field name="groups" eval="[(4, ref('cyg_sale.group_cyg_usuario_externo'))]"/>
+          <field name="perm_read" eval="True"/>
+          <field name="perm_write" eval="False"/>
+          <field name="perm_create" eval="False"/>
+          <field name="perm_unlink" eval="False"/>
+          <field name="domain_force">[('partner_id','=',user.partner_id.id)]</field>
+      </record>
+
+  </data>
+</openerp>

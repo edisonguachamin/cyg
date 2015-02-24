@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+    <!--Menu Principal  -->
+    
+    <menuitem name="Gestión de Calidad" id="root_calidad"
+   		      sequence="1"/>
+    
+	<menuitem  name="Hallazgos" id="root_hallazgos" 
+			 parent="root_calidad"
+			sequence="10"
+			/>
+			
+			<menuitem  name="Crear Hallazgos" id="menu_hallazgos" 
+			 parent="root_hallazgos"
+			sequence="10"
+			action="action_cyg_project_hallazgos"/>
+			
+	<menuitem name="Proyectos" id="root_proyectos"
+   			  parent="root_calidad"
+   		      sequence="20"
+   		      />
+   		      
+   		      <menuitem  name="Crear Proyecto" id="menu_proyecto" 
+						 parent="root_proyectos"
+						sequence="10"
+						action="action_cyg_project_charter"/>
+	     			
+	<menuitem name="Configuración" id="conf_calidad"
+   			  parent="root_calidad"
+   		      sequence="30"/>
+   		      
+	   		<menuitem name="Normas" id="menu_cyg_project_norma"
+		      parent="cyg_project.conf_calidad" 
+		      action="action_cyg_project_norma"
+		      sequence="10"/>
+		    <menuitem name="Cláusula" id="menu_cyg_project_clausula"
+		      parent="cyg_project.conf_calidad" 
+		      action="action_cyg_project_clausula"
+		      sequence="10"/> 			
+		     <menuitem name="Impacto" id="menu_cyg_project_impacto"
+		      parent="cyg_project.conf_calidad" 
+		      action="action_cyg_project_impacto"
+		      sequence="10"/>
+		    <menuitem name="Causa" id="menu_cyg_project_causa"
+		      parent="cyg_project.conf_calidad" 
+		      action="action_cyg_project_causa"
+		      sequence="10"/>
+		     <menuitem name="Actividad" id="menu_cyg_project_actividad"
+		      parent="cyg_project.conf_calidad" 
+		      action="action_cyg_project_actividad_hallazgo"
+		      sequence="10"/>
+		     <menuitem name="Línea de Negocio" id="menu_cyg_project_linea_negocio"
+		      parent="cyg_project.conf_calidad" 
+		      action="action_cyg_project_linea_negocio"
+		      sequence="10"/>
+		     <menuitem name="Responsables" id="menu_cyg_project_hallazgo_responsable"
+		      parent="cyg_project.conf_calidad" 
+		      action="action_cyg_project_hallazgo_responsable"
+		      sequence="10"/>
+		      <menuitem name="Área" id="menu_cyg_project_area"
+		      parent="cyg_project.conf_calidad" 
+		      action="action_cyg_project_area"
+		      sequence="10"/>
+	
+    </data>
+</openerp>

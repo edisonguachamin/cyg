@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="view_cyg_sale_pay" model="ir.ui.view">
+            <field name="name">cyg.sale.order.pay</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="cyg_sale.cyg_view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='button_desistir_sale'][last()]" position="before">
+                    <button name="sale_pay_customer" type="object" string="Registrar Pago"
+                        attrs="{'invisible': [('state','!=','done')]}" groups="base.group_user"/>
+                    <button name="print_statement" string="Estado de Cuenta" type="object" attrs="{'invisible':[('state', '!=', 'done')]}" class="oe_highlight" groups="base.group_user"/>
+                </xpath>
+                <xpath expr="/form/sheet/notebook/page[@string='Inmuebles']/group[@class='oe_subtotal_footer oe_right']/field[@name='amount_pending']" position="before">
+                	<field name="amount_paid" widget="monetary" options="{'currency_field': 'currency_id'}" class="oe_inline" readonly="1"/>
+                </xpath>
+            </field>
+        </record>
+        
+        <record id="view_cyg_sale_pay_cuotas" model="ir.ui.view">
+            <field name="name">cyg.sale.order.pay_cuotas</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="cyg_sale.cyg_view_order_form"/>
+            <field name="arch" type="xml">
+                <notebook position="inside">
+	               <page string="Pagos" attrs="{'invisible':[('state','not in',['desistido','done','paid','overpaid'])]}">
+	                  <group col="2" colspan="2">
+	                        <field name="pagos_ids" nolabel="1" readonly="1">
+		                    </field>
+	                  </group>
+	               </page>
+	               <page string="Liquidación" attrs="{'invisible':[('state','not in',['overpaid','paid'])]}">
+	               	  <group colspan="4">
+	                        <field name="payments_extras_ids" nolabel="1" readonly="0">
+	                        <tree>
+	                        	<field name="code"/>
+	                        	<field name="user_id"/>
+	                        	<field name="descripcion_id"/>
+	                        	<field name="date"/>
+	                        	<field name="valor"/>
+	                        	<field name="type"/>
+	                        	<field name="state"/>
+	                        	<field name="sale_id" invisible="1"/>
+	                        </tree>
+	                        <form>
+		                        <group col="4" colspan="4">
+		                        	<field name="code" readonly="1"/>
+		                        	<field name="user_id" readonly="1"/>
+		                        	<field name="descripcion_id" />
+		                        	<field name="date"/>
+		                        	<field name="valor"/>
+		                        	<field name="type" required="1"/>
+		                        	<field name="state"/>
+		                        	<field name="sale_id" invisible="1"/>
+		                        </group>
+	                        </form>
+		                    </field>
+	                  </group>
+	                  <group class="oe_subtotal_footer oe_right" colspan="2" name="extras_total">
+     						<field name="amount_payment_extra_cliente" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                           <field name="amount_payment_extra_proyecto"  widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                           <div class="oe_subtotal_footer_separator oe_inline">
+                               <label for="amount_payment_extra_total" />
+                               <button name="button_dummy2"
+                                   states="overpaid,paid" string="(update)" type="object" class="oe_edit_only oe_link"/>
+                           </div>
+                           <field name="amount_payment_extra_total" nolabel="1" class="oe_subtotal_footer_separator" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                           <field name="amount_payment_extra_pagado" nolabel="0" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                           <field name="amount_payment_extra_pendiente" nolabel="0" widget='monetary' options="{'currency_field': 'currency_id'}" readonly="1"/>
+                       </group>
+                       <div class="oe_clear"/>
+	                  <group colspan="4">
+	                  		<button name="sale_pay_devolucion" type="object" string="Registrar Devolucion"
+                        			attrs="{'invisible':['|',('state','not in',['overpaid','paid']),('amount_payment_extra_pendiente','=',0.00)]}" groups="base.group_user"/>
+	                  		<separator string="Registros de Devoluciones" colspan="4"/>
+	                        <field name="pagos_devolucion_ids" nolabel="1" readonly="0" colspan="4">
+		                        <tree>
+		                        	<field name="name" readonly="1"/>
+		                        	<field name="user_id" readonly="1"/>
+		                        	<field name="fecha_devolucion"/>
+		                        	<field name="bank_id"/>
+		                        	<field name="comprobante" readonly="0"/>
+		                        	<field name="type_payment"/>
+		                        	<field name="valor_devuelto"/>
+		                        	<field name="type" required="1"/>
+		                        	<field name="state"/>
+		                        	<field name="sale_id" invisible="1"/>
+		                        </tree>
+		                        <form version="7.0">
+									<group col="4">		                        
+			                        	<field name="name" readonly="1"/>
+			                        	<field name="user_id" readonly="1"/>
+			                        	<field name="fecha_devolucion" readonly="1"/>
+			                        	<field name="bank_id" required="1" readonly="1"/>
+			                        	<field name="comprobante" readonly="0"/>
+			                        	<field name="type_payment" readonly="1"/>
+			                        	<field name="valor_devuelto" readonly="1"/>
+			                        	<field name="type" readonly="1" />
+			                        	<field name="state" readonly="1"/>
+			                        	<field name="sale_id" invisible="1"/>
+		                        	</group>
+		                        </form>
+		                    </field>
+	                  </group>
+	               </page>
+         		</notebook>
+            </field>
+        </record>
+        
+        
+        
+    </data>
+</openerp>

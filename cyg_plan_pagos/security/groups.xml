@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data noupdate="0">
+
+      <record id='group_user_plan' model='res.groups'>       <field name='name'>Usuario de plan de pagos</field>     <field name="category_id" ref="cyg_base.module_category_domus"/></record>
+      <record id='group_manager_plan' model='res.groups'>       <field name='name'>Administrador de plan de pagos</field>     <field name="category_id" ref="cyg_base.module_category_domus"/></record>
+
+  </data>
+</openerp>

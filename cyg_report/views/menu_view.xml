@@ -1,0 +1,21 @@
+<openerp>
+  <data>
+
+	<menuitem
+	        name="Reportes DOMUS"
+	        id="menu_cyg_report_DOMUS"
+	        icon="STOCK_EXECUTE"
+	        parent="base.menu_reporting" sequence="10"/>
+	        
+	       	<menuitem
+	        name="Reportes BI"
+	        action="action_cyg_ftp_browse"
+	        id="menu_cyg_report_ftp"
+	        icon="STOCK_EXECUTE"
+	        parent="cyg_report.menu_cyg_report_DOMUS" sequence="1"/>
+	        
+	        
+	       	
+	</data>
+</openerp>
+	

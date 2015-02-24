@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+    <record model="ir.ui.view" id="view_cyg_broker_search">
+      <field name="name">cyg.broker.search</field>
+      <field name="model">cyg.broker</field>
+      <field name="arch" type="xml">
+		<search>
+		  <field name="name"/>
+		  <field name="partner_id"/>
+		  <field name="ramo_id"/>
+		</search>
+      </field>
+    </record>
+    
+    <record model="ir.ui.view" id="view_cyg_broker_tree">
+      <field name="name">cyg.broker.tree</field>
+      <field name="model">cyg.broker</field>
+      <field name="arch" type="xml">
+		<tree string="Broker">
+		  <field name="name"/>
+		  <field name="ramo_id"/>
+		</tree>
+      </field>
+    </record>
+    
+    
+    <record model="ir.ui.view" id="view_cyg_broker_form">
+      <field name="name">cyg.broker.form</field>
+      <field name="model">cyg.broker</field>
+      <field name="arch" type="xml">
+		<form string="Broker" version="7.0">
+			<header>
+				<button name="button_sent_aprobacion" states="draft" string="Enviar a Aprobacion" type="object"/>
+				<button name="button_cancelada" states="sent" string="Cancelar" type="object"/>
+				<button name="button_cobertura" states="sent" string="Nota Cobertura" type="object"/>
+				<field name="state" widget="statusbar"/>
+			</header>
+			<sheet>
+				<div class="oe_right oe_button_box" name="buttons" groups="base.group_user">
+                 	<button name="attachment_tree_view" string="Adjuntar Archivos" type="object"/>
+             	</div>
+             	<h1><field name="name" class="oe_inline" readonly="1"/></h1>
+             	<group col='4' colspan="4">
+             	<group col="2">
+             		<field name="date" readonly="1"/>
+             		<field name="user_id" readonly="1"/>
+             		<field name="date_sent_cedente" />
+             		<field name="date_answer_cedente" />
+             		<field name="date_orden" />
+             		<field name="tercero"/>
+             	</group>
+             	<group col="2">
+             		<field name="reasegurador_ids"  colspan='2' nolabel="1">
+		  				<tree string="Reasegurador" editable="bottom">
+		  					<field name="name" invisible="1"/>
+		  					<field name="broker_id" invisible="1"/>
+		  					<field name="partner_id" required="1"/>
+		  					<field name="date_sent"/>
+		  					<field name="date"/>
+		  					<field name="prima_neta" sum="Total"/>
+		  					<field name="observacion"/>
+		  				</tree>
+		  			</field>
+             	</group>
+             	</group>partner_id
+				<group col='4'>
+					<field name="partner_id" colspan="4"/>
+		  			<field name="ramo_id" on_change="onchange_ramo(ramo_id)" required="1" colspan="4" options="{'no_open':True,'limit': 10, 'create': false, 'create_edit': false}"/>
+		  			<field name="tipo_id" context="{'ramo_id':ramo_id,'form_view_ref':'cyg_broker.view_cyg_broker_tipo_form_readonly'}" domain="[('ramo_id','=',ramo_id)]" attrs="{'invisible':[('ramo_id','=',False)],'required':[('ramo_id','!=',False)]}" colspan="4"/>
+		  			<group col="4" colspan="4">
+		  			<separator string="Giro del Negocio" colspan="2"/>
+		  			<separator string="Ubicación" colspan="2"/>
+		  			<field name="giro" nolabel="1" colspan="2"/>
+		  			<field name="ubicacion" nolabel="1" colspan="2"/>
+		  			</group>
+		  			<group col="2" colspan="2">
+		  				<separator string="Vigencia" colspan="4"/>
+		  				<field name="from_vigencia" on_change="onchange_fechas(from_vigencia,to_vigencia)"/>	
+		  				<field name="to_vigencia" on_change="onchange_fechas(from_vigencia,to_vigencia)"/>
+		  			</group>
+		  			<group col="2" colspan="2">
+		  				<separator string="Interés Asegurado" colspan="4"/>
+		  				<field name="interes_asegurado" nolabel="1" colspan="4"/>
+		  				<field name="sublimites"/>
+		  			</group>
+		  			<group col="4" colspan="4">
+		  				<separator string="Valor Asegurado" colspan="2"/>
+		  				<separator string="Valor Asegurable" colspan="2"/>
+		  				<field name="asegurado_ids" colspan='2' nolabel="1">
+		  				<tree string="Valor Asegurado" editable="bottom">
+		  					<field name="name" invisible="0"/>
+		  					<field name="broker_id" invisible="1"/>
+		  					<field name="valor" sum="Total"/>
+		  				</tree>
+		  				</field>
+		  				<field name="asegurable_ids" colspan='2' nolabel="1">
+		  				<tree string="Valor Asegurable" editable="bottom">
+		  					<field name="name" invisible="0"/>
+		  					<field name="broker_id" invisible="1"/>
+		  					<field name="valor" sum="Total"/>
+		  				</tree>
+		  				</field>
+		  			</group>
+		  			<separator string="Coberturas" colspan="4"/>
+		  			<field name="cobertura_ids" colspan='4' nolabel="1">
+		  				<tree string="Cobertura" editable="bottom">
+		  					<field name="name" invisible="1"/>
+		  					<field name="broker_id" invisible="1"/>
+		  					<field name="cobertura_id" required="1" on_change="onchange_cobertura(cobertura_id)"/>
+		  					<field name="descripcion"/>
+		  				</tree>
+		  			</field>
+		  			<separator string="Cobertura Adicional" colspan="4"/>
+		  			<field name="cobertura_adicional_ids" colspan='4' nolabel="1">
+		  				<tree string="Cobertura Adicional" editable="bottom">
+		  					<field name="name" invisible="1"/>
+		  					<field name="broker_id" invisible="1"/>
+		  					<field name="grupo_adicional_id" required="1"/>
+		  					<field name="cobertura_id" required="1" on_change="onchange_cobertura(cobertura_id)"/>
+		  					<field name="limite"/>
+		  					<field name="plazo"/>
+		  					<field name="por_evento"/>
+		  					<field name="descripcion" invisible="1"/>
+		  				</tree>
+		  			</field>
+		  			<separator string="Amparos Adicionales" colspan="4"/>
+		  			<field name="amparo_adicional_ids" colspan='4' nolabel="1">
+		  				<tree string="Amparos Adicionales" editable="bottom">
+		  					<field name="name" invisible="1"/>
+		  					<field name="broker_id" invisible="1"/>
+		  					<field name="grupo_adicional_id" required="1"/>
+		  					<field name="amparo_id" required="1" on_change="onchange_amparo(amparo_id)"/>
+		  					<field name="limite"/>
+		  					<field name="plazo"/>
+		  					<field name="por_evento"/>
+		  					<field name="descripcion" invisible="1"/>
+		  				</tree>
+		  			</field>
+		  			<group col="4" colspan="4">
+		  			<separator string="Bienes Asegurables" colspan="2"/>
+		  			<separator string="Aclaraciones" colspan="2"/>
+		  			<field name="bien_asegurable" nolabel="1" colspan="2"/>
+		  			<field name="aclaraciones" nolabel="1" colspan="2"/>
+		  			</group>
+		  			<field name="codigo" invisible="1"/>
+		  		</group>
+		  		<group col="4" attrs="{'invisible':[('codigo','not in',['CA','CM'])]}">
+		  			<separator string="Territorio" colspan="4"/>
+		  			<field name="territorio" colspan="4" />
+		  		</group>
+		  		<group col="4" attrs="{'invisible':[('codigo','in',['MR','VAP',False])]}">
+		  			<separator string="Límite Geográfico" colspan="4"/>
+		  			<field name="limite_geografico"  colspan="4" nolabel="1"/>
+		  		</group>
+		  		<group col='4' attrs="{'invisible':[('codigo','!=','TRS')]}">
+					<separator string="Límite por embarque" colspan="4"/>
+		  			<field name="limite_embarque"  colspan="4" nolabel="1"/>
+		  			<separator string="Exceso en límite por embarque" colspan="4"/>
+		  			<field name="exceso_limite_embarque" colspan="4" nolabel="1"/>
+		  			<separator string="Trayecto asegurado" colspan="4"/>de
+		  			<field name="trayecto_asegurado" colspan="4" nolabel="1"/>
+		  			<separator string="Medios de transporte" colspan="4"/>
+		  			<field name="medios_transporte" colspan="4" nolabel="1"/>
+		  			<field name="exceso_limite" />
+		  		</group>
+		  		<group col="4">
+		  			<field name="limite_catastrofico" attrs="{'invisible':[('codigo','!=','VAP')]}"/>
+		  		</group>
+		  		<group colspan='4' col="4">
+		  			<field name="pilotos_ids"  attrs="{'invisible':[('codigo','!=','CA')]}" colspan='4'>
+		  				<tree string="Pilotos" editable="bottom">
+		  					<field name="name"/>
+		  					<field name="broker_id" invisible="1"/>
+		  					<field name="edad"/>
+		  					<field name="experiencia"/>
+		  					<field name="marca"/>
+		  					<field name="modelo"/>
+		  				</tree>
+		  			</field>
+		  			<field name="naves_ids"  attrs="{'invisible':[('codigo','!=','CA')]}" colspan='4'>
+		  				<tree string="Naves" editable="bottom">
+		  					<field name="name"/>
+		  					<field name="broker_id" invisible="1"/>
+		  					<field name="marca"/>
+		  					<field name="modelo"/>
+		  					<field name="anio"/>
+		  					<field name="pasajeros"/>
+		  					<field name="tripulantes"/>
+		  					<field name="valor"/>
+		  				</tree>
+		  			</field>
+		  			<separator string="Exclusiones" colspan="4"/>
+		  			<field name="exclusiones_ids" colspan='4' nolabel="1">
+		  				<tree string="Exclusiones" editable="bottom">
+		  					<field name="name" required="1"/>
+		  					<field name="broker_id" invisible="1"/>
+		  				</tree>
+		  			</field>
+		  			<field name="orden_colocacion" on_change="valida_porcentaje(orden_colocacion,'orden_colocacion')" />
+		  			<group col="4" colspan="4">
+			  			<separator string="Deducibles" colspan="2"/>
+			  			<separator string="Ley y Jurisdicción" colspan="2"/>
+			  			<field name="deducibles" colspan='2' nolabel="1"/>
+		  				<field name="ley_jurisdiccion" colspan='2' nolabel="1" readonly="1"/>
+		  				<separator string="Sujeto a" colspan="2"/>
+		  				<separator string="Información Extra" colspan="2"/>
+		  				<field name="sujeto" colspan='2' nolabel="1"/>
+		  				<field name="informacion" colspan='2' nolabel="1"/>
+		  			</group>
+		  		</group>
+		  		<notebook colspan="4">
+                   <page string="Garantías de Pagos" >
+			  		<separator string="Garantías de Pagos" colspan="4"/>
+			  		<group col="4">
+			  			<field name="prima_neta_reasegurador"/>
+			  			<field name="nro_instalamentos"/>
+			  			<field name="prima_neta_reasegurado"/>
+			  			<field name="periodicidad" on_change="onchage_periodicidad(periodicidad)"/>
+			  			<field name="fecha_inicio_pago" on_change="onchage_fecha_inicio_pago(fecha_inicio_pago)"/>
+			  			<!--  <field name="tasa_reaseguro"/>-->
+			  			<!-- <field name="garantia_pgo"/>-->
+			  			<!-- <field name="limite_aprobacion"/>-->
+			  		</group>
+			  		<group col="3" colspan="4">
+			  			<button name="button_tabla" states="draft" string="Generar Tabla" type="object"/>
+			  			<button name="broker_pay_cliente" type="object" string="Pago Cliente"
+	                        attrs="{'invisible': ['|',('show_buttons','!=',True),('amount_pending_cliente','=',0.00)]}" groups="base.group_user"/>
+	                    <button name="broker_pay_reasegurador" type="object" string="Pago Reasegurador"
+	                        attrs="{'invisible': ['|',('show_buttons','!=',True),('amount_pending_reasegurador','=',0.00)]}" groups="base.group_user"/>
+			  		</group>
+			  		<group col="4" colspan="4">
+			  			<separator string="Garantía de Pago Cedente" colspan="2"/>
+			  			<separator string="Garantía de Pago Reasegurador" colspan="2"/>
+				  		<field name="cuotas_cliente_ids" colspan='2' nolabel="1" readonly="0">
+				  				<tree string="" editable="bottom">
+				  					<field name="numero" string="#"/>
+				  					<field name="concepto"/>
+				  					<field name="broker_id" invisible="1"/>
+				  					<field name="date_payment"/>
+				  					<field name="valor" sum='Total(USD)'/>
+				  					<field name="state" invisible="1"/>
+				  				</tree>
+				  		</field>
+				  		<field name="cuotas_reasegurador_ids" colspan='2' nolabel="1" readonly="0">
+				  				<tree string="" editable="bottom">
+				  					<field name="numero" string="#"/>
+				  					<field name="concepto"/>
+				  					<field name="broker_id" invisible="1"/>
+				  					<field name="date_payment"/>
+				  					<field name="valor" sum='Total(USD)'/>
+				  					<field name="state" invisible="1"/>
+				  				</tree>
+				  		</field>
+				  		<field name="amount_total_cliente" readonly="1"/>
+				  		<field name="amount_total_reasegurador" readonly="1"/>
+				  		<field name="amount_paid_cliente" readonly="1"/>
+				  		<field name="amount_paid_reasegurador" readonly="1"/>
+				  		<field name="amount_pending_cliente" readonly="1"/>
+				  		<field name="amount_pending_reasegurador" readonly="1"/>
+				  		<field name="show_buttons" invisible="1"/>
+			  		</group>
+			  	</page>
+			  	<page string="Pagos">
+			  		<separator string="Pagos Cliente" colspan="4"/>
+			  		<field name="payments_lines_cliente" colspan='4' nolabel="1" readonly="1">
+				  				<tree string="Pagos Cliente">
+				  					<field name="name"/>
+								  	<field name="user_id"/>
+								 	<field name="amount" required="1" sum="Pagado"/>
+								 	<field name="date_payment"/>
+								 	<field name="bank_id" />
+								 	<field name="type"/>
+								 	<field name="state"/>
+				  				</tree>
+				  		</field>
+			  		<separator string="Pagos Reasegurado" colspan="4"/>
+			  		<field name="payments_lines_reaseguro" colspan='4' nolabel="1" readonly="1">
+			  				<tree string="Pagos Reaseguro" >
+			  					<field name="name"/>
+							  	<field name="user_id"/>
+							 	<field name="amount" required="1" sum="Pagado"/>
+							 	<field name="date_payment"/>
+							 	<field name="bank_id" />
+							 	<field name="type"/>
+							 	<field name="state"/>
+			  				</tree>
+			  		</field>
+			  	</page>
+			  	</notebook>
+		  		<separator string="Administración de Siniestros" colspan="4"/>
+		  		<group>
+		  			<field name="siniestros_ids" colspan='4' nolabel="1">
+		  				<tree string="Siniestros" editable="bottom">
+		  					<field name="broker_id" invisible="1"/>
+		  					<field name="date"/>
+		  					<field name="name"/>
+		  					<field name="descripcion"/>
+		  				</tree>
+		  			</field>
+		  		</group>
+		  	</sheet>
+		</form>
+      </field>
+    </record>
+    
+    <record model="ir.actions.act_window" id="action_cyg_broker">
+      <field name="name">Broker</field>
+      <field name="res_model">cyg.broker</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="search_view_id" ref="view_cyg_broker_search"/>
+    </record>
+    
+
+</data>
+</openerp>

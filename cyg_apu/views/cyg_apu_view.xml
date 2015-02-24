@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+  		<record model="ir.ui.view" id="view_cyg_base_apu_search">
+	      <field name="name">cyg.base.apu.search</field>
+	      <field name="model">cyg.base.apu</field>
+	      <field name="type">search</field>
+	      <field name="arch" type="xml">
+			<search>
+			  <field name="code"/>
+			  <field name="name"/>
+			  <field name="note"/>
+			</search>
+	      </field>
+	    </record>
+	    
+	    <record model="ir.ui.view" id="view_cyg_base_apu_tree">
+	      <field name="name">cyg.base.apu.tree</field>
+	      <field name="model">cyg.base.apu</field>
+	      <field name="arch" type="xml">
+			<tree  string="Base APU">
+			  <field name="code"/>
+			  <field name="name"/>
+			  <field name="note"/>
+			</tree>
+	      </field>
+	    </record>
+	    
+	    <record model="ir.ui.view" id="view_cyg_base_apu_form">
+	      <field name="name">cyg.base.apu.form</field>
+	      <field name="model">cyg.base.apu</field>
+	      <field name="type">form</field>
+	      <field name="arch" type="xml">
+			<form string="Base APU" version="7.0">
+			<sheet>
+				<group>
+				 <field name="code" class="oe_inline" readonly="1"/>
+				  <field name="name" on_change="onchange_mayusculas(name,'name')"/>
+			  	</group>
+			  	<group string="Analisis de Precios Unitarios">
+				  	<field name='cyg_apu_ids' nolabel="1">
+				  	<tree string="A.P.U">
+					  <field name="name" invisible="1"/>
+					  <field name="code" />
+					  <field name="rubro"/>
+					  <field name="uom_id"/>
+					  <field name="amount_total" string="Escenario 1"/>
+					  <field name="amount_total2" string="Escenario 2"/>
+					  <field name="date"/>
+					</tree>
+				  	</field>
+			  	</group>
+				<div class="oe_clear">
+	                <label for="note"/>
+	            </div>
+	            <field name="note"/>
+			</sheet>
+			</form>
+	      </field>
+	    </record>
+	    <record id="action_cyg_base_apu" model="ir.actions.act_window">
+            <field name="name">Bases APU</field>
+            <field name="res_model">cyg.base.apu</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click para crear una Base de APU.
+              </p><p>
+                Defina las base APU que utilizara en sus diferentes proyectos
+              </p>
+            </field>
+        </record>
+	    
+	    <!-- =============================================================================================== -->
+  		<record model="ir.ui.view" id="view_cyg_apu_search">
+	      <field name="name">cyg.apu.search</field>
+	      <field name="model">cyg.apu</field>
+	      <field name="type">search</field>
+	      <field name="arch" type="xml">
+			<search>
+			  <field name="name" invisible="0"/>
+			  <!--  <field name="capitulo_id" />-->
+			  <field name="code" />
+			  <field name="rubro"/>
+			  <field name="uom_id"/>
+			  <field name="cyg_base_id"/>
+			  <field name="date"/>
+			</search>
+	      </field>
+	    </record>
+	    
+	    <record model="ir.ui.view" id="view_cyg_apu_form">
+	      <field name="name">cyg.apu.form</field>
+	      <field name="model">cyg.apu</field>
+	      <field name="type">form</field>
+	      <field name="arch" type="xml">
+			<form string="A.P.U" version="7.0">
+			<header>
+					<button name="button_validar" states="draft" string="Validar" type="object" class="oe_highlight"/>
+					<button name="button_to_draft" states="done" string="Volver a Borrador" type="object" class="oe_highlight"/>
+					<field name="state" widget="statusbar"/>
+			</header>
+			<sheet>
+				<group col="4">
+				  <field name="rubro" string="Nombre del Rubro" colspan="4" required="1" on_change="onchange_mayusculas(rubro,'rubro')"/>
+				  <!--  <field name="capitulo_id" required="1"/>-->
+				  <field name="uom_id" required="1"/>
+				  <field name="jornada_id" required="1"/>
+				  <field name="cyg_base_id" help="Este campo liga a una Base de APU General que usted desee que pertencezca el APU. Ejemplo BASE DE PRECIOS UNITARIO PROYECTO UNO"/>
+				  <field name="code"/>
+				  <field name="name" class="oe_inline" readonly="1"/>
+				  <!--  <field name='proyecto_id' required="1"/>-->
+				  <!--  <field name='etapa_id' domain="[('proyecto_id','=',proyecto_id)]" attrs="{'invisible':[('proyecto_id','=',False)],'required':[('proyecto_id','!=',False)]}"/>-->
+				  <field name="nro_decimal" on_change="on_change_nro_decimales(nro_decimal)"/>
+				  <field name="date" />
+				  <field name="user_id" readonly="1"/>
+				  <field name="currency_id" invisible="1"/>
+			  </group>
+			  <button name='%(action_create_product_apu)d' type='action' string='Añadir Recursos' icon="gtk-add" states="draft"/>
+			  <notebook>
+						<page string="Escenario 1">
+						<group >
+							<field name="pricelist_id" string="Lista de Precios" invisible="1"/>
+							<group class="oe_subtotal_footer oe_right" colspan="2" name="apu_total">
+	                            <div>
+	                                    <label for="amount_total" string="TOTAL COSTO DIRECTO (M+N+O+P)"/>
+	                                    <button name="button_dummy"
+                                        states="draft" string="(actualizar)" type="object" class="oe_edit_only oe_link"/>
+                                </div>
+                                <h1>
+                                <field name="amount_total" nolabel="1" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                                </h1>
+                        	</group>
+							<group string="Equipo" colspan ="2">
+								<field name="equipo_ids" nolabel="1" widget="one2many" context="{'nro_decimal':nro_decimal}">
+								<tree editable="bottom">
+									<field name="product_id" required="1" context="{'name_categ_id':'EQUIPOS Y HERRAMIENTAS'}" domain="[('categ_id.name','in',['EQUIPOS Y HERRAMIENTAS'])]" on_change="on_change_product(product_id,qty)"/>
+									<field name="qty" required="1"/>
+									<field name="price" string="Tarifa" required="1"/>
+									<field name="subtotal" string="Costo Hora"/>
+									<field name="rendimiento"/>
+									<field name="total" string="Costo" sum="Costo"/>
+								</tree>
+			  					</field>
+			  					<group class="oe_subtotal_footer oe_right" colspan="2" name="apu_equipo">
+			  					<div class="oe_subtotal_footer_separator oe_inline">
+			  						<label for="amount_equipo" string="Subtotal M"/>
+			  					</div>
+			  					<field name="amount_equipo" nolabel="1" class="oe_subtotal_footer_separator" string="Subtotal M" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+			  					<div class="oe_subtotal_footer_separator oe_inline">
+			  						<label for="porcentage_equipo" />
+			  					</div>
+			  						<field name="porcentage_equipo" nolabel="1" class="oe_subtotal_footer_separator"/>
+			  					</group>
+			  					
+			  					
+			  				</group>
+			  				<group string="Mano de Obra" colspan ="2" >
+								<field name="mano_obra_ids" nolabel="1" widget="one2many" context="{'nro_decimal':nro_decimal}">
+								<tree editable="bottom" context="{'nro_decimal':parent.nro_decimal}">
+									<field name="product_id" required="1" context="{'name_categ_id':'MANO DE OBRA'}" domain="[('categ_id.name','in',['MANO DE OBRA'])]" on_change="on_change_product(product_id,qty)"/>
+									<field name="qty" required="1"/>
+									<field name="price" string="Jornal / HR" required="1"/>
+									<field name="subtotal" string="Costo Hora"/>
+									<field name="rendimiento"/>
+									<field name="total" string="Costo" sum="Costo"/>
+								</tree>
+		  						</field>
+		  						<group class="oe_subtotal_footer oe_right" colspan="2" name="apu_obra">
+			  					<div class="oe_subtotal_footer_separator oe_inline" >
+			  						<label for="amount_obra" string="Subtotal N"/>
+			  					</div>
+			  					<field name="amount_obra" nolabel="1" class="oe_subtotal_footer_separator" string="Subtotal N" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+			  					<div class="oe_subtotal_footer_separator oe_inline">
+			  						<label for="porcentage_mano" />
+			  					</div>
+			  						<field name="porcentage_mano" nolabel="1" class="oe_subtotal_footer_separator"/>
+			  					</group>
+		  						  			
+		  					</group>
+			  				<group string="Materiales" colspan ="2">
+								<field name="materiales_ids" nolabel="1" widget="one2many" context="{'nro_decimal':nro_decimal}">
+								<tree editable="bottom">
+									<field name="product_id" required="1" context="{'name_categ_id':'MATERIALES'}" domain="[('categ_id.name','in',['MATERIALES'])]" on_change="on_change_product(product_id,qty)"/>
+									<field name="uom_id"/>
+									<field name="qty" required="1"/>
+									<field name="price" string="Precio Unit." required="1"/>
+									<field name="total" string="Costo" sum="Costo"/>
+								</tree>
+				  				</field>
+				  				<group class="oe_subtotal_footer oe_right" colspan="2" name="apu_material">
+			  					<div class="oe_subtotal_footer_separator oe_inline">
+			  						<label for="amount_material" string="Subtotal O"/>
+			  					</div>
+			  					<field name="amount_material" nolabel="1" class="oe_subtotal_footer_separator" string="Subtotal P" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+			  					<div class="oe_subtotal_footer_separator oe_inline">
+			  						<label for="porcentage_material" />
+			  					</div>
+			  						<field name="porcentage_material" nolabel="1" class="oe_subtotal_footer_separator"/>
+			  					</group>
+			  						  			
+				  			</group>
+				  			<group string="Transporte" colspan ="2">
+								<field name="transporte_ids" nolabel="1" widget="one2many" context="{'nro_decimal':nro_decimal}">
+								<tree editable="bottom">
+									<field name="product_id" required="1" context="{'name_categ_id':'TRANSPORTE'}" domain="[('categ_id.name','in',['TRANSPORTE'])]" on_change="on_change_product(product_id,qty)"/>
+									<field name="uom_id"/>
+									<field name="qty" required="1"/>
+									<field name="price" string="Tarifa" required="1"/>
+									<field name="total" string="Costo" sum="Costo"/>
+								</tree>
+		  						</field>
+		  						<group class="oe_subtotal_footer oe_right" colspan="2" name="apu_transporte">
+			  					<div class="oe_subtotal_footer_separator oe_inline">
+			  						<label for="amount_transporte" string="Subtotal P"/>
+			  					</div>
+			  					<field name="amount_transporte" nolabel="1" class="oe_subtotal_footer_separator" string="Subtotal P" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+			  					<div class="oe_subtotal_footer_separator oe_inline">
+			  						<label for="porcentage_transporte" />
+			  					</div>
+			  						<field name="porcentage_transporte" nolabel="1" class="oe_subtotal_footer_separator"/>
+			  					</group>	  			
+		  					</group>
+		  					<group string="Otros" colspan ="2">
+								<field name="otros_ids" nolabel="1" widget="one2many" context="{'nro_decimal':nro_decimal}">
+								<tree editable="bottom">
+									<field name="product_id" required="1" context="{'name_categ_id':'OTROS'}" domain="[('categ_id.name','in',['OTROS'])]" on_change="on_change_product(product_id,qty)"/>
+									<field name="uom_id"/>
+									<field name="qty" required="1"/>
+									<field name="price" string="Tarifa" required="1"/>
+									<field name="total" string="Costo" sum="Costo"/>
+								</tree>
+		  						</field>
+		  						<group class="oe_subtotal_footer oe_right" colspan="2" name="apu_otro">
+			  					<div class="oe_subtotal_footer_separator oe_inline">
+			  						<label for="amount_otros" string="Subtotal Q"/>
+			  					</div>
+			  					<field name="amount_otros" nolabel="1" class="oe_subtotal_footer_separator" string="Subtotal P" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+			  					<div class="oe_subtotal_footer_separator oe_inline">
+			  						<label for="porcentage_otros" />
+			  					</div>
+			  						<field name="porcentage_otros" nolabel="1" class="oe_subtotal_footer_separator"/>
+			  					</group>	  			
+		  					</group>
+						</group>
+						</page>
+						<page string="Escenario 2">
+						<group >
+							<field name="pricelist2_id" string="Lista de Precios" invisible="1"/>
+							<group class="oe_subtotal_footer oe_right" colspan="2" name="apu_total2">
+                                <div >
+                                    <label for="amount_total2" string="TOTAL COSTO DIRECTO (M+N+O+P)"/>
+                                    <button name="button_dummy"
+                                        states="draft" string="(actualizar)" type="object" class="oe_edit_only oe_link"/>
+                                </div>
+                                <h1>
+                                <field name="amount_total2" nolabel="1" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                                </h1>
+                        	</group>
+							 <group string="Equipo" colspan ="2">
+								<field name="equipo2_ids" nolabel="1" widget="one2many" >
+								<tree editable="bottom">
+									<field name="product_id" required="1" context="{'name_categ_id':'EQUIPOS Y HERRAMIENTAS'}" domain="[('categ_id.name','in',['EQUIPOS Y HERRAMIENTAS'])]" on_change="on_change_product(product_id,qty)"/>
+									<field name="qty" required="1"/>
+									<field name="price" string="Tarifa" required="1"/>
+									<field name="subtotal" string="Costo Hora"/>
+									<field name="rendimiento"/>
+									<field name="total" string="Costo" sum="Costo"/>
+								</tree>
+			  					</field>
+			  					<group class="oe_subtotal_footer oe_right" colspan="2" name="apu_equipo2">
+			  					<div class="oe_subtotal_footer_separator oe_inline">
+			  						<label for="amount_equipo2" string="Subtotal M"/>
+			  					</div>
+			  					<field name="amount_equipo2" nolabel="1" class="oe_subtotal_footer_separator" string="Subtotal M" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+			  					<div class="oe_subtotal_footer_separator oe_inline">
+			  						<label for="porcentage_equipo2" />
+			  					</div>
+			  						<field name="porcentage_equipo2" nolabel="1" class="oe_subtotal_footer_separator"/>
+			  					</group>	
+			  				</group>
+			  				<group string="Mano de Obra" colspan ="2">
+								<field name="mano_obra2_ids" nolabel="1" widget="one2many">
+								<tree editable="bottom">
+									<field name="product_id" required="1" context="{'name_categ_id':'MANO DE OBRA'}" domain="[('categ_id.name','in',['MANO DE OBRA'])]" on_change="on_change_product(product_id,qty)"/>
+									<field name="qty" required="1"/>
+									<field name="price" string="Jornal / HR" required="1"/>
+									<field name="subtotal" string="Costo Hora"/>
+									<field name="rendimiento"/>
+									<field name="total" string="Costo" sum="Costo"/>
+								</tree>
+		  						</field>
+			  					<group class="oe_subtotal_footer oe_right" colspan="2" name="apu_obra2">
+			  					<div class="oe_subtotal_footer_separator oe_inline">
+			  						<label for="amount_obra2" string="Subtotal N"/>
+			  					</div>
+			  					<field name="amount_obra2" nolabel="1" class="oe_subtotal_footer_separator" string="Subtotal N" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+			  					<div class="oe_subtotal_footer_separator oe_inline">
+			  						<label for="porcentage_mano2" />
+			  					</div>
+			  						<field name="porcentage_mano2" nolabel="1" class="oe_subtotal_footer_separator"/>
+			  					</group>
+		  					</group>
+			  				<group string="Materiales" colspan ="2">
+								<field name="materiales2_ids" nolabel="1" widget="one2many">
+								<tree editable="bottom">
+									<field name="product_id" required="1" context="{'name_categ_id':'MATERIALES'}" domain="[('categ_id.name','in',['MATERIALES'])]" on_change="on_change_product(product_id,qty)"/>
+									<field name="uom_id"/>
+									<field name="qty" required="1"/>
+									<field name="desperdicio" required="0"/>
+									<field name="price" string="Precio Unit." required="1"/>
+									<field name="total" string="Costo" sum="Costo"/>
+								</tree>
+				  				</field>
+			  					<group class="oe_subtotal_footer oe_right" colspan="2" name="apu_obra2">
+			  					<div class="oe_subtotal_footer_separator oe_inline">
+			  						<label for="amount_material2" string="Subtotal O"/>
+			  					</div>
+			  					<field name="amount_material2" nolabel="1" class="oe_subtotal_footer_separator" string="Subtotal O" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+			  					<div class="oe_subtotal_footer_separator oe_inline">
+			  						<label for="porcentage_material2" />
+			  					</div>
+			  						<field name="porcentage_material2" nolabel="1" class="oe_subtotal_footer_separator"/>
+			  					</group>  		  			
+				  			</group>
+				  			<group string="Transporte" colspan ="2">
+								<field name="transporte2_ids" nolabel="1" widget="one2many">
+								<tree editable="bottom">
+									<field name="product_id" required="1" context="{'name_categ_id':'TRANSPORTE'}" domain="[('categ_id.name','in',['TRANSPORTE'])]" on_change="on_change_product(product_id,qty)"/>
+									<field name="uom_id"/>
+									<field name="qty" required="1"/>
+									<field name="price" string="Tarifa" required="1"/>
+									<field name="total" string="Costo" sum="Costo"/>
+								</tree>
+		  						</field>
+			  					<group class="oe_subtotal_footer oe_right" colspan="2" name="apu_transporte2">
+			  					<div class="oe_subtotal_footer_separator oe_inline">
+			  						<label for="amount_transporte2" string="Subtotal P"/>
+			  					</div>
+			  					<field name="amount_transporte2" nolabel="1" class="oe_subtotal_footer_separator" string="Subtotal P" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+			  					<div class="oe_subtotal_footer_separator oe_inline">
+			  						<label for="porcentage_transporte2" />
+			  					</div>
+			  						<field name="porcentage_transporte2" nolabel="1" class="oe_subtotal_footer_separator"/>
+			  					</group>	  			
+		  					</group>
+		  					<group string="Otros" colspan ="2">
+								<field name="otros2_ids" nolabel="1" widget="one2many" context="{'nro_decimal':nro_decimal}">
+								<tree editable="bottom">
+									<field name="product_id" required="1" context="{'name_categ_id':'OTROS'}" domain="[('categ_id.name','in',['OTROS'])]" on_change="on_change_product(product_id,qty)"/>
+									<field name="uom_id"/>
+									<field name="qty" required="1"/>
+									<field name="price" string="Tarifa" required="1"/>
+									<field name="total" string="Costo" sum="Costo"/>
+								</tree>
+		  						</field>
+		  						<group class="oe_subtotal_footer oe_right" colspan="2" name="apu_otro">
+			  					<div class="oe_subtotal_footer_separator oe_inline">
+			  						<label for="amount_otros2" string="Subtotal Q"/>
+			  					</div>
+			  					<field name="amount_otros2" nolabel="1" class="oe_subtotal_footer_separator" string="Subtotal P" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+			  					<div class="oe_subtotal_footer_separator oe_inline">
+			  						<label for="porcentage_otros2" />
+			  					</div>
+			  						<field name="porcentage_otros2" nolabel="1" class="oe_subtotal_footer_separator"/>
+			  					</group>	  			
+		  					</group>
+		  				</group>
+		  				
+						</page>
+					</notebook>
+			 </sheet>
+			</form>
+	      </field>
+	    </record>
+	    
+	    <record model="ir.ui.view" id="view_cyg_apu_tree">
+	      <field name="name">cyg.apu.tree</field>
+	      <field name="model">cyg.apu</field>
+	      <field name="type">tree</field>
+	      <field name="arch" type="xml">
+			<tree string="A.P.U">
+			  <field name="name" invisible="1"/>
+			  <field name="code" />
+			  <field name="rubro"/>
+			  <field name="uom_id"/>
+			  <field name="amount_total" string="Escenario 1"/>
+			  <field name="amount_total2" string="Escenario 2"/>
+			  
+			  <field name="cyg_base_id"/>
+			  <field name="date"/>
+			</tree>
+	      </field>
+	    </record>
+		
+		<record model="ir.actions.act_window" id="action_cyg_apu">
+	      <field name="name">Analisis de Precios Unitarios</field>
+	      <field name="res_model">cyg.apu</field>
+	      <field name="view_type">form</field>
+	      <field name="view_mode">tree,form</field>
+	      <field name="search_view_id" ref="view_cyg_apu_search"/>
+	    </record>
+    
+  		<record id="action_cyg_apu_tree" model="ir.actions.act_window.view">
+            <field name="sequence" eval="0"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_cyg_apu_tree"/>
+            <field name="act_window_id" ref="action_cyg_apu"/>
+        </record>
+        
+        <record id="action_cyg_pu_form" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_cyg_apu_form"/>
+            <field name="act_window_id" ref="action_cyg_apu"/>
+        </record>
+  		
+  </data>
+</openerp>

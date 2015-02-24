@@ -1,0 +1,618 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="view_cyg_broker_ramo_search">
+	      <field name="name">cyg.broker.ramo.search</field>
+	      <field name="model">cyg.broker.ramo</field>
+	      <field name="type">search</field>
+	      <field name="arch" type="xml">
+			<search>
+			  <field name="name"/>
+			</search>
+	      </field>
+	    </record>
+	    
+	    <record model="ir.ui.view" id="view_cyg_broker_ramo_tree">
+	      <field name="name">cyg.broker.ramo.tree</field>
+	      <field name="model">cyg.broker.ramo</field>
+	      <field name="arch" type="xml">
+			<tree  string="Ramo">
+			  <field name="name"/>
+			  <field name="code"/>
+			</tree>
+	      </field>
+	    </record>
+	    
+	    <record model="ir.ui.view" id="view_cyg_broker_ramo_form">
+	      <field name="name">cyg.broker.ramo.form</field>
+	      <field name="model">cyg.broker.ramo</field>
+	      <field name="type">form</field>
+	      <field name="arch" type="xml">
+			<form string="Ramo Broker" version="7.0">
+			<sheet>
+				<group>
+				  <field name="name" on_change="onchange_mayusculas(name,'name')"/>
+				  <field name="code" required="1" />
+				  <field name="descripcion" required="1" on_change="onchange_mayusculas(descripcion,'descripcion')"/>
+			  	</group>
+			</sheet>
+			</form>
+	      </field>
+	    </record>
+	    <record id="action_cyg_broker_ramo" model="ir.actions.act_window">
+            <field name="name">Broker Ramo</field>
+            <field name="res_model">cyg.broker.ramo</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click para crear ramo de broker
+              </p>
+              <p>
+                Defina los ramo de broker
+              </p>
+            </field>
+        </record>
+        
+        <!--  -->
+        <record model="ir.ui.view" id="view_cyg_broker_tipo_search">
+	      <field name="name">cyg.broker.tipo.search</field>
+	      <field name="model">cyg.broker.tipo</field>
+	      <field name="type">search</field>
+	      <field name="arch" type="xml">
+			<search>
+			  <field name="name"/>
+			</search>
+	      </field>
+	    </record>
+	    
+	    <record model="ir.ui.view" id="view_cyg_broker_tipo_tree">
+	      <field name="name">cyg.broker.tipo.tree</field>
+	      <field name="model">cyg.broker.tipo</field>
+	      <field name="arch" type="xml">
+			<tree  string="Tipo">
+			  <field name="name"/>
+			  <field name="code"/>
+			  <field name="ramo_id" required="1" />
+			</tree>
+	      </field>
+	    </record>
+	    
+	    <record model="ir.ui.view" id="view_cyg_broker_tipo_form">
+	      <field name="name">cyg.broker.tipo.form</field>
+	      <field name="model">cyg.broker.tipo</field>
+	      <field name="type">form</field>
+	      <field name="arch" type="xml">
+			<form string="Tipo Broker" version="7.0">
+			<sheet>
+				<group>
+				  <field name="name" on_change="onchange_mayusculas(name,'name')"/>
+				  <field name="code" required="1" />
+				  <field name="ramo_id" required="1" options="{'no_open':True,'limit': 10, 'create': false, 'create_edit': false}"/>
+				  <field name="descripcion" required="1" on_change="onchange_mayusculas(descripcion,'descripcion')"/>
+			  	</group>
+			</sheet>
+			</form>
+	      </field>
+	    </record>
+	    
+	    <record model="ir.ui.view" id="view_cyg_broker_tipo_form_readonly">
+	      <field name="name">cyg.broker.tipo.form.readonly</field>
+	      <field name="model">cyg.broker.tipo</field>
+	      <field name="type">form</field>
+	      <field name="arch" type="xml">
+			<form string="Tipo Broker" version="7.0">
+			<sheet>
+				<group>
+				  <field name="ramo_id" readonly="1"/>
+				  <field name="name" on_change="onchange_mayusculas(name,'name')"/>
+				  <field name="code" required="1" />
+				  <separator string="Descripción" colspan="4"/>
+				  <field name="descripcion" required="1" on_change="onchange_mayusculas(descripcion,'descripcion')" colspan="4" nolabel="1"/>
+			  	</group>
+			</sheet>
+			</form>
+	      </field>
+	    </record>
+	    
+	    <record id="action_cyg_broker_tipo" model="ir.actions.act_window">
+            <field name="name">Broker Tipo</field>
+            <field name="res_model">cyg.broker.tipo</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click para crear tipo de broker
+              </p>
+              <p>
+                Defina los tipos de broker
+              </p>
+            </field>
+        </record>
+        <!-- ########## -->
+        <record model="ir.ui.view" id="view_cyg_broker_uso_search">
+	      <field name="name">cyg.broker.uso.search</field>
+	      <field name="model">cyg.broker.uso</field>
+	      <field name="type">search</field>
+	      <field name="arch" type="xml">
+			<search>
+			  <field name="name"/>
+			</search>
+	      </field>
+	    </record>
+	    
+	    <record model="ir.ui.view" id="view_cyg_broker_uso_tree">
+	      <field name="name">cyg.broker.uso.tree</field>
+	      <field name="model">cyg.broker.uso</field>
+	      <field name="arch" type="xml">
+			<tree  string="Uso">
+			  <field name="name"/>
+			  <field name="code"/>
+			</tree>
+	      </field>
+	    </record>
+	    
+	    <record model="ir.ui.view" id="view_cyg_broker_uso_form">
+	      <field name="name">cyg.broker.uso.form</field>
+	      <field name="model">cyg.broker.uso</field>
+	      <field name="type">form</field>
+	      <field name="arch" type="xml">
+			<form string="Uso Broker" version="7.0">
+			<sheet>
+				<group>
+				  <field name="name" on_change="onchange_mayusculas(name,'name')"/>
+				  <field name="code" required="1" />
+				  <field name="descripcion" required="1" on_change="onchange_mayusculas(descripcion,'descripcion')"/>
+			  	</group>
+			</sheet>
+			</form>
+	      </field>
+	    </record>
+	    <record id="action_cyg_broker_uso" model="ir.actions.act_window">
+            <field name="name">Broker Uso</field>
+            <field name="res_model">cyg.broker.uso</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click para crear uso de broker
+              </p>
+              <p>
+                Defina los usos de broker
+              </p>
+            </field>
+        </record>
+        
+        <!-- ########## -->
+        <record model="ir.ui.view" id="view_cyg_broker_definiciones_search">
+	      <field name="name">cyg.broker.definiciones.search</field>
+	      <field name="model">cyg.broker.definiciones</field>
+	      <field name="type">search</field>
+	      <field name="arch" type="xml">
+			<search>
+			  <field name="name"/>
+			</search>
+	      </field>
+	    </record>
+	    
+	    <record model="ir.ui.view" id="view_cyg_broker_definiciones_tree">
+	      <field name="name">cyg.broker.definiciones.tree</field>
+	      <field name="model">cyg.broker.definiciones</field>
+	      <field name="arch" type="xml">
+			<tree  string="Definiciones">
+			  <field name="name"/>
+			  <field name="code"/>
+			</tree>
+	      </field>
+	    </record>
+	    
+	    <record model="ir.ui.view" id="view_cyg_broker_definiciones_form">
+	      <field name="name">cyg.broker.definiciones.form</field>
+	      <field name="model">cyg.broker.definiciones</field>
+	      <field name="type">form</field>
+	      <field name="arch" type="xml">
+			<form string="Definiciones Broker" version="7.0">
+			<sheet>
+				<group>
+				  <field name="name" on_change="onchange_mayusculas(name,'name')"/>
+				  <field name="code" required="1" />
+				  <field name="descripcion" required="1" on_change="onchange_mayusculas(descripcion,'descripcion')"/>
+			  	</group>
+			</sheet>
+			</form>
+	      </field>
+	    </record>
+	    <record id="action_cyg_broker_definiciones" model="ir.actions.act_window">
+            <field name="name">Broker Definiciones</field>
+            <field name="res_model">cyg.broker.definiciones</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click para crear una definicion de broker
+              </p>
+              <p>
+                Defina las definiciones de broker
+              </p>
+            </field>
+        </record>
+        
+
+        <!-- ############## -->
+         <record model="ir.ui.view" id="view_cyg_broker_cobertura_search">
+	      <field name="name">cyg.broker.cobertura.search</field>
+	      <field name="model">cyg.broker.cobertura</field>
+	      <field name="type">search</field>
+	      <field name="arch" type="xml">
+			<search>
+			  <field name="name"/>
+			  <field name="descripcion"/>
+			</search>
+	      </field>
+	    </record>
+	    
+	    <record model="ir.ui.view" id="view_cyg_broker_cobertura_tree">
+	      <field name="name">cyg.broker.cobertura.tree</field>
+	      <field name="model">cyg.broker.cobertura</field>
+	      <field name="arch" type="xml">
+			<tree  string="Cobertura">
+			  <field name="name"/>
+			  <field name="descripcion"/>
+			</tree>
+	      </field>
+	    </record> 
+	    
+	    <record model="ir.ui.view" id="view_cyg_broker_cobertura_form">
+	      <field name="name">cyg.broker.cobertura.form</field>
+	      <field name="model">cyg.broker.cobertura</field>
+	      <field name="type">form</field>
+	      <field name="arch" type="xml">
+			<form string="Cobertura Broker" version="7.0">
+			<sheet>
+				<group>
+				  <field name="name" on_change="onchange_mayusculas(name,'name')"/>
+				  <field name="code" invisible="1" />
+				  <field name="descripcion" required="1" on_change="onchange_mayusculas(descripcion,'descripcion')"/>
+			  	</group>
+			</sheet>
+			</form>
+	      </field>
+	    </record>
+	    <record id="action_cyg_broker_cobertura" model="ir.actions.act_window">
+            <field name="name">Broker Cobertura</field>
+            <field name="res_model">cyg.broker.cobertura</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click para crear cobertura de broker
+              </p>
+              <p>
+                Defina coberturas de broker
+              </p>
+            </field>
+        </record>
+        <!-- ######### -->
+	     <record model="ir.ui.view" id="view_cyg_broker_exclusiones_search">
+	      <field name="name">cyg.broker.exclusiones.search</field>
+	      <field name="model">cyg.broker.exclusiones</field>
+	      <field name="type">search</field>
+	      <field name="arch" type="xml">
+			<search>
+			  <field name="name"/>
+			</search>
+	      </field>
+	    </record>
+	    
+	    <record model="ir.ui.view" id="view_cyg_broker_exclusiones_tree">
+	      <field name="name">cyg.broker.exclusiones.tree</field>
+	      <field name="model">cyg.broker.exclusiones</field>
+	      <field name="arch" type="xml">
+			<tree  string="Exclusiones">
+			  <field name="name"/>
+			  <field name="code"/>
+			</tree>
+	      </field>
+	    </record>
+	    
+	    <record model="ir.ui.view" id="view_cyg_broker_exclusiones_form">
+	      <field name="name">cyg.broker.exclusiones.form</field>
+	      <field name="model">cyg.broker.exclusiones</field>
+	      <field name="type">form</field>
+	      <field name="arch" type="xml">
+			<form string="Exclusiones Broker" version="7.0">
+			<sheet>
+				<group>
+				  <field name="name" on_change="onchange_mayusculas(name,'name')"/>
+				  <field name="code" required="1" />
+				  <field name="descripcion" required="1" on_change="onchange_mayusculas(descripcion,'descripcion')"/>
+			  	</group>
+			</sheet>
+			</form>
+	      </field>
+	    </record>
+	    <record id="action_cyg_broker_exclusiones" model="ir.actions.act_window">
+            <field name="name">Broker Exclusiones</field>
+            <field name="res_model">cyg.broker.exclusiones</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click para crear exclusiones de broker
+              </p>
+              <p>
+                Defina las exclusiones de broker
+              </p>
+            </field>
+        </record>
+        <!-- ######################## -->
+        <record model="ir.ui.view" id="view_cyg_broker_clausula_search">
+	      <field name="name">cyg.broker.clausula.search</field>
+	      <field name="model">cyg.broker.clausula</field>
+	      <field name="type">search</field>
+	      <field name="arch" type="xml">
+			<search>
+			  <field name="name"/>
+			</search>
+	      </field>
+	    </record>
+	    
+	    <record model="ir.ui.view" id="view_cyg_broker_clausula_tree">
+	      <field name="name">cyg.broker.clausula.tree</field>
+	      <field name="model">cyg.broker.clausula</field>
+	      <field name="arch" type="xml">
+			<tree  string="Clausula">
+			  <field name="name"/>
+			  <field name="code"/>
+			</tree>
+	      </field>
+	    </record>
+	    
+	    <record model="ir.ui.view" id="view_cyg_broker_clausula_form">
+	      <field name="name">cyg.broker.clausula.form</field>
+	      <field name="model">cyg.broker.clausula</field>
+	      <field name="type">form</field>
+	      <field name="arch" type="xml">
+			<form string="Clausula Broker" version="7.0">
+			<sheet>
+				<group>
+				  <field name="name" on_change="onchange_mayusculas(name,'name')"/>
+				  <field name="code" required="1" />
+				  <field name="descripcion" required="1" on_change="onchange_mayusculas(descripcion,'descripcion')"/>
+			  	</group>
+			</sheet>
+			</form>
+	      </field>
+	    </record>
+	    <record id="action_cyg_broker_clausula" model="ir.actions.act_window">
+            <field name="name">Broker Clausula</field>
+            <field name="res_model">cyg.broker.clausula</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click para crear clausula de broker
+              </p>
+              <p>
+                Defina clausulas de broker
+              </p>
+            </field>
+        </record>
+        
+        <!-- ############## -->
+         <record model="ir.ui.view" id="view_cyg_broker_cobertura_adicional_search">
+	      <field name="name">cyg,broker.cobertura.adicional.search</field>
+	      <field name="model">cyg.broker.cobertura.adicional</field>
+	      <field name="type">search</field>
+	      <field name="arch" type="xml">
+			<search>
+			  <field name="name"/>
+			  <field name="descripcion"/>
+			</search>
+	      </field>
+	    </record>
+	    
+	    <record model="ir.ui.view" id="view_cyg_broker_cobertura_adicional_tree">
+	      <field name="name">cyg.broker.cobertura.adicional.tree</field>
+	      <field name="model">cyg.broker.cobertura.adicional</field>
+	      <field name="arch" type="xml">
+			<tree  string="Cobertura">
+			  <field name="name"/>
+			  <field name="descripcion"/>
+			</tree>
+	      </field>
+	    </record> 
+	    
+	    <record model="ir.ui.view" id="view_cyg_broker_cobertura_adicional_form">
+	      <field name="name">cyg.broker.cobertura.adicional.form</field>
+	      <field name="model">cyg.broker.cobertura.adicional</field>
+	      <field name="type">form</field>
+	      <field name="arch" type="xml">
+			<form string="Cobertura Adicional Broker" version="7.0">
+			<sheet>
+				<group>
+				  <field name="grupo_adicional_id" required="1" on_change="onchange_grupo(grupo_adicional_id)"/>
+				  <field name="name"  invisible="1"/>
+				  <field name="descripcion" required="1" on_change="onchange_mayusculas(descripcion,'descripcion')"/>
+			  	</group>
+			</sheet>
+			</form>
+	      </field>
+	    </record>
+	    <record id="action_cyg_broker_cobertura_adicional" model="ir.actions.act_window">
+            <field name="name">Broker Cobertura</field>
+            <field name="res_model">cyg.broker.cobertura.adicional</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click para crear cobertura de broker
+              </p>
+              <p>
+                Defina coberturas de broker
+              </p>
+            </field>
+        </record>
+        
+        <!-- ############## -->
+         <record model="ir.ui.view" id="view_cyg_broker_amparo_adicional_search">
+	      <field name="name">cyg.broker.amparo.adicional.search</field>
+	      <field name="model">cyg.broker.amparo.adicional</field>
+	      <field name="type">search</field>
+	      <field name="arch" type="xml">
+			<search>
+			  <field name="name"/>
+			  <field name="descripcion"/>
+			</search>
+	      </field>
+	    </record>
+	    
+	    <record model="ir.ui.view" id="view_cyg_broker_amparo_adicional_tree">
+	      <field name="name">cyg.broker.amparo.adicional.tree</field>
+	      <field name="model">cyg.broker.amparo.adicional</field>
+	      <field name="arch" type="xml">
+			<tree  string="Amparo">
+			  <field name="name"/>
+			  <field name="descripcion"/>
+			</tree>
+	      </field>
+	    </record> 
+	    
+	    <record model="ir.ui.view" id="view_cyg_broker_amparo_adicional_form">
+	      <field name="name">cyg.broker.amparo.adicional.form</field>
+	      <field name="model">cyg.broker.amparo.adicional</field>
+	      <field name="type">form</field>
+	      <field name="arch" type="xml">
+			<form string="Amparo Adicional Broker" version="7.0">
+			<sheet>
+				<group>
+				  <field name="grupo_adicional_id" required="1" on_change="onchange_grupo(grupo_adicional_id)"/>
+				  <field name="descripcion" required="1" on_change="onchange_mayusculas(descripcion,'descripcion')"/>
+				  <field name="name" invisible="1"/>
+			  	</group>
+			</sheet>
+			</form>
+	      </field>
+	    </record>
+	    <record id="action_cyg_broker_amparo_adicional" model="ir.actions.act_window">
+            <field name="name">Broker Amparos Adicionales</field>
+            <field name="res_model">cyg.broker.amparo.adicional</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click para crear una amparo de broker
+              </p>
+              <p>
+                Defina los amparos adicionales de broker
+              </p>
+            </field>
+        </record>
+        <!-- #################################Grupos Adicionales############################# -->
+        <record model="ir.ui.view" id="cyg_broker_grupo_cobertura_adicional_search">
+	      <field name="name">cyg.broker.grupo.cobertura.adicional.search</field>
+	      <field name="model">cyg.broker.grupo.cobertura.adicional</field>
+	      <field name="type">search</field>
+	      <field name="arch" type="xml">
+			<search>
+			  <field name="name"/>
+			</search>
+	      </field>
+	    </record>
+	    
+	    <record model="ir.ui.view" id="cyg_broker_grupo_cobertura_adicional_tree">
+	      <field name="name">cyg.broker.grupo.cobertura.adicional.tree</field>
+	      <field name="model">cyg.broker.grupo.cobertura.adicional</field>
+	      <field name="arch" type="xml">
+			<tree  string="Grupo Adicional">
+			  <field name="name"/>
+			  <field name="code"/>
+			</tree>
+	      </field>
+	    </record>
+	    
+	    <record model="ir.ui.view" id="cyg_broker_grupo_cobertura_adicional_form">
+	      <field name="name">cyg.broker.grupo.cobertura.adicional.form</field>
+	      <field name="model">cyg.broker.grupo.cobertura.adicional</field>
+	      <field name="type">form</field>
+	      <field name="arch" type="xml">
+			<form string="Grupo Adicional" version="7.0">
+			<sheet>
+				<group>
+				  <field name="name" on_change="onchange_mayusculas(name,'name')"/>
+				  <field name="code" required="1" />
+				  <field name="descripcion" required="1" on_change="onchange_mayusculas(descripcion,'descripcion')"/>
+			  	</group>
+			</sheet>
+			</form>
+	      </field>
+	    </record>
+	    <record id="action_cyg_broker_ramo_adicional" model="ir.actions.act_window">
+            <field name="name">Grupo Adicional</field>
+            <field name="res_model">cyg.broker.grupo.cobertura.adicional</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click para crear nuevo grupo adicional
+              </p>
+              <p>
+                Defina los nuevos grupos adicionales
+              </p>
+            </field>
+        </record>
+        <!-- ######################Grupo Adicional de Amparo ##########################################-->
+        <record model="ir.ui.view" id="cyg_broker_grupo_amparo_adicional_search">
+	      <field name="name">cyg.broker.grupo.amparo.adicional.search</field>
+	      <field name="model">cyg.broker.grupo.amparo.adicional</field>
+	      <field name="type">search</field>
+	      <field name="arch" type="xml">
+			<search>
+			  <field name="name"/>
+			</search>
+	      </field>
+	    </record>
+	    
+	    <record model="ir.ui.view" id="cyg_broker_grupo_amparo_adicional_tree">
+	      <field name="name">cyg.broker.grupo.amparo.adicional.tree</field>
+	      <field name="model">cyg.broker.grupo.amparo.adicional</field>
+	      <field name="arch" type="xml">
+			<tree  string="Grupo Adicional">
+			  <field name="name"/>
+			  <field name="code"/>
+			</tree>
+	      </field>
+	    </record>
+	    
+	    <record model="ir.ui.view" id="cyg_broker_grupo_amparo_adicional_form">
+	      <field name="name">cyg.broker.grupo.amparo.adicional.form</field>
+	      <field name="model">cyg.broker.grupo.amparo.adicional</field>
+	      <field name="type">form</field>
+	      <field name="arch" type="xml">
+			<form string="Grupo Adicional" version="7.0">
+			<sheet>
+				<group>
+				  <field name="name" on_change="onchange_mayusculas(name,'name')"/>
+				  <field name="code" required="1" />
+				  <field name="descripcion" required="1" on_change="onchange_mayusculas(descripcion,'descripcion')"/>
+			  	</group>
+			</sheet>
+			</form>
+	      </field>
+	    </record>
+	    <record id="action_cyg_broker_ramo_adicional" model="ir.actions.act_window">
+            <field name="name">Grupo Adicional</field>
+            <field name="res_model">cyg.broker.grupo.amparo.adicional</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click para crear nuevo grupo adicional
+              </p>
+              <p>
+                Defina los nuevos grupos adicionales
+              </p>
+            </field>
+        </record>
+    </data>
+</openerp>

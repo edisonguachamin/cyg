@@ -1,0 +1,15 @@
+Revision Lunes 29 de Diciembre 2014.
+- Dejar abierto el interes para realizar varios pagos.
+- Para los reportes. Revisar como abrir un archivo via ftp.
+
+Presupuesto:
+Aumentar campo de  valor original y valor nuevo despues de realizar una alcance de presupuesto
+Aumentar pestana de alcance de presupuesto
+ - Capitulo
+ - Analisis 
+ - Cantidad
+ - Precio 
+ - Usuario que aumento.
+
+Boton de validar presupuesto (cambiar a estado de abierto y luego cerrado).
+- producto(unidad) -apu- capitulo - cantidad y valor

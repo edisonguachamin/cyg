@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data noupdate="0">
+
+      <record id='group_cyg_inmo_user_seguimiento' model='res.groups'>       <field name='name'>Seguimiento de postventa</field>     <field name="category_id" ref="cyg_base.module_category_domus"/></record>
+      <record id='group_cyg_usuario_externo' model='res.groups'>       <field name='name'>Usuario externo cotizaciones</field>     <field name="category_id" ref="cyg_base.module_category_domus"/></record>
+
+  </data>
+</openerp>

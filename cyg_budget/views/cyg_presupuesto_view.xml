@@ -1,0 +1,161 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data>
+     <menuitem name="Presupuesto" id="menu_root_cyg_budget" parent="cyg_apu.root_apu" sequence="10"/>
+   	 
+   	
+   	 <record model="ir.ui.view" id="view_cyg_presupuesto_search">
+        <field name="name">cyg.presupuesto.search</field>
+        <field name="model">cyg.presupuesto</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="proyecto_id"/>
+                <field name="tipo_presupuesto_id"/>
+            </search>
+        </field>
+    </record>
+     
+    <record model="ir.ui.view" id="view_cyg_presupuesto_tree">
+        <field name="name">cyg.presupuesto.tree</field>
+        <field name="model">cyg.presupuesto</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="proyecto_id"/>
+                <field name="partner_id"/>
+                <field name="date"/>
+                <field name="tipo_presupuesto_id"/>
+            </search>
+        </field>
+    </record>
+    
+    <record model="ir.ui.view" id="view_cyg_presupuesto_form">
+      <field name="name">cyg.presupuesto.form</field>
+      <field name="model">cyg.presupuesto</field>
+      <field name="arch" type="xml">
+          <form string="Presupuesto General" version="7.0">
+          	<header>
+           		<field name="state" widget="statusbar" statusbar_visible="draft,confirm"/>
+           	</header>
+           	<sheet>
+	            <group col="4">
+	            	<!--  <field name="partner_id"/>-->
+	            	<field name="proyecto_id" required="1" on_change="onchange_proyecto(proyecto_id)" options="{'no_open':True, 'limit': 10, 'create': false, 'create_edit': false}"/>
+	            	<field name="etapa_id" required="1" attrs="{'invisible':[('proyecto_id','=',False)]}" domain="[('proyecto_id','=',proyecto_id)]" options="{'no_open':True, 'limit': 10, 'create': false, 'create_edit': false}"/>
+	              	<field name="tipo_presupuesto_id" required="1" attrs="{'invisible':[('proyecto_id','=',False)]}" options="{'no_open':True, 'limit': 10, 'create': false, 'create_edit': false}"/>
+	              	<field name="name" class="oe_inline" readonly="1"/>
+	              	<field name="ubicacion"/>
+	              	<field name="currency_id" invisible="1"/>
+	            </group>
+	            <button name='%(action_create_presupuesto_apu)d' type='action' string='Añadir Rubros' icon="gtk-add" states="draft"/>
+	            <notebook>
+	            <page string="Lineas de Presupuesto">
+	            	<group>
+	            		<group class="oe_subtotal_footer oe_right" colspan="2" name="presupuesto_total">
+	                         <field name="amount_untaxed" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+	                         <div>
+	                          <label for="amount_iva" />
+	                               <button name="button_dummy"
+	                                  states="draft" string="(actualizar)" type="object" class="oe_edit_only oe_link"/>
+	                         </div>
+	                         <field name="amount_iva" nolabel="1" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+	                         <field name="amount_total" class="oe_subtotal_footer_separator" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+	                         
+                    	</group>
+	            	
+		           	<group colspan="4">
+		           		<field name="presupuesto_ids" nolabel="1" widget="one2many">
+		           		<form>
+		           			<group>
+				            	<field name="presupuesto_id" invisible="1"/>
+				            	<field name="capitulo_id" required="1" on_change="onchange_capitulo(capitulo_id)"/>
+				            	<field name="sequence_cap"/>
+				                <field name="apu_id" attrs="{'invisible':[('capitulo_id','=',False)], 'required':[('capitulo_id','!=',False)]}" on_change="onchange_apu_escenario(apu_id,precio_escenario)"/>
+				            </group>
+				            <newline/>
+				            <group col="4">
+				                	<field name="code" />
+					              	<field name="precio_escenario" on_change="onchange_apu_escenario(apu_id,precio_escenario)"/>
+					              	<field name="price" />
+					              	<field name="amount" />
+					              	<field name="uom_id" />
+					              	<field name="qty" />
+					              	<field name="sequence"/>
+				            </group>
+		           		</form>
+		           		<tree editable="bottom">
+		           			<field name="presupuesto_id" invisible="1"/>
+				            	<field name="code" />
+				            	<field name="capitulo_id" required="1" on_change="onchange_capitulo(capitulo_id)"/>
+				                <field name="apu_id" required="1" on_change="onchange_apu_escenario(apu_id,precio_escenario)"/>
+				                <field name="uom_id" required="1"/>
+				                <field name="qty" />
+				              	<field name="precio_escenario" required="1" on_change="onchange_apu_escenario(apu_id,precio_escenario)"/>
+				              	<field name="price" />
+				              	<field name="amount" />
+				              	<field name="sequence_cap" invisible="1"/>
+				              	<field name="sequence"/> 
+		           		</tree>
+		           	</field>
+		           	</group>
+		           	</group>
+		           </page>
+		           <page string="Resumen">
+		           		<group colspan="4">
+		           		<field name="resumen_ids" nolabel="1" widget="one2many">
+		           		<form>
+		           			<group>
+				            	<field name="presupuesto_id" invisible="1"/>
+				            	<field name="capitulo_id" required="1" />
+				            	<field name="amount" required="1" />
+				            	<field name="porcentaje" required="1" />
+				            </group>
+		           		</form>
+		           		<tree editable="bottom">
+		           			<field name="presupuesto_id" invisible="1"/>
+			            	<field name="capitulo_id" required="1" />
+			            	<field name="amount" required="1" />
+			            	<field name="porcentaje" required="1" /> 
+		           		</tree>
+		           	</field>
+		           	</group>
+		           </page>
+	           	</notebook>
+            </sheet>
+        </form>
+      </field>
+   	</record>
+   	
+   	<record id="action_cyg_presupuesto" model="ir.actions.act_window">
+         <field name="name">Presupuesto</field>
+         <field name="res_model">cyg.presupuesto</field>
+         <field name="view_type">form</field>
+         <field name="view_mode">tree,form</field>
+         <field name="help" type="html">
+           <p class="oe_view_nocontent_create">
+             Click para crear un presupuesto
+           </p><p>
+             Defina un presupuesto en base a los Analisis de Precios Unitarios.
+           </p>
+         </field>
+     </record>
+   	
+  		<record id="action_cyg_presupuesto_tree" model="ir.actions.act_window.view">
+            <field name="sequence" eval="0"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_cyg_presupuesto_tree"/>
+            <field name="act_window_id" ref="action_cyg_presupuesto"/>
+        </record>
+        
+        <record id="action_cyg_presupuesto_form" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_cyg_presupuesto_form"/>
+            <field name="act_window_id" ref="action_cyg_presupuesto"/>
+        </record>
+        
+    <menuitem name="Nuevo Presupuesto" id="cyg_presupuesto"
+   			  parent="menu_root_cyg_budget" action="action_cyg_presupuesto"
+   		      sequence="0"/>
+	</data>
+</openerp>

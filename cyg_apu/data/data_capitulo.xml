@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  	<data>
+  		 <record id="cyg_capitulo_01" model="cyg.apu.capitulo">
+            <field name="name">INSTALACIÓN DE OBRA</field>
+            <field name="code">100</field>
+            <field name="sequence">1</field>
+        </record>
+        <record id="cyg_capitulo_02" model="cyg.apu.capitulo">
+            <field name="name">MOVIMIENTO DE TIERRAS</field>
+            <field name="code">300</field>
+            <field name="sequence">1</field>
+        </record>
+        <record id="cyg_capitulo_03" model="cyg.apu.capitulo">
+            <field name="name">OBRAS DE SEGURIDAD</field>
+            <field name="code">400</field>
+            <field name="sequence">1</field>
+        </record>
+        <record id="cyg_capitulo_04" model="cyg.apu.capitulo">
+            <field name="name">ESTRUCTURA</field>
+            <field name="code">500</field>
+            <field name="sequence">1</field>
+        </record>
+        <record id="cyg_capitulo_05" model="cyg.apu.capitulo">
+            <field name="name">ENCOFRADO</field>
+            <field name="code">600</field>
+            <field name="sequence">1</field>
+        </record>
+        <record id="cyg_capitulo_06" model="cyg.apu.capitulo">
+            <field name="name">CONTRAPISO</field>
+            <field name="code">700</field>
+            <field name="sequence">1</field>
+        </record>
+        <record id="cyg_capitulo_07" model="cyg.apu.capitulo">
+            <field name="name">MAMPOSTERÍAS</field>
+            <field name="code">800</field>
+            <field name="sequence">1</field>
+        </record>
+        <record id="cyg_capitulo_08" model="cyg.apu.capitulo">
+            <field name="name">ENLUCIDOS</field>
+            <field name="code">900</field>
+            <field name="sequence">1</field>
+        </record>
+        <record id="cyg_capitulo_09" model="cyg.apu.capitulo">
+            <field name="name">REVESTIMINTO SOBRE PAREDES</field>
+            <field name="code">1000</field>
+            <field name="sequence">1</field>
+        </record>
+        <record id="cyg_capitulo_10" model="cyg.apu.capitulo">
+            <field name="name">REVESTIMINTO SOBRE PAREDES</field>
+            <field name="code">1100</field>
+            <field name="sequence">1</field>
+        </record>
+        <record id="cyg_capitulo_11" model="cyg.apu.capitulo">
+            <field name="name">REVESTIMIENTOS SOBRE PISOS</field>
+            <field name="code">1200</field>
+            <field name="sequence">1</field>
+        </record>
+        <record id="cyg_capitulo_12" model="cyg.apu.capitulo">
+            <field name="name">ESCALONES</field>
+            <field name="code">1300</field>
+            <field name="sequence">1</field>
+        </record>
+        <record id="cyg_capitulo_13" model="cyg.apu.capitulo">
+            <field name="name">CUBIERTAS Y SUS ELEMENTOS</field>
+            <field name="code">1400</field>
+            <field name="sequence">1</field>
+        </record>
+        <record id="cyg_capitulo_14" model="cyg.apu.capitulo">
+            <field name="name">VENTANAS Y MAMPARAS</field>
+            <field name="code">1500</field>
+            <field name="sequence">1</field>
+        </record>
+        <record id="cyg_capitulo_15" model="cyg.apu.capitulo">
+            <field name="name">PUERTAS Y SUS COMPLEMENTOS</field>
+            <field name="code">1600</field>
+            <field name="sequence">1</field>
+        </record>
+        <record id="cyg_capitulo_16" model="cyg.apu.capitulo">
+            <field name="name">CERRAJERIA</field>
+            <field name="code">1700</field>
+            <field name="sequence">1</field>
+        </record>
+        <record id="cyg_capitulo_17" model="cyg.apu.capitulo">
+            <field name="name">MODULARES Y DECORATIVOS DE MADERA</field>
+            <field name="code">1800</field>
+            <field name="sequence">1</field>
+        </record>
+        <record id="cyg_capitulo_18" model="cyg.apu.capitulo">
+            <field name="name">ELEMENTOS DECORATIVOS EN INTERIORES</field>
+            <field name="code">1900</field>
+            <field name="sequence">1</field>
+        </record>
+        <record id="cyg_capitulo_19" model="cyg.apu.capitulo">
+            <field name="name">ELEMENTOS DECORATIVOS EXTERIORES</field>
+            <field name="code">2000</field>
+            <field name="sequence">1</field>
+        </record>
+        <record id="cyg_capitulo_20" model="cyg.apu.capitulo">
+            <field name="name">INSTALACIONES ELECTRICAS Y TELEFONICAS</field>
+            <field name="code">2100</field>
+            <field name="sequence">1</field>
+        </record>
+        <record id="cyg_capitulo_21" model="cyg.apu.capitulo">
+            <field name="name">SISTEMAS DE AGUAS SERVIDAS/VENTILACION</field>
+            <field name="code">2200</field>
+            <field name="sequence">1</field>
+        </record>
+        <record id="cyg_capitulo_22" model="cyg.apu.capitulo">
+            <field name="name">SISTEMA DE AGUAS LLUVIAS</field>
+            <field name="code">2300</field>
+            <field name="sequence">1</field>
+        </record>
+        <record id="cyg_capitulo_23" model="cyg.apu.capitulo">
+            <field name="name">SISTEMA DE AGUA POTABLE-INCENDIOS</field>
+            <field name="code">2400</field>
+            <field name="sequence">1</field>
+        </record>
+        <record id="cyg_capitulo_24" model="cyg.apu.capitulo">
+            <field name="name">EQUIPOS Y ACCESORIOS ELECTRICOS</field>
+            <field name="code">2500</field>
+            <field name="sequence">1</field>
+        </record>
+        <record id="cyg_capitulo_25" model="cyg.apu.capitulo">
+            <field name="name">ELEMENTO, PIEZAS Y ACCESORIOS SANITARIOS</field>
+            <field name="code">2600</field>
+            <field name="sequence">1</field>
+        </record>
+        <record id="cyg_capitulo_26" model="cyg.apu.capitulo">
+            <field name="name">PINTURAS, LACAS Y ESMALTES</field>
+            <field name="code">2700</field>
+            <field name="sequence">1</field>
+        </record>
+        <record id="cyg_capitulo_27" model="cyg.apu.capitulo">
+            <field name="name">PAVIMENTOS</field>
+            <field name="code">3000</field>
+            <field name="sequence">1</field>
+        </record>
+        <record id="cyg_capitulo_28" model="cyg.apu.capitulo">
+            <field name="name">OBRAS VARIAS</field>
+            <field name="code">3100</field>
+            <field name="sequence">1</field>
+        </record>
+	</data>
+</openerp>
+  

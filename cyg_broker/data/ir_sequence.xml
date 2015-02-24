@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+    	<record forcecreate="1" id="seq_type_cyg_broker" model="ir.sequence.type">
+            <field name="name">CYG BROKER</field>
+            <field name="code">cyg.broker</field>
+        </record>
+        
+        <record forcecreate="1" id="seq_cyg_broker" model="ir.sequence">
+            <field name="name">CYG BROKER</field>
+            <field name="code">cyg.broker</field>
+            <field eval="5" name="padding"/>
+            <field name="prefix">BROKER-%(year)s-%(month)s-</field>
+            <field eval="1" name="number_next"/>
+	    	<field eval="1" name="number_increment"/>
+            <field name="company_id" ref="base.main_company" />
+        </record>
+        
+        <record forcecreate="1" id="seq_type_cyg_broker_payment" model="ir.sequence.type">
+            <field name="name">CYG BROKER PAYMENT</field>
+            <field name="code">cyg.broker.payment</field>
+        </record>
+        
+        <record forcecreate="1" id="seq_cyg_broker_payment" model="ir.sequence">
+            <field name="name">CYG BROKER PAYMENT</field>
+            <field name="code">cyg.broker.payment</field>
+            <field eval="5" name="padding"/>
+            <field name="prefix">PAGO-%(year)s-%(month)s-</field>
+            <field eval="1" name="number_next"/>
+	    	<field eval="1" name="number_increment"/>
+            <field name="company_id" ref="base.main_company" />
+        </record>
+    	
+    	<record forcecreate="1" id="seq_type_cyg_broker_cuota_reasegurador" model="ir.sequence.type">
+            <field name="name">CYG BROKER CUOTA</field>
+            <field name="code">cyg.broker.cuota.reasegurador</field>
+        </record>
+        
+        <record forcecreate="1" id="seq_cyg_broker_cuota_reasegurador" model="ir.sequence">
+            <field name="name">CYG BROKER CUOTA</field>
+            <field name="code">cyg.broker.cuota.reasegurador</field>
+            <field eval="5" name="padding"/>
+            <field name="prefix">REASEGURADOR-%(year)s-%(month)s-</field>
+            <field eval="1" name="number_next"/>
+	    	<field eval="1" name="number_increment"/>
+            <field name="company_id" ref="base.main_company" />
+        </record>
+        
+        <record forcecreate="1" id="seq_type_cyg_broker_cuota_cliente" model="ir.sequence.type">
+            <field name="name">CYG BROKER CUOTA</field>
+            <field name="code">cyg.broker.cuota.cliente</field>
+        </record>
+        
+        <record forcecreate="1" id="seq_cyg_broker_cuota_cliente" model="ir.sequence">
+            <field name="name">CYG BROKER CUOTA</field>
+            <field name="code">cyg.broker.cuota.cliente</field>
+            <field eval="5" name="padding"/>
+            <field name="prefix">CLIENTE-%(year)s-%(month)s-</field>
+            <field eval="1" name="number_next"/>
+	    	<field eval="1" name="number_increment"/>
+            <field name="company_id" ref="base.main_company" />
+        </record>
+    </data>
+</openerp>

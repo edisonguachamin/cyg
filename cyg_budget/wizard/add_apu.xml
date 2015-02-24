@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+		<record id="view_cyg_add_apu_presupuesto" model="ir.ui.view">
+            <field name="name">cyg.add.apu.wiz.form</field>
+            <field name="model">cyg.add.apu.wiz</field>
+            <field name="arch" type="xml">
+            <form string="Buscar APU" version="7.0">
+                <group>
+                    <field name="capitulo_id" string="Capitulo" required="1"/>
+                </group>
+                <footer>
+                    <button name="search_entries" string="Buscar " type="object" class="oe_highlight"/>
+                    or
+                    <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+            </field>
+        </record>
+
+        <record id="view_create_apu_lines" model="ir.ui.view">
+            <field name="name">cyg.add.apu.wiz.form</field>
+            <field name="model">cyg.add.apu.wiz</field>
+            <field name="arch" type="xml">
+                <form string="Buscar" version="7.0">
+                    <group string="APU">
+                        <field name="lines" string="Lista de APU" nolabel="1"/>
+                    </group>
+                    <footer>
+                        <button name="add_apu" string="Agregar" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_create_presupuesto_apu" model="ir.actions.act_window">
+            <field name="name">Agregar APU</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">cyg.add.apu.wiz</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_cyg_add_apu_presupuesto"/>
+            <field name="target">new</field>
+        </record>
+     </data>
+</openerp>
+        

@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+  	<record model="ir.ui.view" id="view_cyg_extras_search">
+      <field name="name">cyg.extras.search</field>
+      <field name="model">cyg.extras</field>
+      <field name="arch" type="xml">
+		<search>
+		  <field name="name"/>
+		</search>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="view_cyg_extras_form">
+      <field name="name">cyg.extras.form</field>
+      <field name="model">cyg.extras</field>
+      <field name="arch" type="xml">
+	<form string="Extras de Inmuebles">
+	  <field name="name"/>
+	  <field name="precio"/>
+	  <field name="description"/>
+	</form>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="view_cyg_extras_tree">
+      <field name="name">cyg.extras.tree</field>
+      <field name="model">cyg.extras</field>
+      <field name="arch" type="xml">
+		<tree string="Extras de Inmuebles">
+		  	<field name="name"/>
+		 	<field name="precio"/>
+		</tree>
+      </field>
+    </record>
+  	
+  	<record model="ir.ui.view" id="view_cyg_seguimiento_tipo_search">
+      <field name="name">cyg.seguimiento.tipo.search</field>
+      <field name="model">cyg.seguimiento_tipo</field>
+      <field name="arch" type="xml">
+		<search>
+		  <field name="name"/>
+		</search>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="view_cyg_seguimiento_tipo_form">
+      <field name="name">cyg.seguimiento.tipo.form</field>
+      <field name="model">cyg.seguimiento_tipo</field>
+      <field name="arch" type="xml">
+	<form string="Tipo">
+	  <field name="name"/>
+	  <field name="note"/>
+	</form>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="view_cyg_seguimiento_tipo_tree">
+      <field name="name">cyg.seguimiento.tipo.tree</field>
+      <field name="model">cyg.seguimiento_tipo</field>
+      <field name="arch" type="xml">
+		<tree string="Tipo">
+		  	<field name="name"/>
+	  <field name="note"/>
+		</tree>
+      </field>
+    </record>
+    
+    <record model="ir.ui.view" id="view_cyg_inmueble_desistimiento_search">
+      <field name="name">cyg.inmueble.desistimiento.search</field>
+      <field name="model">cyg.inmueble.desistimiento</field>
+      <field name="arch" type="xml">
+		<search>
+		  <field name="name"/>
+	 	  <field name="sale_id"/>
+		</search>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="view_cyg_inmueble_desistimiento_form">
+      <field name="name">cyg.inmueble.desistimiento.form</field>
+      <field name="model">cyg.inmueble.desistimiento</field>
+      <field name="arch" type="xml">
+		<form string="Desistimiento" version="7.0">
+			<header>
+		  		<button name="button_validar" states='draft' string="Validar" type="object" class="oe_highlight"/>
+		  		<field name="state" widget="statusbar"/>
+		  	</header>
+		  	<sheet>
+				<group col="4">
+				  <field name="name"/>
+				  <field name="sale_id" invisible="1"/>
+				  <separator string="Motivo" colspan="4"/>
+				  <field name="motivo" nolabel="1" colspan="4"/>
+				  <field name="date"/>
+				  <field name="residual" readonly="1"/>
+				  <field name="total" readonly="1"/>
+				  <field name="valor_recaudado" readonly="1"/>
+				  <field name="valor_retenido" on_change="onchage_valor(residual,total,valor_retenido)" required="1"/>
+				  <field name="valor_devuelto" readonly="1"/>
+			  </group>
+		</sheet>
+		</form>
+      </field>
+    </record>
+    
+    <record model="ir.ui.view" id="view_cyg_inmueble_desistimiento_tree">
+      <field name="name">cyg.inmueble.desistimiento.tree</field>
+      <field name="model">cyg.inmueble.desistimiento</field>
+      <field name="arch" type="xml">
+		<tree string="Descripcion">
+		  	<field name="name"/>
+			  <field name="sale_id"/>
+			  <field name="date"/>
+			  <field name="valor_recaudado"/>
+			  <field name="valor_retenido"/>
+			  <field name="valor_devuelto"/>
+		</tree>
+      </field>
+    </record>
+    
+    <record model="ir.ui.view" id="view_cyg_canal_search">
+      <field name="name">cyg.canal.search</field>
+      <field name="model">cyg.canal</field>
+      <field name="arch" type="xml">
+		<search>
+		  <field name="name"/>
+		  <field name="sequence"/>
+		</search>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="view_cyg_canal_form">
+      <field name="name">cyg.canal.form</field>
+      <field name="model">cyg.canal</field>
+      <field name="arch" type="xml">
+	<form string="Canal de Contactos">
+	  <field name="name"/>
+	  <field name="sequence"/>
+	</form>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="view_cyg_canal_tree">
+      <field name="name">cyg.canal.tree</field>
+      <field name="model">cyg.canal</field>
+      <field name="arch" type="xml">
+		<tree string="Canal de Contacto">
+		  	<field name="name"/>
+		 	<field name="sequence"/>
+		</tree>
+      </field>
+    </record>
+  </data>
+</openerp>
+  

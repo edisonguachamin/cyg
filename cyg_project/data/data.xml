@@ -1,0 +1,534 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+  		<!-- RESPONSABLES -->
+  		<record id="cyg_project_hallazgo_responsables01" model="cyg.project.hallazgo.responsable">
+            <field name="name">Supervisor</field>
+            <field name="code">01</field>
+            <field name="descripcion">Supervisor</field>
+        </record>
+        <record id="cyg_project_hallazgo_responsables02" model="cyg.project.hallazgo.responsable">
+            <field name="name">Jefe de Planta</field>
+            <field name="code">02</field>
+            <field name="descripcion">Jefe de Planta</field>
+        </record>
+        <!-- NORMAS -->
+        <record id="cyg_project_norma01" model="cyg.project.norma">
+            <field name="name">9001</field>
+            <field name="code">01</field>
+            <field name="descripcion">9001</field>
+        </record>
+       	<record id="cyg_project_norma02" model="cyg.project.norma">
+            <field name="name">Q1</field>
+            <field name="code">02</field>
+            <field name="descripcion">Q1</field>
+        </record>
+        <record id="cyg_project_norma03" model="cyg.project.norma">
+            <field name="name">TENARIS</field>
+            <field name="code">03</field>
+            <field name="descripcion">Tenaris</field>
+        </record>
+        <record id="cyg_project_norma04" model="cyg.project.norma">
+            <field name="name">14001</field>
+            <field name="code">04</field>
+            <field name="descripcion">14001</field>
+        </record>
+        <record id="cyg_project_norma05" model="cyg.project.norma">
+            <field name="name">18001</field>
+            <field name="code">04</field>
+            <field name="descripcion">18001</field>
+        </record>
+         <record id="cyg_project_norma06" model="cyg.project.norma">
+            <field name="name">26001</field>
+            <field name="code">05</field>
+            <field name="descripcion">26001</field>
+        </record>
+        <record id="cyg_project_norma07" model="cyg.project.norma">
+            <field name="name">5CT</field>
+            <field name="code">06</field>
+            <field name="descripcion">5CT</field>
+        </record>
+        <record id="cyg_project_norma08" model="cyg.project.norma">
+            <field name="name">5L</field>
+            <field name="code">07</field>
+            <field name="descripcion">5L</field>
+        </record>
+        <record id="cyg_project_norma09" model="cyg.project.norma">
+            <field name="name">7 l</field>
+            <field name="code">09</field>
+            <field name="descripcion">7 l</field>
+        </record>
+        <record id="cyg_project_norma09" model="cyg.project.norma">
+            <field name="name">ASME</field>
+            <field name="code">10</field>
+            <field name="descripcion">ASME</field>
+        </record>
+        <!-- CAUSAS -->
+        <record id="cyg_project_causa01" model="cyg.project.causa">
+            <field name="name">Money</field>
+            <field name="code">01</field>
+            <field name="descripcion">(si fue falta de recursos monetarios, USD)</field>
+        </record>
+        <record id="cyg_project_causa02" model="cyg.project.causa">
+            <field name="name">Máquina</field>
+            <field name="code">02</field>
+            <field name="descripcion">Un análisis de las entradas y salidas de cada máquina que interviene en el proceso, así como de su funcionamiento de 3. principio a fin y los parámetros de configuración, permitirán saber si la causa raíz de un problema está en ellas. </field>
+        </record>
+        <record id="cyg_project_causa03" model="cyg.project.causa">
+            <field name="name">Método</field>
+            <field name="code">03</field>
+            <field name="descripcion">Se trata de cuestionarse la forma de hacer las cosas. Cuando se diseña un proceso, existen una serie de circunstancias y condicionantes (conocimiento, tecnología, materiales,…) procedimientos, manuales, entre otros.</field>
+        </record>
+        <record id="cyg_project_causa04" model="cyg.project.causa">
+            <field name="name">Mano de obra</field>
+            <field name="code">04</field>
+            <field name="descripcion">El personal puede ser el origen de un fallo.  (perfil, cometencia, capacitacion, formacion, actitud, aptitud) </field>
+        </record>
+        <record id="cyg_project_causa05" model="cyg.project.causa">
+            <field name="name">Medio ambiente</field>
+            <field name="code">05</field>
+            <field name="descripcion">Las condiciones ambientales pueden afectar al resultado obtenido y provocar problemas. Valorar las condiciones en las que se ha producido un fallo, infraestructura, entorno, tema social, inseguridad.</field>
+        </record>
+        <record id="cyg_project_causa06" model="cyg.project.causa">
+            <field name="name">Materia prima</field>
+            <field name="code">06</field>
+            <field name="descripcion">Los materiales empleados como entrada son otro de los posibles focos en los que puede surgir la </field>
+        </record>
+        <!-- CODIGO -->
+        <record id="cyg_project_hallazgo_categoria01" model="cyg.project.hallazgo.categoria">
+            <field name="name">NPT</field>
+            <field name="code">NPT</field>
+            <field name="descripcion">Para de trabajo - No pago</field>
+        </record>
+        <record id="cyg_project_hallazgo_categoria02" model="cyg.project.hallazgo.categoria">
+            <field name="name">PNC</field>
+            <field name="code">PNC</field>
+            <field name="descripcion">Producto no Conforme levantada por cliente</field>
+        </record>
+        <record id="cyg_project_hallazgo_categoria03" model="cyg.project.hallazgo.categoria">
+            <field name="name">NCP</field>
+            <field name="code">NCP</field>
+            <field name="descripcion">No conformidad de producto o servicio levantada por cliente</field>
+        </record>
+        <record id="cyg_project_hallazgo_categoria04" model="cyg.project.hallazgo.categoria">
+            <field name="name">NCR</field>
+            <field name="code">NCR</field>
+            <field name="descripcion">No conformidad por inclumplmiento de proceso, objetivo, clausula de norma, queja del cliente.</field>
+        </record>
+        <!-- AREAS DE HALLAZGOS -->
+        <record id="cyg_project_area01" model="cyg.project.area">
+            <field name="name">THB</field>
+            <field name="code">THB</field>
+            <field name="descripcion">Taller Bombeo, packe, sensores, rtm.</field>
+        </record>
+        <record id="cyg_project_area02" model="cyg.project.area">
+            <field name="name">EPF</field>
+            <field name="code">EPF</field>
+            <field name="descripcion">Facilidades tempranas de produccion + manteimiento del area</field>
+        </record>
+        <record id="cyg_project_area03" model="cyg.project.area">
+            <field name="name">LAB</field>
+            <field name="code">LAB</field>
+            <field name="descripcion">Levantamiento Artificial + manteimiento del area</field>
+        </record>
+        <record id="cyg_project_area04" model="cyg.project.area">
+            <field name="name">PRY</field>
+            <field name="code">PRY</field>
+            <field name="descripcion">Proyectos Zona Norte y SUR + manteimiento del area</field>
+        </record>
+        <record id="cyg_project_area05" model="cyg.project.area">
+            <field name="name">ING</field>
+            <field name="code">ING</field>
+            <field name="descripcion">Ingenieria</field>
+        </record>
+        <record id="cyg_project_area06" model="cyg.project.area">
+            <field name="name">ASM</field>
+            <field name="code">ASM</field>
+            <field name="descripcion">Asme + mantenimiento del area</field>
+        </record>
+        <record id="cyg_project_area07" model="cyg.project.area">
+            <field name="name">PPM</field>
+            <field name="code">PPM</field>
+            <field name="descripcion">Planta de Produccion + mantenimiento del area</field>
+        </record>
+        <record id="cyg_project_area08" model="cyg.project.area">
+            <field name="name">COM</field>
+            <field name="code">COM</field>
+            <field name="descripcion">Compras + logisitca</field>
+        </record>
+        <record id="cyg_project_area09" model="cyg.project.area">
+            <field name="name">SGI</field>
+            <field name="code">SGI</field>
+            <field name="descripcion">Gestion Empresarial</field>
+        </record>
+        <record id="cyg_project_area10" model="cyg.project.area">
+            <field name="name">SSA</field>
+            <field name="code">SSA</field>
+            <field name="descripcion">Salud, seguridad y ambiente</field>
+        </record>
+        <record id="cyg_project_area11" model="cyg.project.area">
+            <field name="name">BOG</field>
+            <field name="code">BOG</field>
+            <field name="descripcion">Almacenamiento y bodega</field>
+        </record>
+        
+  		<!-- PRIORIODAD -->
+  		<record id="cyg_project_prioridad01" model="cyg.project.prioridad">
+            <field name="name">Alta</field>
+            <field name="code">3</field>
+            <field name="descripcion">Prioridad Alta</field>
+        </record>
+        
+        <record id="cyg_project_prioridad02" model="cyg.project.prioridad">
+            <field name="name">Media</field>
+            <field name="code">2</field>
+            <field name="descripcion">Prioridad Media</field>
+        </record>
+        
+        <record id="cyg_project_prioridad03" model="cyg.project.prioridad">
+            <field name="name">Baja</field>
+            <field name="code">1</field>
+            <field name="descripcion">Prioridad Baja</field>
+        </record>
+        <!-- Requisitos -->
+  		<record id="cyg_project_requisito01" model="cyg.project.requisito">
+            <field name="name">01</field>
+            <field name="code">01</field>
+            <field name="descripcion">Todo el equipo entregado, instalado y probado (sistemas, estanterías, etc)</field>
+        </record>
+        <record id="cyg_project_requisito02" model="cyg.project.requisito">
+            <field name="name">02</field>
+            <field name="code">02</field>
+            <field name="descripcion">Proyecto de limpieza del sitio y el exceso de extracción de material</field>
+        </record>
+        <record id="cyg_project_requisito03" model="cyg.project.requisito">
+            <field name="name">03</field>
+            <field name="code">03</field>
+            <field name="descripcion">Demostración de funcionamiento del equipo</field>
+        </record>
+        <record id="cyg_project_requisito04" model="cyg.project.requisito">
+            <field name="name">04</field>
+            <field name="code">04</field>
+            <field name="descripcion">Educación y formación</field>
+        </record>
+        <record id="cyg_project_requisito05" model="cyg.project.requisito">
+            <field name="name">05</field>
+            <field name="code">05</field>
+            <field name="descripcion">Garantías Proveedor / Fabricante</field>
+        </record>
+        <record id="cyg_project_requisito06" model="cyg.project.requisito">
+            <field name="name">06</field>
+            <field name="code">06</field>
+            <field name="descripcion">Manuales Proveedor / Fabricante</field>
+        </record>
+        <record id="cyg_project_requisito07" model="cyg.project.requisito">
+            <field name="name">07</field>
+            <field name="code">07</field>
+            <field name="descripcion">Todas las órdenes de cambio de cierre y ejecutados</field>
+        </record>
+        <record id="cyg_project_requisito08" model="cyg.project.requisito">
+            <field name="name">08</field>
+            <field name="code">08</field>
+            <field name="descripcion">Todas las cuestiones de problemas en el registro resueltos y cerrados</field>
+        </record>
+      
+      <record id="cyg_project_requisito09" model="cyg.project.requisito">
+            <field name="name">09</field>
+            <field name="code">09</field>
+            <field name="descripcion">Códigos de centro de costos cerrados</field>
+        </record>
+        <record id="cyg_project_requisito10" model="cyg.project.requisito">
+            <field name="name">10</field>
+            <field name="code">10</field>
+            <field name="descripcion">Los recursos del proyecto liberados de proyectos</field>
+        </record>
+        <record id="cyg_project_requisito11" model="cyg.project.requisito">
+            <field name="name">11</field>
+            <field name="code">11</field>
+            <field name="descripcion">Final de la carta de cerca a los clientes</field>
+        </record>
+        
+        <record id="cyg_project_requisito12" model="cyg.project.requisito">
+            <field name="name">12</field>
+            <field name="code">12</field>
+            <field name="descripcion">Aceptación operacional</field>
+        </record>
+        <!-- PROGRESO -->
+        <record id="cyg_project_progreso01" model="cyg.project.progreso">
+            <field name="name">Inicio</field>
+            <field name="code">01</field>
+            <field name="descripcion">Inicio</field>
+        </record>
+        <record id="cyg_project_progreso02" model="cyg.project.progreso">
+            <field name="name">Planeación</field>
+            <field name="code">02</field>
+            <field name="descripcion">Planeación</field>
+        </record>
+        <record id="cyg_project_progreso03" model="cyg.project.progreso">
+            <field name="name">Ejecución</field>
+            <field name="code">03</field>
+            <field name="descripcion">Ejecución</field>
+        </record>
+        <record id="cyg_project_progreso04" model="cyg.project.progreso">
+            <field name="name">Control</field>
+            <field name="code">04</field>
+            <field name="descripcion">Control</field>
+        </record>
+        <record id="cyg_project_progreso05" model="cyg.project.progreso">
+            <field name="name">Cierre</field>
+            <field name="code">05</field>
+            <field name="descripcion">Cierre</field>
+        </record>
+        <!-- GRUPOS DE ACTIVIDAD -->
+        <record id="cyg_project_grupo_actividad01" model="cyg.project.grupo.actividad">
+            <field name="name">DEFINICIONES</field>
+            <field name="code">01</field>
+            <field name="descripcion">DEFINICIONES</field>
+        </record>
+        <record id="cyg_project_grupo_actividad02" model="cyg.project.grupo.actividad">
+            <field name="name">PLANIFICACIÓN</field>
+            <field name="code">02</field>
+            <field name="descripcion">PLANIFICACIÓN</field>
+        </record>
+        <record id="cyg_project_grupo_actividad03" model="cyg.project.grupo.actividad">
+            <field name="name">IMPLEMENTACIÓN</field>
+            <field name="code">03</field>
+            <field name="descripcion">IMPLEMENTACIÓN</field>
+        </record>
+        <record id="cyg_project_grupo_actividad04" model="cyg.project.grupo.actividad">
+            <field name="name">TRANSICIÓN</field>
+            <field name="code">04</field>
+            <field name="descripcion">TRANSICIÓN</field>
+        </record>
+        
+       <!-- ACTIVIDAD -->
+       <record id="cyg_project_actividad01" model="cyg.project.actividad">
+            <field name="name">Asignar Gerente de Proyecto</field>
+            <field name="grupo_id" ref="cyg_project.cyg_project_grupo_actividad01"/>
+            <field name="code">01</field>
+            <field name="descripcion">Asignar Gerente de Proyecto</field>
+        </record>
+        <record id="cyg_project_actividad02" model="cyg.project.actividad">
+            <field name="name">Reunión de previa al Kick-off del proyecto</field>
+            <field name="grupo_id" ref="cyg_project.cyg_project_grupo_actividad01"/>
+            <field name="code">02</field>
+            <field name="descripcion">Reunión de previa al Kick-off del proyecto</field>
+        </record>
+        <record id="cyg_project_actividad03" model="cyg.project.actividad">
+            <field name="name">Completar Project Charter</field>
+            <field name="grupo_id" ref="cyg_project.cyg_project_grupo_actividad01"/>
+            <field name="code">03</field>
+            <field name="descripcion">Completar Project Charter</field>
+        </record>
+        <record id="cyg_project_actividad04" model="cyg.project.actividad">
+            <field name="name">Identificar las principales partes interesadas</field>
+            <field name="grupo_id" ref="cyg_project.cyg_project_grupo_actividad01"/>
+            <field name="code">04</field>
+            <field name="descripcion">Identificar las principales partes interesadas</field>
+        </record>
+        <record id="cyg_project_actividad05" model="cyg.project.actividad">
+            <field name="name">Establecer la infraestructura de gestión de proyectos</field>
+            <field name="grupo_id" ref="cyg_project.cyg_project_grupo_actividad01"/>
+            <field name="code">05</field>
+            <field name="descripcion">Establecer la infraestructura de gestión de proyectos</field>
+        </record>
+        <record id="cyg_project_actividad06" model="cyg.project.actividad">
+            <field name="name">Revisión de documentación </field>
+            <field name="grupo_id" ref="cyg_project.cyg_project_grupo_actividad01"/>
+            <field name="code">06</field>
+            <field name="descripcion">Revisión de documentación </field>
+        </record>
+        <!-- Fase planificacion -->
+        <record id="cyg_project_actividad07" model="cyg.project.actividad">
+            <field name="name">Desarrollar la organización del proyecto y establecer proveedores</field>
+            <field name="grupo_id" ref="cyg_project.cyg_project_grupo_actividad02"/>
+            <field name="code">07</field>
+            <field name="descripcion">Desarrollar la organización del proyecto y establecer proveedores</field>
+        </record>
+        <record id="cyg_project_actividad08" model="cyg.project.actividad">
+            <field name="name">Realizar reunión de lanzamiento (kick-off)</field>
+            <field name="grupo_id" ref="cyg_project.cyg_project_grupo_actividad02"/>
+            <field name="code">08</field>
+            <field name="descripcion">Realizar reunión de lanzamiento (kick-off)</field>
+        </record>
+        <record id="cyg_project_actividad09" model="cyg.project.actividad">
+            <field name="name">Crear la estructura del proyecto y el diagrama de la red</field>
+            <field name="grupo_id" ref="cyg_project.cyg_project_grupo_actividad02"/>
+            <field name="code">09</field>
+            <field name="descripcion">Crear la estructura del proyecto y el diagrama de la red</field>
+        </record>
+        <record id="cyg_project_actividad10" model="cyg.project.actividad">
+            <field name="name">Desarrollar el Plan de Proyecto / Programación</field>
+            <field name="grupo_id" ref="cyg_project.cyg_project_grupo_actividad02"/>
+            <field name="code">10</field>
+            <field name="descripcion">Desarrollar el Plan de Proyecto / Programación</field>
+        </record>
+        <record id="cyg_project_actividad11" model="cyg.project.actividad">
+            <field name="name">Asignar responsabilidades</field>
+            <field name="grupo_id" ref="cyg_project.cyg_project_grupo_actividad02"/>
+            <field name="code">11</field>
+            <field name="descripcion">Asignar responsabilidades</field>
+        </record>
+        <record id="cyg_project_actividad12" model="cyg.project.actividad">
+            <field name="name">Estimar tiempos - duración</field>
+            <field name="grupo_id" ref="cyg_project.cyg_project_grupo_actividad02"/>
+            <field name="code">12</field>
+            <field name="descripcion">Estimar tiempos - duración</field>
+        </record>
+        <record id="cyg_project_actividad13" model="cyg.project.actividad">
+            <field name="name">Publicar plan de recursos</field>
+            <field name="grupo_id" ref="cyg_project.cyg_project_grupo_actividad02"/>
+            <field name="code">13</field>
+            <field name="descripcion">Publicar plan de recursos</field>
+        </record>
+        <record id="cyg_project_actividad14" model="cyg.project.actividad">
+            <field name="name">Establecer la infraestructura del proyecto</field>
+            <field name="grupo_id" ref="cyg_project.cyg_project_grupo_actividad02"/>
+            <field name="code">14</field>
+            <field name="descripcion">Establecer la infraestructura del proyecto</field>
+        </record>
+        <record id="cyg_project_actividad15" model="cyg.project.actividad">
+            <field name="name">Desarrollar criterios de aceptación del cliente y proceso</field>
+            <field name="grupo_id" ref="cyg_project.cyg_project_grupo_actividad02"/>
+            <field name="code">15</field>
+            <field name="descripcion">Desarrollar criterios de aceptación del cliente y proceso</field>
+        </record>
+        <record id="cyg_project_actividad16" model="cyg.project.actividad">
+            <field name="name">Desarrollar un plan de comunicaciones</field>
+            <field name="grupo_id" ref="cyg_project.cyg_project_grupo_actividad02"/>
+            <field name="code">16</field>
+            <field name="descripcion">Desarrollar un plan de comunicaciones</field>
+        </record>
+        <record id="cyg_project_actividad17" model="cyg.project.actividad">
+            <field name="name">Desarrollar un plan de calidad del proyecto</field>
+            <field name="grupo_id" ref="cyg_project.cyg_project_grupo_actividad02"/>
+            <field name="code">17</field>
+            <field name="descripcion">Desarrollar un plan de calidad del proyecto</field>
+        </record>
+        <record id="cyg_project_actividad18" model="cyg.project.actividad">
+            <field name="name">Desarrollar el plan de adquisiciones</field>
+            <field name="grupo_id" ref="cyg_project.cyg_project_grupo_actividad02"/>
+            <field name="code">18</field>
+            <field name="descripcion">Desarrollar el plan de adquisiciones</field>
+        </record>
+        <record id="cyg_project_actividad19" model="cyg.project.actividad">
+            <field name="name">Revisión y actualización del presupuesto</field>
+            <field name="grupo_id" ref="cyg_project.cyg_project_grupo_actividad02"/>
+            <field name="code">19</field>
+            <field name="descripcion">Revisión y actualización del presupuesto</field>
+        </record>
+        <record id="cyg_project_actividad20" model="cyg.project.actividad">
+            <field name="name">Análisis y actualización de Riesgos</field>
+            <field name="grupo_id" ref="cyg_project.cyg_project_grupo_actividad02"/>
+            <field name="code">20</field>
+            <field name="descripcion">Análisis y actualización de Riesgos</field>
+        </record>
+        <record id="cyg_project_actividad21" model="cyg.project.actividad">
+            <field name="name">Completar documentación</field>
+            <field name="grupo_id" ref="cyg_project.cyg_project_grupo_actividad02"/>
+            <field name="code">21</field>
+            <field name="descripcion">Completar documentación</field>
+        </record>
+        <record id="cyg_project_actividad22" model="cyg.project.actividad">
+            <field name="name">Mantener reunión de revisión</field>
+            <field name="grupo_id" ref="cyg_project.cyg_project_grupo_actividad02"/>
+            <field name="code">22</field>
+            <field name="descripcion">Mantener reunión de revisión</field>
+        </record>
+        <record id="cyg_project_actividad23" model="cyg.project.actividad">
+            <field name="name">Plan del proyecto completado y aprobado</field>
+            <field name="grupo_id" ref="cyg_project.cyg_project_grupo_actividad02"/>
+            <field name="code">23</field>
+            <field name="descripcion">Plan del proyecto completado y aprobado</field>
+        </record>
+        <!-- Transicion Grupo -->
+        <record id="cyg_project_actividad24" model="cyg.project.actividad">
+            <field name="name">Revisión / acordar criterios de finalización</field>
+            <field name="grupo_id" ref="cyg_project.cyg_project_grupo_actividad04"/>
+            <field name="code">24</field>
+            <field name="descripcion">Revisión / acordar criterios de finalización</field>
+        </record>
+        <record id="cyg_project_actividad25" model="cyg.project.actividad">
+            <field name="name">Transferencia de conocimiento</field>
+            <field name="grupo_id" ref="cyg_project.cyg_project_grupo_actividad04"/>
+            <field name="code">25</field>
+            <field name="descripcion">Transferencia de conocimiento</field>
+        </record>
+        <record id="cyg_project_actividad26" model="cyg.project.actividad">
+            <field name="name">Confirmar aceptación del proyecto por parte del cliente</field>
+            <field name="grupo_id" ref="cyg_project.cyg_project_grupo_actividad04"/>
+            <field name="code">26</field>
+            <field name="descripcion">Confirmar aceptación del proyecto por parte del cliente</field>
+        </record>
+        <record id="cyg_project_actividad27" model="cyg.project.actividad">
+            <field name="name">Realizar reunión de cierre (close-out)</field>
+            <field name="grupo_id" ref="cyg_project.cyg_project_grupo_actividad04"/>
+            <field name="code">27</field>
+            <field name="descripcion">Realizar reunión de cierre (close-out)</field>
+        </record>
+        <record id="cyg_project_actividad28" model="cyg.project.actividad">
+            <field name="name">Firma de documentación de cierre</field>
+            <field name="grupo_id" ref="cyg_project.cyg_project_grupo_actividad04"/>
+            <field name="code">28</field>
+            <field name="descripcion">Firma de documentación de cierre</field>
+        </record>
+        <record id="cyg_project_actividad29" model="cyg.project.actividad">
+            <field name="name">Producir informes de fin de proyecto</field>
+            <field name="grupo_id" ref="cyg_project.cyg_project_grupo_actividad04"/>
+            <field name="code">29</field>
+            <field name="descripcion">Producir informes de fin de proyecto</field>
+        </record>
+        <record id="cyg_project_actividad30" model="cyg.project.actividad">
+            <field name="name">Levantamiento de lecciones aprendidas</field>
+            <field name="grupo_id" ref="cyg_project.cyg_project_grupo_actividad04"/>
+            <field name="code">30</field>
+            <field name="descripcion">Levantamiento de lecciones aprendidas</field>
+        </record>
+        <record id="cyg_project_actividad31" model="cyg.project.actividad">
+            <field name="name">Completar y archivar documentación del proyecto</field>
+            <field name="grupo_id" ref="cyg_project.cyg_project_grupo_actividad04"/>
+            <field name="code">31</field>
+            <field name="descripcion">Completar y archivar documentación del proyecto</field>
+        </record>
+        <record id="cyg_project_actividad32" model="cyg.project.actividad">
+            <field name="name">Cierre de la organización del proyecto</field>
+            <field name="grupo_id" ref="cyg_project.cyg_project_grupo_actividad04"/>
+            <field name="code">32</field>
+            <field name="descripcion">Cierre de la organización del proyecto</field>
+        </record>
+        <record id="cyg_project_actividad33" model="cyg.project.actividad">
+            <field name="name">Proyecto cerrado</field>
+            <field name="grupo_id" ref="cyg_project.cyg_project_grupo_actividad04"/>
+            <field name="code">33</field>
+            <field name="descripcion">Proyecto cerrado</field>
+        </record>
+        <record id="cyg_project_actividad34" model="cyg.project.actividad">
+            <field name="name">Auditoría post implementación</field>
+            <field name="grupo_id" ref="cyg_project.cyg_project_grupo_actividad04"/>
+            <field name="code">34</field>
+            <field name="descripcion">Auditoría post implementación</field>
+        </record>
+        <!-- Actividad Correctiva -->
+        <record id="cyg_project_actividad_correctiva01" model="cyg.project.actividad.correctiva">
+            <field name="name">a) Se genera el registro de inspección inicial de reparación para el correcto despacho de los materiales solicitados</field>
+            <field name="code">01</field>
+            <field name="descripcion">a) Se genera el registro de inspección inicial de reparación para el correcto despacho de los materiales solicitados</field>
+        </record>
+        <record id="cyg_project_actividad_correctiva02" model="cyg.project.actividad.correctiva">
+            <field name="name">b) Se construye un Gage Ball calibre para el verificar el diámetro de la esfera ST-Valve.</field>
+            <field name="code">02</field>
+            <field name="descripcion">b) Se construye un Gage Ball calibre para el verificar el diámetro de la esfera ST-Valve.</field>
+        </record>
+        <record id="cyg_project_actividad_correctiva03" model="cyg.project.actividad.correctiva">
+            <field name="name">c) Se genera el registro de inspección final para la comprobación de dimensiones de los elementos montados</field>
+            <field name="code">03</field>
+            <field name="descripcion">c) Se genera el registro de inspección final para la comprobación de dimensiones de los elementos montados</field>
+        </record>
+        <record id="cyg_project_actividad_correctiva04" model="cyg.project.actividad.correctiva">
+            <field name="name">d) Se adjunta el registro de la prueba hidrostática del funcionamiento del equipo armado</field>
+            <field name="code">04</field>
+            <field name="descripcion">d) Se adjunta el registro de la prueba hidrostática del funcionamiento del equipo armado</field>
+        </record>
+  </data>
+</openerp>
+  

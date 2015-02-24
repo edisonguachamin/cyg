@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<openerp>
+  <data  noupdate="1">
+
+    
+    <!-- Reports -->
+    <delete model="ir.actions.report.xml" id="sale.report_sale_order"/>
+    
+
+    
+  </data>
+</openerp>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    	<record id="cyg_view_category_form" model="ir.ui.view">
+            <field name="name">cyg.product.category</field>
+            <field name="model">product.category</field>
+            <field name="inherit_id" ref="product.product_category_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='type']" position="after">
+                    <field name="prefix" required="1" help="Este campo sirve para codificar los productos dependiendo de la categoria Eg. MO-001 Rubro de Mano de Obra"/>
+                    <newline/>
+                </xpath>
+            </field>
+        </record>
+    	<record id="cyg_view_product_form" model="ir.ui.view">
+            <field name="name">cyg.product.product</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='list_price']" position="after">
+                    <field name="rendimiento"/>
+                    <field name="desperdicio"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+	<record model="ir.ui.view" id="view_cyg_inmueble_cuota_search">
+      <field name="name">cyg.inmueble.cuota.search</field>
+      <field name="model">cyg.inmueble.cuota</field>
+      <field name="arch" type="xml">
+		<search>
+		  <filter icon="terp-document-new" string="Pendiente" domain="[('state','=','done')]" help="Cuotas Pendientes"/>
+		  <filter icon="terp-document-new" string="Pagadas" domain="[('state','=','paid')]" help="Cuotas Pagadas"/>
+		  <field name="fecha"/>
+		  <field name="fecha_pago"/>
+		  <field name="comprobante"/>
+		  <field name="code"/>
+		  <field name="sale_id"/>
+		  <field name="partner_id"/>
+		  <field name="project_id"/>
+		  <field name="inmueble_id"/>
+		  <field name="etapa_id"/>
+		  <field name="state"/>
+		  <group expand="0" string="Agrupar por...">
+                  <filter string="Cliente" icon="terp-personal" domain="[]" context="{'group_by':'partner_id'}"/>
+                  <filter string="Proyecto" icon="terp-go-home" domain="[]" context="{'group_by':'project_id'}"/>
+                  <filter string="Inmueble" icon="STOCK_UNINDENT" domain="[]" context="{'group_by':'inmueble_id'}"/>
+                  <filter string="Fecha" domain="[]" context="{'group_by':'fecha'}"/>
+          </group>
+		</search>
+      </field>
+    </record>
+    
+	 <record model="ir.ui.view" id="view_cyg_inmueble_cuota_tree">
+      <field name="name">cyg.inmueble.cuota.tree</field>
+      <field name="model">cyg.inmueble.cuota</field>
+      <field name="arch" type="xml" >
+			<tree colors="gray:state=='paid';blue:state=='done'" string="Cuotas">
+                <field name="code"/>
+                <field name="partner_id"/>
+                <field name="project_id"/>
+                <field name="etapa_id"/>
+                <field name="inmueble_id"/>
+                <field name="sale_id"/>
+                <field name="cuota"/>
+                <field name="fecha"/>
+                <field name="fecha_pago"/>
+                <field name="comprobante"/>
+                <field name="cliente" sum="Cliente"/>
+                <field name="pagado_acumulado" sum="Pagado"/>
+                <!--  <field name="pagado" sum="Pagado"/>-->
+                <field name="pendiente" sum="Pendiente"/>
+                <field name="concepto"/>
+                <field name="state"/>
+                <field name="vencido" sum="Vencido"/>
+                <field name="amount_interes_mora" sum="Interes Mora"/>
+			</tree>
+      </field>
+    </record>
+	<record model="ir.ui.view" id="view_cyg_inmueble_cuota_form">
+	      <field name="name">cyg.inmueble.cuota.form</field>
+	      <field name="model">cyg.inmueble.cuota</field>
+	      <field name="arch" type="xml">
+			<form string="Cuotas" version="7.0">
+			  <header>
+			  	<button name="button_validar" states="draft" string="Validar" type="object" class="oe_highlight"/>
+		  		<button name="%(cyg_cuota)d" string="Imprimir" type="action" icon="gtk-print" class="oe_highlight" states="paid"/>
+		  		<button name="button_to_draft" attrs="{'invisible':['|','|',('afecta_precio','=',False),('state','=','draft')]}" string="Volver a Borrador" type="object" class="oe_highlight"/>
+		  		<field name="state" statusbar_visible="draft,done,paid,desistido" widget="statusbar"/>
+		  	  </header>
+		  	  <sheet>
+		  	  <group col="4">
+				  <group colspan="2" >
+				  	  <separator colspan="2" string="Cuota" />
+				  	  <field name="code" readonly="1"/>
+				  	  <field name="parcial" />
+				  	  <field name="partner_id" context="{'create_cuota':True}" on_change="onchange_partner_id(partner_id,context)" required="1" attrs="{'readonly':[('state','!=','draft')]}" options="{'no_open':True, 'limit': 10, 'create': false, 'create_edit': false}"/>
+					  <field name="inmueble_id" on_change="onchange_inmueble(inmueble_id)" domain="[('partner_id','=',partner_id)]" attrs="{'invisible':[('partner_id','=',False)], 'required':[('partner_id','!=',False)],'readonly':[('state','!=','draft')]}" options="{'no_open':True, 'limit': 10, 'create': false, 'create_edit': false}"/>
+					  <field name="project_id" readonly="1" attrs="{'invisible':[('inmueble_id','=',False)]}" options='{"no_open":True}'/>
+					  <field name="etapa_id" readonly="1" attrs="{'invisible':[('inmueble_id','=',False)]}" options='{"no_open":True}'/>
+					  <field name="sale_id" readonly="1" string="Pedido de Venta" attrs="{'invisible':[('inmueble_id','=',False)]}" options='{"no_open":True}'/>
+					  <field name="valor_total_venta" readonly="1" string="Total Venta" attrs="{'invisible':[('sale_id','=',False)]}"/>
+					  <field name="cuota" invisible="0" string="Nro de Cuota" attrs="{'readonly':[('state','!=','draft')]}"/>
+					  <field name="concepto" required="1" attrs="{'readonly':[('state','!=','draft')]}"/>
+					  <field name="fecha" context="{'valor':1}" required="1" on_change="onchange_date(fecha)" attrs="{'readonly':['|',('parcial','=',True),('state','=','paid')]}"/>
+				      <field name="cliente" string="Valor Cuota" required="1" attrs="{'readonly':['|',('parcial','=',True),('state','=','paid')]}"/>
+				      
+				  </group>
+				  <group colspan="2" attrs="{'invisible':[('state','=','draft')]}">
+				  	  <separator colspan="2" string="Pago"/>
+				  	  <field name="name" invisible="1"/>
+				  	  <field name="user_id" readonly="1"/>
+				  	  <field name="fecha_pago" readonly="1"/>
+				  	  <field name="comprobante" readonly="1"/>
+				  	  <field name="bank_id" readonly="1"/>
+				  	  <field name="pagado_acumulado" />
+					  <field name="pendiente" readonly="1"/>
+					  <field name="mora" invisible="0"/>
+					  <field name="vencido" />
+					  <field name="amount_interes_mora"/>
+				  </group>
+			  </group>
+			  <group>
+			  <separator colspan="4" string="Observaciones" />
+				<field name="observacion" nolabel="1" placeholder="Notas Adicionales" colspan="4"/>
+			  </group>
+			  </sheet>
+			</form>
+	      </field>
+    </record>
+    
+    <record model="ir.actions.act_window" id="action_cyg_inmueble_cuota">
+	      <field name="name">Cuotas</field>
+	      <field name="res_model">cyg.inmueble.cuota</field>
+	      <field name="view_type">form</field>
+	      <field name="view_mode">tree,form</field>
+	      <field name="domain">[('state','in',['done','paid'])]</field>
+	      <field name="context">{'default_tree_cuota':'create_cuota'}</field>
+	      <field name="search_view_id" ref="view_cyg_inmueble_cuota_search"/>
+	    </record>
+	    
+	    <record id="action_cyg_inmueble_cuota_tree" model="ir.actions.act_window.view">
+            <field name="sequence" eval="0"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_cyg_inmueble_cuota_tree"/>
+            <field name="act_window_id" ref="action_cyg_inmueble_cuota"/>
+        </record>
+        
+        <record id="action_cyg_inmueble_cuota_form" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_cyg_inmueble_cuota_form"/>
+            <field name="act_window_id" ref="action_cyg_inmueble_cuota"/>
+        </record>
+	    
+	    <menuitem id="menu_cyg_inmueble_cuota" name="Cuotas"
+		      action="action_cyg_inmueble_cuota"
+		      parent="cyg_inmobiliario_sales"
+		      sequence="100"
+		      groups="base.group_sale_salesman,base.group_sale_manager,group_cyg_usuario_externo"
+		      />
+    
+  	
+  </data>
+</openerp>

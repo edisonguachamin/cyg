@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="view_cyg_inmueble_cuota_pay" model="ir.ui.view">
+            <field name="name">cyg.inmueble.cuota.pay</field>
+            <field name="model">cyg.inmueble.cuota</field>
+            <field name="inherit_id" ref="cyg_sale.view_cyg_inmueble_cuota_form"/>
+            <field name="arch" type="xml">
+            	
+                <xpath expr="//button[@name='button_to_draft']" position="after">
+                    <button name="customer_pay_abono" type="object" string="Registrar Descuentos"
+                         attrs="{'invisible': [('state','!=','done')]}" groups="base.group_user"/>
+                    <button name="customer_pay_mora" type="object" string="Registrar Mora"
+                        attrs="{'invisible': ['|','|','|','|',('state','!=','done'),('mora','!=',False),('mora_paid','!=',False),('vencido','=',0.00)]}" groups="base.group_user"/>
+                    <button name="customer_pay_extra" type="object" string="Registrar Extra"
+                        attrs="{'invisible': ['|','|',('state','!=','done'),('mostrar_extra','!=',True)]}" groups="base.group_user"/>
+                </xpath>
+                <xpath expr="/form/sheet/group[@col='4']/group[@colspan='2']/field[@name='cliente']" position="after">
+                	<field name="afecta_precio" on_change="onchange_mostrar_extra(afecta_precio)" attrs="{'readonly':[('state','!=','draft')]}"/>
+                	<field name="mostrar_extra" invisible="1"/>
+                </xpath>
+                <xpath expr="//form/sheet/group[@col='4']" position="after">
+                    <field name="mostrar_pagos" invisible="1"/>
+                    <field name="mora_paid" invisible="1"/>
+                    <group>
+                    <group col="4" attrs="{'invisible':['|','|',('afecta_precio','!=','no'),('state','not in',['paid','done'])]}">
+					  	<field name="valor_extra" readonly="1"/>
+					  	<field name="fecha_pago_extra" readonly="1"/>
+					  	<field name="descripcion_extra" colspan="4" readonly="0"/>
+					</group>
+                    <field name="deposit_ids" nolabel="1" readonly="1" attrs="{'invisible':[('mostrar_pagos','!=',True)]}" colspan="4">
+				  		<form string="Registros" version="7.0">
+							<header>
+						  		<field name="state" widget="statusbar"/>
+						  	</header>
+						  	<sheet>
+							  	<div class="oe_right oe_button_box" name="buttons" groups="base.group_user">
+					                 <button name="attachment_tree_view" string="Documentos adjuntos" type="object"/>
+					            </div>
+								<group col="4">
+								  <field name="name" class="oe_inline" readonly="1"/>
+								  <field name="type" readonly="1"/>
+								  <field name="user_id" readonly="1"/>
+								  <field name="date" readonly="1"/>
+								  <field name="date_payment" string="Fecha de Abono" required="1"/>
+								  <field name="comprobante" />
+								  <field name="proyecto_id" readonly="1" />
+								  <field name="inmueble_id" readonly="1"  options="{'no_open': True}"/>
+								  <field name="partner_id" readonly="1"  options='{"no_open":True}'/>
+								  <field name="sale_id" readonly="1" string="Pedido de Venta" />
+								  <field name="date_interes" string="Fecha de Vencimiento" readonly="1"/>
+								  <field name="cuota_id" readonly="1" string="Cuota" />
+								  <field name="amount" string="Valor" required="1"/>
+							  	</group>
+							  	<field name="payment_deposit_line_ids" nolabel="1" readonly="1">
+							  		<form>
+							  			 <field name="name"/>
+							  			 <field name="cuota_id"/>
+							  			 <field name="fecha"/>
+							  			 <field name="valor_cuota"/>
+							  			 <field name="valor_mora"/>
+							  			 <field name="valor_extra"/>
+							  			 <field name="amount"/>
+							  			 <field name="valor_pendiente_cuota"/>
+							  			 <field name="valor_pendiente_mora"/>
+							  		</form>
+							  		<tree>
+							  			 <field name="name"/>
+							  			 <field name="cuota_id"/>
+							  			 <field name="fecha"/>
+							  			 <field name="valor_cuota"/>
+							  			 <field name="valor_mora"/>
+							  			 <field name="valor_extra"/>
+							  			 <field name="amount"/>
+							  			 <field name="valor_pendiente_cuota"/>
+							  			 <field name="valor_pendiente_mora"/>
+							  		</tree>
+							    </field>
+							    <div class="oe_clear"/>
+					            <field name="note" class="oe_inline" placeholder="Notas Adicionales..."/>
+						  </sheet>
+						</form>
+						<tree>
+							 <field name="name" class="oe_inline" readonly="1"/>
+								  <field name="type" readonly="1"/>
+								  <field name="user_id" readonly="1"/>
+								  <field name="date" readonly="1"/>
+								  <field name="date_payment" string="Fecha de Pago o Abono" />
+								  <field name="amount_interes_mora" string="Valor devengado a la fecha" readonly="1"/>
+								  <field name="amount" string="Valor" required="1"/>
+						</tree>
+				  	</field>
+			  		</group>
+						   
+                </xpath>
+                
+            </field>
+        </record>
+        
+        
+        
+        
+        
+    </data>
+</openerp>

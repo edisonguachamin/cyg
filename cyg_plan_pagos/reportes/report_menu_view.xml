@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+		 
+		 <report
+            auto="False"
+            id="cyg_payment"
+            model="cyg.payment"
+            name="cyg_payment"  
+            rml="cyg_plan_pagos/reportes/report_payment.rml"
+            string="Comprobante de Pago"
+            usage="default"
+            attachment="(object.state in ('done')) and ((object.name or '').replace('/','')+'.pdf')"
+            attachment_use="True"
+            multi="True"
+          />
+          <report
+            auto="False"
+            id="sale_order_statement"
+            model="sale.order"
+            name="cyg_statement"
+            rml="cyg_plan_pagos/reportes/report_statement.rml"
+            string="Estado de Cuenta"
+            usage="default"
+            />
+			<!--  attachment="(object.state in ('open','paid')) and ('INV'+(object.number or '').replace('/','')+'.pdf')"-->
+            <!--  attachment_use="True"-->
+            <!--  usage="default"-->          
+          
+    </data>
+</openerp>

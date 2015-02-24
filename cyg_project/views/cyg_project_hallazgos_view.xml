@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="view_cyg_project_hallazgos_search">
+	      <field name="name">cyg.project.hallazgos.search</field>
+	      <field name="model">cyg.project.hallazgos</field>
+	      <field name="type">search</field>
+	      <field name="arch" type="xml">
+			<search>
+			  <filter name="draft" string="Borrador" domain="[('state','=','draft')]" help="Borrador"/>
+			  <filter name="abierto" string="Abierto" domain="[('state','=','abierto')]" help="Abierto"/>
+			  <filter name="cerrado" string="Cerrado" domain="[('state','=','cerrado')]" help="Cerrado"/>
+			  <filter name="verificado" string="Verificado" domain="[('state','=','verificado')]" help="Verificado"/>
+			  <field name="name"/>
+			  <field name="country_id"/>
+			  <field name="origen_id"/>
+			  <field name="cliente_id"/>
+			  <field name="numero"/>
+			  <field name="area_id"/>
+			  <field name="responsable_id"/>
+			</search>
+	      </field>
+	    </record>
+	    
+	    <record model="ir.ui.view" id="view_cyg_project_hallazgos_tree">
+	      <field name="name">cyg.project.hallazgos.tree</field>
+	      <field name="model">cyg.project.hallazgos</field>
+	      <field name="arch" type="xml">
+			<tree  string="Hallazgos">
+			  <field name="name"/>
+			  <field name="country_id"/>
+			  <field name="origen_id"/>
+			  <field name="cliente_id"/>
+			  <field name="numero"/>
+			  <field name="area_id"/>
+			  <field name="responsable_id"/>
+			  <field name="state"/>
+			</tree>
+	      </field>
+	    </record>
+	    
+	    <record model="ir.ui.view" id="view_cyg_project_hallazgos_form">
+	      <field name="name">cyg.project.hallazgos.form</field>
+	      <field name="model">cyg.project.hallazgos</field>
+	      <field name="type">form</field>
+	      <field name="arch" type="xml">
+			<form string="Hallazgos" version="7.0">
+			<header>
+				<field name="state" widget="statusbar" statusbar_colors='{"abierto":"blue","verificado":"blue"}'/>
+			</header>
+			<sheet>
+				<div class="oe_right oe_button_box" name="buttons" groups="base.group_user">
+                 	<button name="attachment_tree_view" string="Adjuntar Archivos" type="object"/>
+             	</div>
+				<h1><field name="name" class="oe_inline" readonly="1"/></h1>
+				<group col="4" colspan="4">
+					<field name="grado_id" />
+					<field name="nro_informe" />
+					<field name="country_id" options="{'limit': 10, 'create': false, 'create_edit': false}"/>
+				  	<field name="anio"  on_change="onchange_anio(anio)"/>
+				  	<field name="origen_id"  />
+				  	<field name="auditor_id"  />
+				  	<field name="partner_id"  />
+				  	<field name="cliente_id"  />
+				  	<field name="sitio_id"  />
+				  	<field name="categoria_id"  />
+				  	<field name="numero"  />
+				  	<field name="area_id"  />
+				  	<field name="responsable_id"  />
+				  	<newline/>
+				  	<field name="fecha_emision"  required="1"/>
+				  	<field name="fecha_entrega"  on_change="onchange_fechas(fecha_entrega,fecha_cierre,fecha_emision,fecha_control,fecha_planificacion)"/>
+				  	<field name="fecha_planificacion"  on_change="onchange_fechas(fecha_entrega,fecha_cierre,fecha_emision,fecha_control,fecha_planificacion)"/>
+				  	<field name="fecha_cierre"  on_change="onchange_fechas(fecha_entrega,fecha_cierre,fecha_emision,fecha_control,fecha_planificacion)"/>
+				  	<field name="fecha_control"  on_change="onchange_fechas(fecha_entrega,fecha_cierre,fecha_emision,fecha_control,fecha_planificacion)"/>
+				  	<field name="tiempo_cierre" />
+			  	  	<separator string="Descripción del Hallazgo" colspan="4"/>
+  				  	<field name="hallazgos_line_ids" colspan='4' nolabel="1">
+		  				<tree string="Descripción del Hallazgo">
+			  				<field name="hallazgos_id" invisible="1"/>
+			  				<field name="norma_id"  />
+			  				<field name="clausula_id"  />
+			  				<field name="avance" />
+			  				<field name="state" />
+		  				</tree>
+		  				<form string="Descripción del Hallazgo" version="7.0">
+			  				<header>
+								<field name="state" widget="statusbar"/>
+							</header>
+							<sheet>
+							 <div class="oe_right oe_button_box" name="buttons" groups="base.group_user">
+			                 	<button name="attachment_tree_view" string="Adjuntar Archivos" type="object"/>
+			             	 </div>
+			  				 <group>
+			  				 	<group col="4" colspan="4">
+			  					<field name="hallazgos_id" invisible="1"/>
+			  					<field name="id" invisible="0"/>
+				  				<field name="norma_id"  required="1" context="{'form_view_ref':'cyg_project.view_cyg_project_norma_form'}"/>
+				  				<field name="clausula_id" required="1" domain="[('norma_id','=',norma_id)]" on_change="onchange_clausula(clausula_id)"/>
+				  				<separator string="Descripción Clausula" colspan="4"/>
+				  				<field name="descripcion" colspan='4' nolabel="1" attrs="{'invisible':[('clausula_id','=',False)]}"/>
+				  				<field name="avance" />
+				  				<separator string="Descripción del Hallazgo" colspan="4"/>
+				  				<field name="descripcion_hallazgo" colspan='4' nolabel="1" placeholder="Descripción de la falla, el problema, o la situación (Si es necesario adjuntar informe)"/>
+				  				<field name="impacto_id"  />
+				  				<!-- <separator string="Acción curativa o inmediata" colspan="4"/> -->
+							  	<!-- <field name="accion"  colspan='4' nolabel="1"/> -->
+							  	</group>
+							  	<separator string="Análisis de la Causa" colspan="4"/>
+							  	<field name="causas_ids" colspan='4' nolabel="1">
+							  		<tree editable="bottom">
+							  			<field name="hallazgo_line_id"  invisible="1"/>
+							  			<!-- <field name="causa_id"  on_change="onchange_causa(causa_id)"/> -->
+							  			<field name="causa_id" />
+						  				<field name="descripcion_causa" attrs="{'invisible':[('causa_id','=',False)]}" colspan='4' nolabel="1"/>
+							  		</tree>
+							  	</field>
+							  	<separator string="Acción correctiva propuesta" colspan="4"/>
+							  	<field name="accion_correctiva_ids" colspan='4' nolabel="1">
+							  		<tree editable="bottom">
+							  			<field name="hallazgo_line_id"  invisible="1"/>
+							  			<field name="name" required="1" />
+						  				<!--  <field name="descripcion" colspan='4' nolabel="1"/>-->
+							  		</tree>
+							  	</field>
+				  				<separator string="Actividades para implementar la acción correctiva" colspan="4"/>
+						  		<field name="actividades_ids" colspan='4' nolabel="1">
+						  			<form string="Actividad" version="7.0">
+							  			<header>
+										<field name="state" widget="statusbar"/>
+										</header>
+									<sheet>
+										<div class="oe_right oe_button_box" name="buttons" groups="base.group_user">
+	                 						<button name="attachment_tree_view" string="Adjuntar Archivos" type="object"/>
+	             						</div>
+						  				<group colspan="4">
+						  					<group col="2" colspan="4">
+						  					<field name="new_accion_id" required="1" on_change="onchange_accion(new_accion_id)" domain="[('hallazgo_line_id','=',parent.id)]" options="{'limit': 10, 'create': false, 'create_edit': false}"/>
+						  					<field name="actividad_id" required="1"  />
+						  					</group>
+						  					<group col="4" colspan="4">
+						  					<field name="presupuesto_requerido"/>
+						  					<field name="partner_id"/>
+						  					<field name="prioridad_id" required="1" options="{'limit': 10, 'create': false, 'create_edit': false}"/>
+						  					<field name="linea_negocio"/>
+						  					<field name="presupuesto_ejecutado"/>
+						  					<field name="nro_orden_compra"/>
+						  					<field name="date_inicio"/>
+						  					<field name="date_fin"/>
+						  					<field name="sequence" string="Secuencia" required="1"/>
+						  					</group>
+						  					<separator string="Seguimiento" colspan="4"/>
+						  					<field name="seguimiento_ids"  colspan='4' nolabel="1">
+								  				<tree string="Seguimiento" editable="bottom">
+								  					<field name="name" invisible="1"/>
+									  				<field name="actividad_id" invisible="1"/>
+									  				<field name="date" required="1"/>
+									  				<field name="observacion" />
+								  				</tree>
+								  			</field>
+								  			<group col="4" colspan="4">
+								  			<field name="fecha_cierre" on_change="onchange_cierre(fecha_cierre,porcentage_avance)"/>
+								  			<field name="porcentage_avance" on_change="onchange_cierre(fecha_cierre,porcentage_avance)" required="1"/>
+								  			<field name="name" invisible="1"/>
+						  					<field name="hallazgo_line_id" invisible="1"/>
+								  			</group>
+								  			<separator string="Observación" colspan="4"/>
+								  			<field name="observacion" colspan='4' nolabel="1"/>
+						  				</group>
+						  			</sheet>
+						  			</form>
+					  				<tree string="Actividades">
+					  					<field name="name" invisible="1"/>
+					  					<field name="hallazgo_line_id" invisible="1"/>
+					  					<field name="sequence" required="1"/>
+					  					<field name="new_accion_id"/>
+					  					<field name="actividad_id" required="1"/>
+					  					<field name="porcentage_avance"/>
+					  					<field name="date_inicio"/>
+					  					<field name="date_fin"/>
+					  					<field name="prioridad_id"/>
+					  					<field name="state"/>
+					  				</tree>
+					  			</field>
+						  	</group>
+						  	</sheet>
+			  				</form>
+		  			</field>
+  				<separator string="Observaciones" colspan="4"/>
+				<field name="observaciones"  colspan='4' nolabel="1"/>
+				</group>
+			</sheet>
+			</form>
+	      </field>
+	    </record>
+	    <record id="action_cyg_project_hallazgos" model="ir.actions.act_window">
+            <field name="name">Hallazgos</field>
+            <field name="res_model">cyg.project.hallazgos</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click para crear nuevo hallazgos
+              </p>
+              <p>
+                Defina nuevos hallazgos
+              </p>
+            </field>
+        </record>
+                
+    </data>
+</openerp>
+        

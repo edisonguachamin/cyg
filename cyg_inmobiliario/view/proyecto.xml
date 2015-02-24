@@ -1,0 +1,1728 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+    <menuitem id="menu_cyg_root_proyecto_inmobiliario" name="Proyectos"
+	      sequence="1" groups="group_cyg_inmo_manager_proyectos,group_cyg_inmo_user_proyectos,group_cyg_inmo_read_proyectos,group_cyg_inmo_manager_trans_dominio,group_cyg_inmo_user_trans_domino,group_cyg_inmo_read_trans_domino"/>
+
+    <menuitem id="menu_cyg_second_level_proyecto_inmobiliario" name="Proyectos"
+	      parent="menu_cyg_root_proyecto_inmobiliario"
+	      sequence="1"
+	      />
+
+    <menuitem id="menu_cyg_proyecto_inmobiliario" name="Proyectos"
+	      parent="cyg_base.cyg_raiz_inmobiliario"
+	      sequence="1"
+	      />
+	
+	<!-- Estos formulario se crearon con la finalidad de mostrar o ocultar el piso desde la parte de proyecto -->
+	<record id="cyg_etapa_tree_view" model="ir.ui.view">
+          <field name="name">cyg.proyecto_etapa.tree</field>
+          <field name="model">cyg.proyecto_etapa</field>
+          <field eval="7" name="priority"/>
+          <field name="arch" type="xml">
+              <tree string="Etapas 1">
+                  <field name="name"/>
+                  <!--  <field name="pisos" sum="Pisos" />-->
+                  <field name="unidades" sum="Unidades"/>
+                  <field name="presupuesto_id"/>
+              </tree>
+          </field>
+      </record>
+      
+      <record id="cyg_etapa_form_view" model="ir.ui.view">
+            <field name="name">cyg.proyecto_etapa.form</field>
+            <field name="model">cyg.proyecto_etapa</field>
+            <field name="arch" type="xml">
+                <form string="Etapa" version="7.0">
+                     <sheet>
+                         <field name="proyecto_id" invisible="1"/>
+                         <label for="name" class="oe_edit_only"/>
+                         <h1><field name="name" placeholder="Etapa"/></h1>
+                         <group colspan="2" col="4">
+                             <!--  <field name="pisos"/>-->
+                             <field name="unidades"/>
+                             <field name="presupuesto_id" colspan="4"
+                                    domain="[('proyecto_id','=',proyecto_id),('codigo','=','cartera')]"/>
+                             <!--  <field name="piso_ids" nolabel="1" colspan="4">
+                                 <tree>
+                                     <field name="name"/>
+                                     <field name="numero"/>
+                                     <field name="num_inmuebles"/>
+                                 </tree>
+                             </field>
+                            -->
+                         </group>
+                     </sheet>
+                 </form>
+            </field>
+        </record>
+        
+        
+    <record id="cyg_etapa_tree2_view" model="ir.ui.view">
+          <field name="name">cyg.proyecto_etapa.tree2</field>
+          <field name="model">cyg.proyecto_etapa</field>
+          <field eval="7" name="priority"/>
+          <field name="arch" type="xml">
+              <tree string="Etapas 1">
+                  <field name="name"/>
+                  <field name="pisos" sum="Pisos" />
+                  <field name="unidades" sum="Unidades"/>
+                  <field name="presupuesto_id"/>
+              </tree>
+          </field>
+      </record>
+      
+      <record id="cyg_etapa_form2_view" model="ir.ui.view">
+            <field name="name">cyg.proyecto_etapa.form2</field>
+            <field name="model">cyg.proyecto_etapa</field>
+            <field name="arch" type="xml">
+                <form string="Etapa" version="7.0">
+                     <sheet>
+                         <field name="proyecto_id" invisible="1"/>
+                         <label for="name" class="oe_edit_only"/>
+                         <h1><field name="name" placeholder="Etapa"/></h1>
+                         <group colspan="2" col="4">
+                             <field name="pisos"/>
+                             <field name="unidades"/>
+                             <field name="presupuesto_id" colspan="4"
+                                    domain="[('proyecto_id','=',proyecto_id),('codigo','=','cartera')]"/>
+                             <field name="piso_ids" nolabel="1" colspan="4">
+                                 <tree>
+                                     <field name="name"/>
+                                     <field name="numero"/>
+                                     <field name="num_inmuebles"/>
+                                 </tree>
+                             </field>
+                         </group>
+                     </sheet>
+                 </form>
+            </field>
+        </record>
+       
+    <!-- Este formulario se creo con el motivo de modificar la parte de pisos desde el formulario de inmuebles -->
+    <record id="cyg_inmueble_tree_view" model="ir.ui.view">
+          <field name="name">cyg.proyecto_proyecto_inmueble.tree</field>
+          <field name="model">cyg.proyecto_inmueble</field>
+          <field eval="7" name="priority"/>
+          <field name="arch" type="xml">
+              <tree string="Inmuebles 1">
+                  <field name="proyecto_id"/>
+                  <field name="etapa_id"/>
+                  <field name="piso_id"/>
+                  <field name="name"/>
+                  <field name="numero"/>
+                  <field name="tipo_inmueble_id"/>
+                  <field name="precio_actual"  sum="Precio"/>
+                  <field name="state"/>
+              </tree>
+          </field>
+      </record>
+    
+    <record id="cyg_inmueble_form_view" model="ir.ui.view">
+            <field name="name">cyg.proyecto_inmueble.form2</field>
+            <field name="model">cyg.proyecto_inmueble</field>
+            <field name="arch" type="xml">
+		    <form string="Inmueble" version="7.0">
+		        <header>
+		            <field name="state" widget="statusbar"/>
+		        </header>
+		        <sheet>
+		            <div class="oe_right oe_button_box" name="buttons" groups="base.group_user">
+		                <button name="attachment_tree_view" string="Documentos adjuntos" type="object"/>
+		            </div>
+		            <div class="oe_title">
+		                <field name='id' invisible="1"/>
+		                <field name='proyecto_id' placeholder="Proyecto" invisible="1"/>
+		                <label for="etapa_id"/>
+		                <field name='etapa_id' placeholder="Etapa"
+		                       domain="[('proyecto_id','=',proyecto_id)]"/>
+		                <label for="name"/>
+		                <field name="name" placeholder="Código"/>
+		                <label for="numero"/>
+		                <h1> <field name="numero" default_focus="1" placeholder="Número"/>  </h1>
+		            </div>
+		            <notebook>
+		                <page string="Datos generales">
+		                    <group colspan="4" col="4">
+		                        <field name='piso_id' domain="[('proyecto_id','=',proyecto_id)]"/>
+		                        <field name='tipo_inmueble_id' domain="[('proyecto_id','=',proyecto_id)]"
+		                               on_change="onchange_tipo_inmueble(tipo_inmueble_id)"
+		                               required="1"/>
+		                        <field name="cash_management"/>
+		                        <field name='precio_actual'
+		                               attrs="{'readonly':[('tiene_precio','!=',False)]}"/>
+		                        <button name="%(action_view_cambio_precio_inmueble_wiz)d" type="action" string="Cambio de precio"
+		                                colspan="2"/>
+		                        <field name="tiene_precio" invisible="1"/>
+		                        <newline/>
+		                        <field name="costo"/>
+		                        <field name="alicuota"/>
+		                        <field name='area_cubierta'/>
+		                        <field name='area_balcon'/>
+		                        <field name='area_terraza'/>
+		                        <field name='area_patio_privado'/>
+		                        <field name='rooms'/>
+		                        <field name='bathrooms'/>
+		                        <field name='predio'/>
+		                        <field name='linderos'/>
+		                        <field name='certificado_gravamen'/>
+		                        <field name='fecha_gravamen'/>
+		                    </group>
+		                    <separator string="Actividades" colspan="4"/>
+		                    <label string="Para añadir las actividades oprima el botón 'Buscar'" colspan="3"/>
+		                    <button name='%(action_cyg_importar_inmueble_ac_wiz)d' type='action' string='Buscar' icon="gtk-find"/>
+		                    <field name='actividades_ids' nolabel="1" colspan="4">
+		                        <form string="Actividad" version="7.0">
+		                            <header>
+		                                <field name="state" widget="statusbar"/>
+		                            </header>
+		                            <sheet>
+		                                <field name="id" invisible="1"/>
+		                                <group colspan="2" col="4">
+		                                    <group colspan="4" col="6">
+		                                        <field name="id" invisible="1"/>
+		                                        <field name='actividad_id'
+		                                               on_change="onchange_actividad(actividad_id)"
+		                                               context="{'form_view_ref':'view_cyg_simple_actividad_form'}"/>
+		                                        <field name='grupo_id' invisible="1"/>
+		                                        <field name='fecha_ini' on_change="onchange_date(fecha_ini,fecha_fin)"/>
+		                                        <field name='fecha_fin' on_change="onchange_date(fecha_ini,fecha_fin)"/>
+		                                        <field name='dias_diferencia'/>
+		                                        <field name='persona_entrega_id'/>
+		                                        <field name='persona_recibe_id'/>
+		                                        <field name='ubicacion'/>
+		                                        <field name='dias_programados' invisible="1"/>
+		                                        <field name='sequence_grupo' invisible="1"/>
+		                                        <field name='sequence_actividad' invisible="1"/>
+		                                        <newline/>
+		                                    </group>
+		                                    <separator string="Observaciones" colspan="4"/>
+		                                    <field name='observacion' colspan="4" nolabel="1"/>
+		                                    <separator string="Facturas" colspan="4"/>
+		                                    <field name='factura_ids' nolabel="1" colspan="4"/>
+		                                </group>
+		                            </sheet>
+		                        </form>
+		                        <tree string="Actividades">
+		                            <field name="grupo_id"/>
+		                            <field name='actividad_id' on_change="onchange_actividad(actividad_id)"/>
+		                            <field name='dias_programados'/>
+		                            <field name='fecha_ini'/>
+		                            <field name='fecha_fin'/>
+		                            <field name='dias_diferencia'/>
+		                            <field name="observacion"/>
+		                            <field name="state"/>
+		                            <field name="sequence_grupo" invisible="1"/>
+		                            <field name="sequence_actividad" invisible="1"/>
+		                        </tree>
+		                    </field>
+		                </page>
+		                <page string="Parqueaderos y Bodegas">
+		                    <separator string="Parqueaderos"/>
+		                    <field name="parqueadero_ids" context="{'default_clase_inmueble':'parqueadero'}"
+		                           editable="bottom">
+		                        <tree>
+		                            <field name="numero"/>
+		                            <field string="Metraje" name="name"/>
+		                            <field name="clase_inmueble" invisible="1"/>
+		                        </tree>
+		                        <form>
+		                            <field name="numero"/>
+		                            <field string="Metraje" name="name"/>
+		                            <field name="parent_id" invisible="1"/>
+		                            <field name="clase_inmueble" invisible="1"/>
+		                        </form>
+		                    </field>
+		                    <separator string="Bodegas"/>
+		                    <field name="bodega_ids" context="{'default_clase_inmueble':'bodega'}"
+		                           editable="bottom">
+		                        <tree>
+		                            <field name="numero"/>
+		                            <field string="Metraje" name="name"/>
+		                            <field name="clase_inmueble" invisible="1"/>
+		                        </tree>
+		                        <form>
+		                            <field name="numero"/>
+		                            <field string="Metraje" name="name"/>
+		                            <field name="parent_id" invisible="1"/>
+		                            <field name="clase_inmueble" invisible="1"/>
+		                        </form>
+		                    </field>
+		                </page>
+		                <page string="Histórico precios">
+		                    <field name="historico_precio_ids" colspan="4" nolabel="1">
+		                        <tree>
+		                            <field name="usuario_cambio" readonly="1"/>
+		                            <field name="precio_anterior" readonly="1"/>
+		                            <field name="precio_actual" readonly="1"/>
+		                            <field name="date" readonly="1"/>
+		                        </tree>
+		                        <form>
+		                            <field name="usuario_cambio" readonly="1"/>
+		                            <field name="precio_anterior" readonly="1"/>
+		                            <field name="precio_actual" readonly="1"/>
+		                            <field name="date" readonly="1"/>
+		                        </form>
+		                    </field>
+		                </page>
+		            </notebook>
+		        </sheet>
+		    </form>
+    	</field>
+    </record>
+    
+    <!-- ******Mostrando Pisos******* -->
+     <record id="cyg_inmueble_tree2_view" model="ir.ui.view">
+          <field name="name">cyg.proyecto_proyecto_inmueble.tree</field>
+          <field name="model">cyg.proyecto_inmueble</field>
+          <field eval="7" name="priority"/>
+          <field name="arch" type="xml">
+             <tree string="Inmuebles 2">
+                  <field name="proyecto_id"/>
+                  <field name="etapa_id"/>
+                  <field name="name"/>
+                  <field name="numero"/>
+                  <field name="tipo_inmueble_id"/>
+                  <field name="precio_actual"  sum="Precio"/>
+                  <field name="state"/>
+              </tree>
+          </field>
+      </record>
+    
+    
+    <record id="cyg_inmueble_form2_view" model="ir.ui.view">
+            <field name="name">cyg.proyecto_inmueble.form2</field>
+            <field name="model">cyg.proyecto_inmueble</field>
+            <field name="arch" type="xml">
+		    <form string="Inmueble" version="7.0">
+		        <header>
+		            <field name="state" widget="statusbar"/>
+		        </header>
+		        <sheet>
+		            <div class="oe_right oe_button_box" name="buttons" groups="base.group_user">
+		                <button name="attachment_tree_view" string="Documentos adjuntos" type="object"/>
+		            </div>
+		            <div class="oe_title">
+		                <field name='id' invisible="1"/>
+		                <field name='proyecto_id' placeholder="Proyecto" invisible="1"/>
+		                <label for="etapa_id"/>
+		                <field name='etapa_id' placeholder="Etapa"
+		                       domain="[('proyecto_id','=',proyecto_id)]"/>
+		                <label for="name"/>
+		                <field name="name" placeholder="Código"/>
+		                <label for="numero"/>
+		                <h1> <field name="numero" default_focus="1" placeholder="Número"/>  </h1>
+		
+		            </div>
+		            <notebook>
+		                <page string="Datos generales">
+		                    <group colspan="4" col="4">
+		                        <!--  <field name='piso_id' domain="[('proyecto_id','=',proyecto_id)]"/>-->
+		                        <field name='tipo_inmueble_id' domain="[('proyecto_id','=',proyecto_id)]"
+		                               on_change="onchange_tipo_inmueble(tipo_inmueble_id)"
+		                               required="1"/>
+		                        <field name="cash_management"/>
+		                        <field name='precio_actual'
+		                               attrs="{'readonly':[('tiene_precio','!=',False)]}"/>
+		                        <button name="%(action_view_cambio_precio_inmueble_wiz)d" type="action" string="Cambio de precio"
+		                                colspan="2"/>
+		                        <field name="tiene_precio" invisible="1"/>
+		                        <newline/>
+		                        <field name="costo"/>
+		                        <field name="alicuota"/>
+		                        <field name='area_cubierta'/>
+		                        <field name='area_balcon'/>
+		                        <field name='area_terraza'/>
+		                        <field name='area_patio_privado'/>
+		                        <field name='rooms'/>
+		                        <field name='bathrooms'/>
+		                        <field name='predio'/>
+		                        <field name='linderos'/>
+		                        <field name='certificado_gravamen'/>
+		                        <field name='fecha_gravamen'/>
+		                    </group>
+		                    <separator string="Actividades" colspan="4"/>
+		                    <label string="Para añadir las actividades oprima el botón 'Buscar'" colspan="3"/>
+		                    <button name='%(action_cyg_importar_inmueble_ac_wiz)d' type='action' string='Buscar' icon="gtk-find"/>
+		                    <field name='actividades_ids' nolabel="1" colspan="4">
+		                        <form string="Actividad" version="7.0">
+		                            <header>
+		                                <field name="state" widget="statusbar"/>
+		                            </header>
+		                            <sheet>
+		                                <field name="id" invisible="1"/>
+		                                <group colspan="2" col="4">
+		                                    <group colspan="4" col="6">
+		                                        <field name="id" invisible="1"/>
+		                                        <field name='actividad_id'
+		                                               on_change="onchange_actividad(actividad_id)"
+		                                               context="{'form_view_ref':'view_cyg_simple_actividad_form'}"/>
+		                                        <field name='grupo_id' invisible="1"/>
+		                                        <field name='fecha_ini' on_change="onchange_date(fecha_ini,fecha_fin)"/>
+		                                        <field name='fecha_fin' on_change="onchange_date(fecha_ini,fecha_fin)"/>
+		                                        <field name='dias_diferencia'/>
+		                                        <field name='persona_entrega_id'/>
+		                                        <field name='persona_recibe_id'/>
+		                                        <field name='ubicacion'/>
+		                                        <field name='dias_programados' invisible="1"/>
+		                                        <field name='sequence_grupo' invisible="1"/>
+		                                        <field name='sequence_actividad' invisible="1"/>
+		                                        <newline/>
+		                                    </group>
+		                                    <separator string="Observaciones" colspan="4"/>
+		                                    <field name='observacion' colspan="4" nolabel="1"/>
+		                                    <separator string="Facturas" colspan="4"/>
+		                                    <field name='factura_ids' nolabel="1" colspan="4"/>
+		                                </group>
+		                            </sheet>
+		                        </form>
+		                        <tree string="Actividades">
+		                            <field name="grupo_id"/>
+		                            <field name='actividad_id' on_change="onchange_actividad(actividad_id)"/>
+		                            <field name='dias_programados'/>
+		                            <field name='fecha_ini'/>
+		                            <field name='fecha_fin'/>
+		                            <field name='dias_diferencia'/>
+		                            <field name="observacion"/>
+		                            <field name="state"/>
+		                            <field name="sequence_grupo" invisible="1"/>
+		                            <field name="sequence_actividad" invisible="1"/>
+		                        </tree>
+		                    </field>
+		                </page>
+		                <page string="Parqueaderos y Bodegas">
+		                    <separator string="Parqueaderos"/>
+		                    <field name="parqueadero_ids" context="{'default_clase_inmueble':'parqueadero'}"
+		                           editable="bottom">
+		                        <tree>
+		                            <field name="numero"/>
+		                            <field string="Metraje" name="name"/>
+		                            <field name="clase_inmueble" invisible="1"/>
+		                        </tree>
+		                        <form>
+		                            <field name="numero"/>
+		                            <field string="Metraje" name="name"/>
+		                            <field name="parent_id" invisible="1"/>
+		                            <field name="clase_inmueble" invisible="1"/>
+		                        </form>
+		                    </field>
+		                    <separator string="Bodegas"/>
+		                    <field name="bodega_ids" context="{'default_clase_inmueble':'bodega'}"
+		                           editable="bottom">
+		                        <tree>
+		                            <field name="numero"/>
+		                            <field string="Metraje" name="name"/>
+		                            <field name="clase_inmueble" invisible="1"/>
+		                        </tree>
+		                        <form>
+		                            <field name="numero"/>
+		                            <field string="Metraje" name="name"/>
+		                            <field name="parent_id" invisible="1"/>
+		                            <field name="clase_inmueble" invisible="1"/>
+		                        </form>
+		                    </field>
+		                </page>
+		                <page string="Histórico precios">
+		                    <field name="historico_precio_ids" colspan="4" nolabel="1">
+		                        <tree>
+		                            <field name="usuario_cambio" readonly="1"/>
+		                            <field name="precio_anterior" readonly="1"/>
+		                            <field name="precio_actual" readonly="1"/>
+		                            <field name="date" readonly="1"/>
+		                        </tree>
+		                        <form>
+		                            <field name="usuario_cambio" readonly="1"/>
+		                            <field name="precio_anterior" readonly="1"/>
+		                            <field name="precio_actual" readonly="1"/>
+		                            <field name="date" readonly="1"/>
+		                        </form>
+		                    </field>
+		                </page>
+		            </notebook>
+		        </sheet>
+		    </form>
+    	</field>
+    </record>
+    
+    <record model="ir.ui.view" id="view_cyg_proyecto_search">
+      <field name="name">cyg.proyecto.search</field>
+      <field name="model">cyg.proyecto</field>
+      <field name="arch" type="xml">
+	<search>
+	  <field name="code"/>
+	  <field name="name"/>
+	</search>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="view_cyg_proyecto_form">
+      <field name="name">cyg.proyecto.form</field>
+      <field name="model">cyg.proyecto</field>
+      <field name="arch" type="xml">
+          <form string="Proyecto" version="7.0">
+              <header>
+                  <button string="Regresar a borrador"
+                          confirm="Esta acción eliminará el inventario de este proyecto ¿Desea continuar?"
+                          states="inventory"
+                          type="object"
+                          name="delete_inventory"/>
+                  <button string="Con inventario"
+                          confirm="Esta acción marcara este proyecto como un proyecto con inventario ¿Desea continuar?"
+                          states="draft"
+                          type="object"
+                          name="do_with_inventory"/>
+                  <field name="state" widget="statusbar"/>
+              </header>
+              <sheet>
+                  <field name="id" invisible="1"/>
+                  <field name="image"
+                         widget="image"
+                         class="oe_left oe_avatar"
+                         options="{'preview_image': 'image', 'size': [90, 90]}"/>
+                  <div class="oe_title">
+                      <label for="code" class="oe_edit_only"/>
+                      <field name="code" placeholder="Código"/>
+                      <label for="name" class="oe_edit_only"/>
+                      <h1> <field name="name" default_focus="1" placeholder="Nombre"/> </h1>
+                      <field name='web_page' placeholder="Página web"/>
+                  </div>
+                  <div class="oe_right oe_button_box" name="buttons" groups="base.group_user">
+                      <button name="attachment_tree_view" string="Documentos adjuntos" type="object"/>
+                  </div>
+
+                  <notebook colspan="4">
+                      <page string="Ubicación">
+                          <group colspan="2" col="4">
+                              <field name='country_id' on_change="onchange_country()"/>
+                              <field name='state_id' on_change="onchange_state()"
+                                     domain="[('country_id','=',country_id)]"
+                                     context="{'default_country_id':country_id}"/>
+                              <field name='city_id' on_change="onchange_city()"
+                                     domain="[('state_id','=',state_id)]"
+                                     context="{'default_country_id':country_id,'default_state_id':state_id}"/>
+                              <field name='parroquia_id' domain="[('city_id','=',city_id)]"
+                                     context="{'default_country_id':country_id,'default_state_id':state_id, 'default_city_id':city_id}"/>
+                              <field name='barrio' colspan="4"/>
+                              <newline/>
+                              <label for="address" />
+                              <field name='address' nolabel="1" colspan="4" placeholder="Dirección del proyecto"/>
+                              <group colspan="4" col="4" string="Coordenadas geográficas">
+                                  <field name='long'/>
+                                  <field name='lat'/>
+                              </group>
+                          </group>
+                          <group colspan="2" col="4">
+                              <separator string="Lotes" colspan="4"/>
+                              <field name="lote_ids" nolabel="1" colspan="4">
+                                  <tree>
+                                      <field name='propietario_id'/>
+                                      <field name='representante_prop_id'/>
+                                      <field name='hipotecado'/>
+                                      <field name='superficie_bruta'/>
+                                  </tree>
+                                  <form string="Lote">
+                                      <group colspan="4" col="4">
+                                          <field name='propietario_id' domain="[('tercero','=',1)]" context="{'default_supplier':0,'default_customer':0,'default_tercero':1}"/>
+                                          <field name='representante_prop_id' domain="[('tercero','=',1)]" context="{'default_supplier':0,'default_customer':0,'default_tercero':1}"/>
+                                      </group>
+                                      <group colspan="2" col="4" strin="Datos generales">
+                                          <field name='predio'/>
+                                          <field name='superficie_bruta'/>
+                                          <field name='forma'/>
+                                          <field name='asolamiento'/>
+                                          <field name='iluminacion'/>
+                                          <field name='topografia'/>
+                                          <field name='pendiente'/>
+                                          <field name='vistas'/>
+                                          <field name='ventilacion'/>
+                                          <field name='suelo'/>
+                                          <field name='fecha_otorgamiento'/>
+                                          <field name='fecha_inscripcion'/>
+                                          <field name='notaria'/>
+                                          <field name='notario'/>
+                                          <separator string="Hipoteca" colspan="4"/>
+                                          <field name='hipotecado'/>
+                                          <newline/>
+                                          <field name='fecha_escritura_hipoteca' attrs="{'invisible':[('hipotecado','=',False)]}"/>
+                                          <field name='fecha_inscripcion_hipoteca' attrs="{'invisible':[('hipotecado','=',False)]}"/>
+                                          <field name='notaria_hipoteca' attrs="{'invisible':[('hipotecado','=',False)]}"/>
+                                          <field name='notario_hipoteca' attrs="{'invisible':[('hipotecado','=',False)]}"/>
+                                          <field name='acreedor_hipotecario' attrs="{'invisible':[('hipotecado','=',False)]}"/>
+                                          <separator string="Observaciones" colspan="4"/>
+                                          <field name='observaciones'  colspan="4" nolabel="1"/>
+                                      </group>
+                                  </form>
+                              </field>
+                          </group>
+                      </page>
+                      <page string="General">
+                          <notebook>
+                              <page string="General">
+                                  <group colspan="4" col="4">
+                                      <field name='tipo_proyecto_id'/>
+                                      <field name="tasa_id" />
+                                      <field name='num_etapas'/>
+                                      <field name='num_unidades'/>
+                                      <field name='num_unidades_vendidas'/>
+                                      <field name='num_estacionamientos'/>
+                                      <field name='num_estacionamientos_visitas'/>
+                                      <separator string="Áreas comunales" colspan="4"/>
+                                      <group col="5" colspan="4">
+                                          <label string=" " colspan="1"/>
+                                          <label for="comunales_construidas_m2" colspan="2"/>
+                                          <label for="comunales_abiertas_m2" colspan="2"/>
+                                          <label string="Sala comunal" colspan="1"/>
+                                          <field name="comunales_construidas_m2" nolabel="1" colspan="2"/>
+                                          <field name="comunales_abiertas_m2" nolabel="1" colspan="2"/>
+                                          <label string="Portería" colspan="1"/>
+                                          <field name="porteria_construidas_m2" nolabel="1" colspan="2"/>
+                                          <field name="porteria_abiertas_m2" nolabel="1" colspan="2"/>
+                                          <label string="Depósitos de desechos" colspan="1"/>
+                                          <field name="depositos_construidas_m2" nolabel="1" colspan="2"/>
+                                          <field name="depositos_abiertas_m2" nolabel="1" colspan="2"/>
+                                          <label string="Vías interiores (conjuntos)" colspan="1"/>
+                                          <field name="vias_construidas_m2" nolabel="1" colspan="2"/>
+                                          <field name="vias_abiertas_m2" nolabel="1" colspan="2"/>
+                                          <label string="Circulación peatonal" colspan="1"/>
+                                          <field name="peatonal_construidas_m2" nolabel="1" colspan="2"/>
+                                          <field name="peatonal_abiertas_m2" nolabel="1" colspan="2"/>
+                                          <label string="Estacionamientos propietarios" colspan="1"/>
+                                          <field name="estacionamientos_construidas_m2" nolabel="1" colspan="2"/>
+                                          <field name="estacionamientos_abiertas_m2" nolabel="1" colspan="2"/>
+                                          <label string="Estacionamiento visitas" colspan="1"/>
+                                          <field name="estac_visitas_construidas_m2" nolabel="1" colspan="2"/>
+                                          <field name="estac_visitas_abiertas_m2" nolabel="1" colspan="2"/>
+                                          <label string="Otras áreas" colspan="1"/>
+                                          <field name="otras_construidas_m2" nolabel="1" colspan="2"/>
+                                          <field name="otras_abiertas_m2" nolabel="1" colspan="2"/>
+                                      </group>
+                                      <separator string="Áreas totales" colspan="4"/>
+                                      <field name='m2_vendibles'/>
+                                      <field name='m2_comunales'/>
+                                      <field name='m2_construccion'/>
+                                      <group string="Objetivos comerciales" col="2" colspan="4">
+                                          <field name='objectivo_comercial_planeado'/>
+                                          <field name='objectivo_comercial_vigente'/>
+                                          <field name='objectivo_comercial'/>
+                                      </group>
+                                      <newline/>
+                                      <separator string="Especificaciones" colspan="4" attrs="{'invisible':[('id','=',False)]}"/>
+                                      <field name='especificacion_ids' nolabel="1" colspan="4" attrs="{'invisible':[('id','=',False)]}">
+                                          <tree>
+                                              <field name="name" required='1'/>
+                                              <field name="description"/>
+                                          </tree>
+                                      </field>
+                                      <newline/>
+                                  </group>
+                              </page>
+                              <page string="Servicios">
+                                  <group colspan="4" col="4">
+                                      <field name='agua_potable'/>
+                                      <field name='obs_agua_potable' attrs="{'invisible':[('agua_potable','=',False)]}"/>
+                                      <field name='alcantarillado'/>
+                                      <field name='obs_alcantarillado' attrs="{'invisible':[('alcantarillado','=',False)]}"/>
+                                      <field name='electricidad'/>
+                                      <field name='obs_electricidad' attrs="{'invisible':[('electricidad','=',False)]}"/>
+                                      <field name='telefono'/>
+                                      <field name='obs_telefono' attrs="{'invisible':[('telefono','=',False)]}"/>
+                                      <field name='tvcable'/>
+                                      <field name='obs_tvcable' attrs="{'invisible':[('tvcable','=',False)]}"/>
+                                      <field name='bordillos'/>
+                                      <field name='obs_bordillos' attrs="{'invisible':[('bordillos','=',False)]}"/>
+                                      <field name='calzada'/>
+                                      <field name='obs_calzada' attrs="{'invisible':[('calzada','=',False)]}"/>
+                                      <field name='acera'/>
+                                      <field name='obs_acera' attrs="{'invisible':[('acera','=',False)]}"/>
+                                      <separator string="Entorno" colspan="4"/>
+                                      <field name='residencial'/>
+                                      <field name='obs_residencial' attrs="{'invisible':[('residencial','=',False)]}"/>
+                                      <field name='educacion'/>
+                                      <field name='obs_educacion' attrs="{'invisible':[('educacion','=',False)]}"/>
+                                      <field name='iglesia'/>
+                                      <field name='obs_iglesia' attrs="{'invisible':[('iglesia','=',False)]}"/>
+                                      <field name='espacio_deportivo'/>
+                                      <field name='obs_espacio_deportivo' attrs="{'invisible':[('espacio_deportivo','=',False)]}"/>
+                                      <field name='espacio_recreacion'/>
+                                      <field name='obs_espacio_recreacion' attrs="{'invisible':[('espacio_recreacion','=',False)]}"/>
+                                      <field name='municipio'/>
+                                      <field name='obs_municipio' attrs="{'invisible':[('municipio','=',False)]}"/>
+                                      <field name='gobierno'/>
+                                      <field name='obs_gobierno' attrs="{'invisible':[('gobierno','=',False)]}"/>
+                                      <field name='comercial'/>
+                                      <field name='obs_comercial' attrs="{'invisible':[('comercial','=',False)]}"/>
+                                      <field name='transporte'/>
+                                      <field name='obs_transporte' attrs="{'invisible':[('transporte','=',False)]}"/>
+                                      <field name='otros'/>
+                                      <field name='obs_otros' attrs="{'invisible':[('otros','=',False)]}"/>
+                                  </group>
+                              </page>
+                              <page string="Tipos de inmuebles">
+                                  <field name="tipo_inmueble_ids" colspan="4" nolabel="1">
+                                      <tree>
+                                          <field name="name"/>
+                                          <field name="area_cubierta"/>
+                                          <field name="area_terraza"/>
+                                          <field name="area_balcon"/>
+                                          <field name="rooms"/>
+                                          <field name="bathrooms"/>
+                                      </tree>
+                                  </field>
+                              </page>
+                          </notebook>
+                      </page>
+                      <page string="Presupuestos" attrs="{'invisible':[('id','=',False)]}">
+                          <field name="linea_presupuesto_ids" nolabel="1" colspan="4"
+                                 context="{'proyecto_id':id}">
+                              <tree>
+                                  <field name="code"/>
+                                  <field name="name"/>
+                                  <field name="tipo_presupuesto_id"/>
+                                  <field name="ini_real_obra"/>
+                                  <field name="fin_real_obra"/>
+                                  <field name="punto_equi_real"/>
+                                  <field name="venta_real"/>
+                              </tree>
+                              <form string="Línea de presupuesto">
+                              	  <group col="4" colspan="4">
+	                                  <field name="code"/>
+	                                  <field name="name"/>
+	                                  <field name="tipo_presupuesto_id" colspan="4" on_change="onchange_tipo_presupuesto(tipo_presupuesto_id)"/>
+	                                  <field name="codigo" invisible="1"/>
+                                  </group>
+                                  <group col="4" colspan="4">
+                                  <field name='director_id' domain="[('tercero','=',1)]"
+                                         placeholder="Director"
+                                         context="{'default_supplier':0,'default_customer':0,'default_tercero':1}"
+                                         attrs="{'invisible':[('codigo','!=','directo')]}"/>
+                                  <field name='bodeguero_id' domain="[('tercero','=',1)]"
+                                         placeholder="Bodeguero"
+                                         context="{'default_supplier':0,'default_customer':0,'default_tercero':1}"
+                                         attrs="{'invisible':[('codigo','!=','directo')]}"/>
+                                  <field name="ini_prog_obra" on_change="onchange_date(ini_prog_obra,fin_prog_obra,'prog')"
+                                         attrs="{'invisible':[('codigo','!=','directo')]}"/>
+                                  <field name="fin_prog_obra" on_change="onchange_date(ini_prog_obra,fin_prog_obra,'prog')"
+                                         attrs="{'invisible':[('codigo','!=','directo')]}"/>
+                                  <field name="ini_real_obra" on_change="onchange_date(ini_real_obra,fin_real_obra,'real')"
+                                         attrs="{'invisible':[('codigo','!=','directo')]}"/>
+                                  <field name="fin_real_obra" on_change="onchange_date(ini_real_obra,fin_real_obra,'real')"
+                                         attrs="{'invisible':[('codigo','!=','directo')]}"/>
+                                  
+	                                  <field name="punto_equi_prog" attrs="{'invisible':[('codigo','not in',('directo','indirecto','cartera'))]}"/>
+	                                  <field name="punto_equi_real" attrs="{'invisible':[('codigo','not in',('directo','indirecto','cartera'))]}"/>
+                                  
+	                                  <field name="venta_prog" attrs="{'invisible':[('codigo','not in',('','cartera'))]}"/>
+	                                  <field name="venta_real" attrs="{'invisible':[('codigo','not in',('','cartera'))]}"/>
+                                  
+	                                  <field name="ini_oficina" on_change="onchange_date(ini_oficina,fin_oficina,'real')"
+	                                         attrs="{'invisible':[('codigo','!=','oficina')]}"/>
+	                                  <field name="fin_oficina" on_change="onchange_date(ini_oficina,fin_oficina,'real')"
+	                                         attrs="{'invisible':[('codigo','!=','oficina')]}"/>
+                                  </group>
+                              </form>
+                          </field>
+                      </page>
+                      <page string="Inventario" attrs="{'invisible':[('id','=',False)]}">
+                          <group colspan="4" col="4">
+                              <field name="tiene_pisos" attrs="{'readonly':[('state','not in','draft')]}"/>
+                              <button name="%(action_view_genera_inventario_proyecto)d" type="action" string="Genera inventario"
+                                      attrs="{'invisible': ['|','|',('num_unidades','=',0),('num_etapas','=',0),('state','not in','draft')]}"/>
+                          </group>
+                         <group colspan="4" col="4">
+                              <separator string="Etapas/Bloques/Torres"/>
+                              <field name="etapa_ids" nolabel="1" colspan="4"
+                                     context="{'default_proyecto_id':id}">
+                                  <tree>
+                                      <field name="name"/>
+                                      <field name="pisos" sum="Pisos"/>
+                                      <field name="unidades" sum="Unidades"/>
+                                      <field name="presupuesto_id"/>
+                                  </tree>
+                                 <form string="Etapa" version="7.0">
+                                     <sheet>
+                                         <field name="proyecto_id" invisible="1"/>
+                                         <label for="name" class="oe_edit_only"/>
+                                         <h1><field name="name" placeholder="Etapa"/></h1>
+                                         <group colspan="2" col="4">
+                                             <field name="pisos"/>
+                                             <field name="unidades"/>
+                                             <field name="presupuesto_id" colspan="4"
+                                                    domain="[('proyecto_id','=',proyecto_id),('codigo','=','cartera')]"/>
+                                             <field name="piso_ids" nolabel="1" colspan="4">
+                                                 <tree>
+                                                     <field name="name"/>
+                                                     <field name="numero"/>
+                                                     <field name="num_inmuebles"/>
+                                                 </tree>
+                                             </field>
+                                         </group>
+                                     </sheet>
+                                 </form>
+                              </field>
+                              <separator string="Pisos" attrs="{'invisible':[('tiene_pisos','=',False)]}"/>
+                              <field name="piso_ids" nolabel="1" colspan="4"
+                                     attrs="{'invisible':[('tiene_pisos','=',False)]}"
+                                     context="{'defaut_proyecto_id':id}">
+                                  <tree>
+                                      <field name="etapa_id"/>
+                                      <field name="name"/>
+                                      <field name="numero"/>
+                                      <field name="num_inmuebles" sum="Unidades"/>
+                                  </tree>
+                              </field>
+                              <separator string="Inmuebles"/>
+                              <field name="inmueble_ids" nolabel="1" colspan="4"
+                                     domain="[('clase_inmueble','not in',('parqueadero','bodega'))]"
+                                     context="{'default_proyecto_id':id}">
+                                  <tree>
+                                      <field name="etapa_id"/>
+                                      <field name="piso_id"/>
+                                      <field name="name"/>
+                                      <field name="numero"/>
+                                      <field name="tipo_inmueble_id"/>
+                                      <field name="precio_actual"/>
+                                      <field name="state"/>
+                                  </tree>
+                                  <form string="Inmueble" version="7.0">
+                                      <header>
+                                          <field name="state" widget="statusbar"/>
+                                      </header>
+                                      <sheet>
+                                          <div class="oe_right oe_button_box" name="buttons" groups="base.group_user">
+                                              <button name="attachment_tree_view" string="Documentos adjuntos" type="object"/>
+                                          </div>
+                                          <div class="oe_title">
+                                              <field name='id' invisible="1"/>
+                                              <field name='proyecto_id' placeholder="Proyecto" invisible="1"/>
+                                              <label for="etapa_id" class="oe_edit_only"/>
+                                              <field name='etapa_id' placeholder="Etapa"
+                                                     domain="[('proyecto_id','=',proyecto_id)]"/>
+                                              <label for="name" class="oe_edit_only"/>
+                                              <field name="name" placeholder="Código"/>
+                                              <label for="numero" class="oe_edit_only"/>
+                                              <h1> <field name="numero" default_focus="1" placeholder="Número"/>  </h1>
+
+                                          </div>
+                                          <notebook>
+                                              <page string="Datos generales">
+                                                  <group colspan="4" col="4">
+                                                      <field name='piso_id' domain="[('proyecto_id','=',proyecto_id)]"/>
+                                                      <field name='tipo_inmueble_id' domain="[('proyecto_id','=',proyecto_id)]"
+                                                             on_change="onchange_tipo_inmueble(tipo_inmueble_id)"
+                                                             required="1"/>
+                                                      <field name='precio_actual'
+                                                             attrs="{'readonly':[('tiene_precio','!=',False)]}"/>
+                                                      <button name="%(action_view_cambio_precio_inmueble_wiz)d" type="action" string="Cambio de precio"
+                                                              colspan="2"/>
+                                                      <field name="tiene_precio" invisible="1"/>
+                                                      <newline/>
+                                                      <field name="costo"/>
+                                                      <field name="alicuota"/>
+                                                      <field name='area_cubierta'/>
+                                                      <field name='area_balcon'/>
+                                                      <field name='area_terraza'/>
+                                                      <field name='area_patio_privado'/>
+                                                      <field name='rooms'/>
+                                                      <field name='bathrooms'/>
+                                                      <field name='predio'/>
+                                                      <field name='linderos'/>
+                                                      <field name='certificado_gravamen'/>
+                                                      <field name='fecha_gravamen'/>
+                                                  </group>
+                                                  <separator string="Actividades" colspan="4"/>
+                                                  <label string="Para añadir las actividades oprima el botón 'Buscar'" colspan="3"/>
+                                                  <button name='%(action_cyg_importar_inmueble_ac_wiz)d' type='action' string='Buscar' icon="gtk-find"/>
+                                                  <field name='actividades_ids' nolabel="1" colspan="4">
+                                                      <form string="Actividad" version="7.0">
+                                                          <header>
+                                                              <field name="state" widget="statusbar"/>
+                                                          </header>
+                                                          <sheet>
+                                                              <field name="id" invisible="1"/>
+                                                              <group colspan="2" col="4">
+                                                                  <group colspan="4" col="6">
+                                                                      <field name="id" invisible="1"/>
+                                                                      <field name='actividad_id'
+                                                                             on_change="onchange_actividad(actividad_id)"
+                                                                             context="{'form_view_ref':'view_cyg_simple_actividad_form'}"/>
+                                                                      <field name='grupo_id' invisible="1"/>
+                                                                      <field name='fecha_ini' on_change="onchange_date(fecha_ini,fecha_fin)"/>
+                                                                      <field name='fecha_fin' on_change="onchange_date(fecha_ini,fecha_fin)"/>
+                                                                      <field name='dias_diferencia'/>
+                                                                      <field name='persona_entrega_id'/>
+                                                                      <field name='persona_recibe_id'/>
+                                                                      <field name='ubicacion'/>
+                                                                      <field name='dias_programados' invisible="1"/>
+                                                                      <field name='sequence_grupo' invisible="1"/>
+                                                                      <field name='sequence_actividad' invisible="1"/>
+                                                                      <newline/>
+                                                                  </group>
+                                                                  <separator string="Observaciones" colspan="4"/>
+                                                                  <field name='observacion' colspan="4" nolabel="1"/>
+                                                                  <separator string="Facturas" colspan="4"/>
+                                                                  <field name='factura_ids' nolabel="1" colspan="4"/>
+                                                              </group>
+                                                          </sheet>
+                                                      </form>
+                                                      <tree string="Actividades">
+                                                          <field name='actividad_id' on_change="onchange_actividad(actividad_id)"/>
+                                                          <field name='dias_programados'/>
+                                                          <field name='fecha_ini'/>
+                                                          <field name='fecha_fin'/>
+                                                          <field name='dias_diferencia'/>
+                                                          <field name="observacion"/>
+                                                          <field name="state"/>
+                                                          <field name="sequence_grupo" invisible="1"/>
+                                                          <field name="sequence_actividad" invisible="1"/>
+                                                      </tree>
+                                                  </field>
+                                              </page>
+                                              <page string="Parqueaderos y Bodegas">
+                                                  <separator string="Parqueaderos"/>
+                                                  <field name="parqueadero_ids" context="{'default_clase_inmueble':'parqueadero'}"
+                                                         editable="bottom">
+                                                      <tree>
+                                                          <field name="numero"/>
+                                                          <field name="name"/>
+                                                          <field name="clase_inmueble" invisible="1"/>
+                                                      </tree>
+                                                      <form>
+                                                          <field name="numero"/>
+                                                          <field name="name"/>
+                                                          <field name="parent_id" invisible="1"/>
+                                                          <field name="clase_inmueble" invisible="1"/>
+                                                      </form>
+                                                  </field>
+                                                  <separator string="Bodegas"/>
+                                                  <field name="bodega_ids" context="{'default_clase_inmueble':'bodega'}"
+                                                         editable="bottom">
+                                                      <tree>
+                                                          <field name="numero"/>
+                                                          <field name="name"/>
+                                                          <field name="clase_inmueble" invisible="1"/>
+                                                      </tree>
+                                                      <form>
+                                                          <field name="numero"/>
+                                                          <field name="name"/>
+                                                          <field name="parent_id" invisible="1"/>
+                                                          <field name="clase_inmueble" invisible="1"/>
+                                                      </form>
+                                                  </field>
+                                              </page>
+                                              <page string="Histórico precios">
+                                                  <field name="historico_precio_ids" colspan="4" nolabel="1">
+                                                      <tree>
+                                                          <field name="usuario_cambio" readonly="1"/>
+                                                          <field name="precio_anterior" readonly="1"/>
+                                                          <field name="precio_actual" readonly="1"/>
+                                                          <field name="date" readonly="1"/>
+                                                      </tree>
+                                                      <form>
+                                                          <field name="usuario_cambio" readonly="1"/>
+                                                          <field name="precio_anterior" readonly="1"/>
+                                                          <field name="precio_actual" readonly="1"/>
+                                                          <field name="date" readonly="1"/>
+                                                      </form>
+                                                  </field>
+                                              </page>
+                                          </notebook>
+                                      </sheet>
+                                  </form>
+                              </field>
+                          </group>
+                      </page>
+
+	      <page string="Profesionales"  attrs="{'invisible':[('id','=',False)]}">
+              <group colspan="4" col="9">
+                  <separator colspan="6"/>
+                  <label for="matricula_arquitecto_id"/>
+                  <label for="fono_arquitecto_id"/>
+                  <label for="mail_arquitecto_id"/>
+                  <field name='arquitecto_id' domain="[('tercero','=',1)]" colspan="6"
+			 context="{'default_supplier':0,'default_customer':0,'default_tercero':1,'form_view_ref':'base.view_partner_simple_form'}"/>
+		  <field name='matricula_arquitecto_id' nolabel="1"/>
+		  <field name='fono_arquitecto_id' nolabel="1"/>
+		  <field name='mail_arquitecto_id' nolabel="1"/>
+		  <field name='estructural_id' domain="[('tercero','=',1)]" colspan="6" 
+			 context="{'default_supplier':0,'default_customer':0,'default_tercero':1,'form_view_ref':'base.view_partner_simple_form'}"/>
+		  <field name='matricula_estructural_id' nolabel="1"/>
+		  <field name='fono_estructural_id' nolabel="1"/>
+		  <field name='mail_estructural_id' nolabel="1"/>
+		  <field name='electrico_id' domain="[('tercero','=',1)]" colspan="6"
+			 context="{'default_supplier':0,'default_customer':0,'default_tercero':1,'form_view_ref':'base.view_partner_simple_form'}"/>
+		  <field name='matricula_electrico_id' nolabel="1"/>
+		  <field name='fono_electrico_id' nolabel="1"/>
+		  <field name='mail_electrico_id' nolabel="1"/>
+		  <field name='hidrosanitario_id' domain="[('tercero','=',1)]" colspan="6"
+			 context="{'default_supplier':0,'default_customer':0,'default_tercero':1,'form_view_ref':'base.view_partner_simple_form'}"/>
+		  <field name='matricula_hidrosanitario_id' nolabel="1"/>
+		  <field name='fono_hidrosanitario_id' nolabel="1"/>
+		  <field name='mail_hidrosanitario_id' nolabel="1"/>
+		  <field name='interior_id' domain="[('tercero','=',1)]" colspan="6"
+			 context="{'default_supplier':0,'default_customer':0,'default_tercero':1,'form_view_ref':'base.view_partner_simple_form'}"/>
+		  <field name='matricula_interior_id' nolabel="1"/>
+		  <field name='fono_interior_id' nolabel="1"/>
+		  <field name='mail_interior_id' nolabel="1"/>
+		  <field name='suelos_id' domain="[('tercero','=',1)]" colspan="6" 
+			 context="{'default_supplier':0,'default_customer':0,'default_tercero':1,'form_view_ref':'base.view_partner_simple_form'}"/>
+		  <field name='matricula_suelos_id' nolabel="1"/>
+		  <field name='fono_suelos_id' nolabel="1"/>
+		  <field name='mail_suelos_id' nolabel="1"/>
+		  <field name='topografico_id' domain="[('tercero','=',1)]" colspan="6" 
+			 context="{'default_supplier':0,'default_customer':0,'default_tercero':1,'form_view_ref':'base.view_partner_simple_form'}"/>
+		  <field name='matricula_topografico_id' nolabel="1"/>
+		  <field name='fono_topografico_id' nolabel="1"/>
+		  <field name='mail_topografico_id' nolabel="1"/>
+		  <field name='constructor_id' domain="[('tercero','=',1)]" colspan="6" 
+			 context="{'default_supplier':0,'default_customer':0,'default_tercero':1,'form_view_ref':'base.view_partner_simple_form'}"/>
+		  <field name='matricula_constructor_id' nolabel="1"/>
+		  <field name='fono_constructor_id' nolabel="1"/>
+		  <field name='mail_constructor_id' nolabel="1"/>
+		  <field name='gerente_id' domain="[('tercero','=',1)]" colspan="6" 
+			 context="{'default_supplier':0,'default_customer':0,'default_tercero':1,'form_view_ref':'base.view_partner_simple_form'}"/>
+		  <field name='matricula_gerente_id' nolabel="1"/>
+		  <field name='fono_gerente_id' nolabel="1"/>
+		  <field name='mail_gerente_id' nolabel="1"/>
+		  <field name='fiscalizador_id' domain="[('tercero','=',1)]" colspan="6" 
+			 context="{'default_supplier':0,'default_customer':0,'default_tercero':1,'form_view_ref':'base.view_partner_simple_form'}"/>
+		  <field name='matricula_fiscalizador_id' nolabel="1"/>
+		  <field name='fono_fiscalizador_id' nolabel="1"/>
+		  <field name='mail_fiscalizador_id' nolabel="1"/>
+		  <field name='contador_id' domain="[('tercero','=',1)]" colspan="6" 
+			 context="{'default_supplier':0,'default_customer':0,'default_tercero':1,'form_view_ref':'base.view_partner_simple_form'}"/>
+		  <field name='matricula_contador_id' nolabel="1"/>
+		  <field name='fono_contador_id' nolabel="1"/>
+		  <field name='mail_contador_id' nolabel="1"/>
+		</group>
+	      </page>
+	      <page string="Técnicos"  attrs="{'invisible':[('id','=',False)]}">
+		<group colspan="4" col="4">
+		  <field name='num_regulacion' help="Informe de regulación metropolitana"/>
+		  <field name='fecha_irm' help="Informe de regulación metropolitana"/>
+		  <field name='afectacion'/>
+		  <field name='clave_catastral'/>
+		  <field name='num_predio'/>
+		  <field name='altura_max'/>
+		  <field name='num_pisos'/>
+		  <field name='retiro_frontal'/>
+		  <field name='retiro_lateral'/>
+		  <field name='retiro_posterior'/>
+		  <field name='porcentaje_cos_pb'/>
+		  <field name='porcentaje_cos_total'/>
+		  <field name='zonificacion'/>
+		  <separator string="Observaciones" colspan="4"/>
+		  <field name='observaciones_datos_tecnicos' nolabel="1" colspan="4"/>
+		</group>
+	      </page>
+	      <page string="Permisos"  attrs="{'invisible':[('id','=',False)]}">
+		<group colspan="4" col="4">
+		  <field name='permiso_bomberos' widget="selection"/>
+		  <field name='fecha_bomberos' nolabel="1" placeholder="Fecha"/>
+		  <field name='num_registro_bomberos' nolabel="1" placeholder="Registro"/>
+		  <field name='planos_arquitectonicos' widget="selection"/>
+		  <field name='fecha_arquitectonico' nolabel="1" placeholder="Fecha"/>
+		  <field name='num_registro_arquitectonico' nolabel="1" placeholder="Registro"/>
+		  <field name='licencia_construccion' widget="selection"/>
+		  <field name='fecha_licencia_construccion' nolabel="1" placeholder="Fecha"/>
+		  <field name='num_licencia_construccion' nolabel="1" placeholder="Registro"/>
+		  <field name='permiso_ambiental' widget="selection"/>
+		  <field name='fecha_ambiental' nolabel="1" placeholder="Fecha"/>
+		  <field name='num_registro_ambiental' nolabel="1" placeholder="Registro"/>
+		  <field name='permiso_aceras' widget="selection"/>
+		  <field name='fecha_aceras' nolabel="1" placeholder="Fecha"/>
+		  <field name='num_registro_aceras' nolabel="1" placeholder="Registro"/>
+		  <field name='declaratoria_propiedad_horiz' widget="selection"/>
+		  <field name='fecha_otorgamiento_ph' nolabel="1" placeholder="Otorgamiento"/>
+		  <field name='fecha_inscripcion_ph' nolabel="1" placeholder="Inscripción"/>
+		  <field name='licencia_habitabilidad' widget="selection"/>
+		  <field name='fecha_habitabilidad' nolabel="1" placeholder="Fecha"/>
+		  <field name='num_registro_habitabilidad' nolabel="1" placeholder="Registro"/>
+		  <field name='permiso_trabajos' widget="selection"/>
+		  <field name='fecha_trabajos' nolabel="1" placeholder="Fecha"/>
+		  <field name='num_registro_trabajos' nolabel="1" placeholder="Registro"/>
+		  <field name='permiso_vallas' widget="selection"/>
+		  <field name='fecha_vallas' nolabel="1" placeholder="Fecha"/>
+		  <field name='num_registro_vallas' nolabel="1" placeholder="Registro"/>
+		</group>
+	      </page>
+	      <page string="Seguros y garantías"  attrs="{'invisible':[('id','=',False)]}">
+		<field name='seguros_garantias_ids' mode="tree">
+		  <tree string="Seguros y garantías" editable="top">
+            <field name="partner_id"/>
+		    <field name="tipo_poliza_id"/>
+		    <field name="name"/>
+		    <field name="proyecto"/>
+		    <field name="objeto"/>
+		    <field name="estado"/>
+		    <field name="fecha_desde"/>
+		    <field name="fecha_hasta"/>
+		    <field name="valor_asegurado"/>
+		    <field name="tasa"/>
+		    <field name="prima"/>
+		  </tree>
+		</field>
+	      </page>
+	      <page string="Bancarios" attrs="{'invisible':[('id','=',False)]}">
+			<field name='datos_bancarios_ids' mode="tree">
+			  <tree string="Datos bancarios" editable="top">
+			    <field name="bank" required="1" on_change="onchange_bank_id(bank)"/>
+			    <field name="partner_id"/>
+			    <field name="acc_number"/>
+			    <field name="state" on_change="onchange_tipo_cuenta(state)"/>
+			    <field name="uso"/>
+			    <field name="bank_name" invisible="1"/>
+                <field name="bank_bic" invisible="1" placeholder="e.g. GEBABEBB" />
+                <field name="tipo_cuenta"/>
+			  </tree>
+			</field>
+	      </page>
+	    </notebook>
+	  </sheet>
+	</form>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="view_cyg_proyecto_tree">
+      <field name="name">cyg.proyecto.tree</field>
+      <field name="model">cyg.proyecto</field>
+      <field name="arch" type="xml">
+	<tree string="Proyectos">
+	  <field name="code"/>
+	  <field name="name"/>
+	  <field name="web_page"/>
+	  <field name="state"/>
+	</tree>
+      </field>
+    </record>
+    <record model="ir.actions.act_window" id="action_cyg_proyecto">
+      <field name="name">Proyectos</field>
+      <field name="res_model">cyg.proyecto</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="search_view_id" ref="view_cyg_proyecto_search"/>
+    </record>
+    <menuitem id="menu_cyg_proyecto" name="Proyectos"
+	      action="action_cyg_proyecto"
+	      parent="menu_cyg_second_level_proyecto_inmobiliario"
+	      sequence="1"
+	      />
+
+
+    <record model="ir.ui.view" id="view_cyg_tipo_proyecto_search">
+      <field name="name">cyg.tipo_proyecto.search</field>
+      <field name="model">cyg.tipo_proyecto</field>
+      <field name="arch" type="xml">
+	<search>
+	  <field name="name"/>
+	</search>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="view_cyg_tipo_proyecto_form">
+      <field name="name">cyg.tipo_proyecto.form</field>
+      <field name="model">cyg.tipo_proyecto</field>
+      <field name="arch" type="xml">
+	<form string="Tipo de proyecto" version="7.0">
+	  <sheet>
+          <label for="name" class="oe_edit_only"/>
+          <h1><field name="name" placeholder="Tipo de proyecto"/></h1>
+          <label for="description" class="oe_edit_only"/>
+          <field name="description" placeholder="Descripción" nolabel="1" colspan="4"/>
+	  </sheet>
+	</form>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="view_cyg_tipo_proyecto_tree">
+      <field name="name">cyg.tipo_proyecto.tree</field>
+      <field name="model">cyg.tipo_proyecto</field>
+      <field name="arch" type="xml">
+	<tree string="Tipo de proyecto">
+	  <field name="name"/>
+	</tree>
+      </field>
+    </record>
+    <record model="ir.actions.act_window" id="action_cyg_tipo_proyecto">
+      <field name="name">Tipo de proyecto</field>
+      <field name="res_model">cyg.tipo_proyecto</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="search_view_id" ref="view_cyg_tipo_proyecto_search"/>
+    </record>
+    <menuitem name="Tipo de proyecto" id="menu_cyg_tipo_proyecto"
+	      parent="cyg_base.cyg_conf_inmobiliario" action="action_cyg_tipo_proyecto"
+	      sequence="50"/>
+
+    <record model="ir.ui.view" id="view_cyg_tipo_poliza_search">
+      <field name="name">cyg.tipo_poliza.search</field>
+      <field name="model">cyg.tipo_poliza</field>
+      <field name="arch" type="xml">
+	<search>
+	  <field name="name"/>
+	</search>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="view_cyg_tipo_poliza_form">
+      <field name="name">cyg.tipo_poliza.form</field>
+      <field name="model">cyg.tipo_poliza</field>
+      <field name="arch" type="xml">
+	<form string="Tipo de poliza" version="7.0">
+	  <sheet>
+          <label for="name" class="oe_edit_only"/>
+          <h1><field name="name" placeholder="Tipo de poliza"/></h1>
+          <label for="description" class="oe_edit_only"/>
+          <field name="description" placeholder="Descripción" nolabel="1" colspan="4"/>
+	  </sheet>
+	</form>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="view_cyg_tipo_poliza_tree">
+      <field name="name">cyg.tipo_poliza.tree</field>
+      <field name="model">cyg.tipo_poliza</field>
+      <field name="arch" type="xml">
+	<tree string="Tipo de poliza">
+	  <field name="name"/>
+	</tree>
+      </field>
+    </record>
+    <record model="ir.actions.act_window" id="action_cyg_tipo_poliza">
+      <field name="name">Tipo de poliza</field>
+      <field name="res_model">cyg.tipo_poliza</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="search_view_id" ref="view_cyg_tipo_poliza_search"/>
+    </record>
+    <menuitem name="Tipo de poliza" id="menu_cyg_tipo_poliza"
+	      parent="cyg_base.cyg_conf_inmobiliario" action="action_cyg_tipo_poliza"
+	      sequence="55"/>
+
+
+    <record model="ir.ui.view" id="view_cyg_plantilla_especificaciones_proyecto_search">
+      <field name="name">cyg.plantilla_especificaciones_proyecto.search</field>
+      <field name="model">cyg.plantilla_especificaciones_proyecto</field>
+      <field name="arch" type="xml">
+	<search>
+	  <field name="name"/>
+	</search>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="view_cyg_plantilla_especificaciones_proyecto_form">
+      <field name="name">cyg.plantilla_especificaciones_proyecto.form</field>
+      <field name="model">cyg.plantilla_especificaciones_proyecto</field>
+      <field name="arch" type="xml">
+	<form string="Especificaciones de proyecto" version="7.0">
+	  <sheet>
+          <label for="name" class="oe_edit_only"/>
+          <h1><field name="name" required='1' placeholder="Especificaciones de proyecto"/></h1>
+          <label for="description" class="oe_edit_only"/>
+          <field name="description" placeholder="Descripción" nolabel="1" colspan="4"/>
+	  </sheet>
+	</form>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="view_cyg_plantilla_especificaciones_proyecto_tree">
+      <field name="name">cyg.plantilla_especificaciones_proyecto.tree</field>
+      <field name="model">cyg.plantilla_especificaciones_proyecto</field>
+      <field name="arch" type="xml">
+	<tree string="Especificaciones de proyecto">
+	  <field name="name"/>
+	  <field name="description"/>
+	</tree>
+      </field>
+    </record>
+    <record model="ir.actions.act_window" id="action_cyg_plantilla_especificaciones_proyecto">
+      <field name="name">Especificaciones de proyecto</field>
+      <field name="res_model">cyg.plantilla_especificaciones_proyecto</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="search_view_id" ref="view_cyg_plantilla_especificaciones_proyecto_search"/>
+    </record>
+    <menuitem name="Plantilla de especificaciones" id="menu_cyg_plantilla_especificaciones_proyecto"
+	      parent="cyg_base.cyg_conf_inmobiliario" action="action_cyg_plantilla_especificaciones_proyecto"
+	      sequence="40"/>
+
+    <record model="ir.ui.view" id="view_cyg_especificaciones_proyecto_search">
+      <field name="name">cyg.especificaciones_proyecto.search</field>
+      <field name="model">cyg.especificaciones_proyecto</field>
+      <field name="arch" type="xml">
+	<search>
+       <field name="proyecto_id"/>
+        <field name="name"/>
+	</search>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="view_cyg_especificaciones_proyecto_form">
+      <field name="name">cyg.especificaciones_proyecto.form</field>
+      <field name="model">cyg.especificaciones_proyecto</field>
+      <field name="arch" type="xml">
+	<form string="Especificaciones de proyecto" version="7.0">
+	  <sheet>
+          <label for="name" class="oe_edit_only"/>
+          <h1><field name="name" required='1' placeholder="Especificaciones de proyecto"/></h1>
+          <label for="proyecto_id" class="oe_edit_only"/>
+          <field name="proyecto_id" readonly="1"/>
+          <label for="description" class="oe_edit_only"/>
+          <field name="description" placeholder="Descripción" nolabel="1" colspan="4"/>
+	  </sheet>
+	</form>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="view_cyg_especificaciones_proyecto_tree">
+      <field name="name">cyg.especificaciones_proyecto.tree</field>
+      <field name="model">cyg.especificaciones_proyecto</field>
+      <field name="arch" type="xml">
+	<tree string="Especificaciones de proyecto">
+      <field name="proyecto_id"/>
+	  <field name="name"/>
+	  <field name="description"/>
+	</tree>
+      </field>
+    </record>
+    <record model="ir.actions.act_window" id="action_cyg_especificaciones_proyecto">
+      <field name="name">Especificaciones de proyecto</field>
+      <field name="res_model">cyg.especificaciones_proyecto</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="search_view_id" ref="view_cyg_especificaciones_proyecto_search"/>
+    </record>
+    <menuitem name="Especificaciones de proyecto" id="menu_cyg_especificaciones_proyecto"
+	      parent="cyg_base.cyg_conf_inmobiliario" action="action_cyg_especificaciones_proyecto"
+	      sequence="40"/>
+
+    <record model="ir.ui.view" id="view_cyg_estado_permiso_proyecto_search">
+      <field name="name">cyg.estado_permiso_proyecto.search</field>
+      <field name="model">cyg.estado_permiso_proyecto</field>
+      <field name="arch" type="xml">
+	<search>
+	  <field name="name"/>
+	</search>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="view_cyg_estado_permiso_proyecto_form">
+      <field name="name">cyg.estado_permiso_proyecto.form</field>
+      <field name="model">cyg.estado_permiso_proyecto</field>
+      <field name="arch" type="xml">
+	<form string="Estados permisos" version="7.0">
+	  <sheet>
+         <label for="name" class="oe_edit_only"/>
+	    <h1><field name="name" placeholder="Estado"/></h1>
+          <label for="description" class="oe_edit_only"/>
+          <field name="description" placeholder="Descripción" nolabel="1" colspan="4"/>
+	  </sheet>
+	</form>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="view_cyg_estado_permiso_proyecto_tree">
+      <field name="name">cyg.estado_permiso_proyecto.tree</field>
+      <field name="model">cyg.estado_permiso_proyecto</field>
+      <field name="arch" type="xml">
+	<tree string="Estados permisos">
+	  <field name="name"/>
+	</tree>
+      </field>
+    </record>
+    <record model="ir.actions.act_window" id="action_cyg_estado_permiso_proyecto">
+      <field name="name">Estados permisos</field>
+      <field name="res_model">cyg.estado_permiso_proyecto</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="search_view_id" ref="view_cyg_estado_permiso_proyecto_search"/>
+    </record>
+    <menuitem name="Estados permisos" id="menu_cyg_estado_permiso_proyecto"
+	      parent="cyg_base.cyg_conf_inmobiliario" action="action_cyg_estado_permiso_proyecto"
+	      sequence="130"/>
+
+    <record model="ir.ui.view" id="view_cyg_tipo_inmueble_search">
+      <field name="name">cyg.tipo_inmueble.search</field>
+      <field name="model">cyg.tipo_inmueble</field>
+      <field name="arch" type="xml">
+	<search>
+	  <field name="proyecto_id"/>
+	  <field name="name"/>
+	</search>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="view_cyg_tipo_inmueble_form">
+      <field name="name">cyg.tipo_inmueble.form</field>
+      <field name="model">cyg.tipo_inmueble</field>
+      <field name="arch" type="xml">
+	<form string="Tipo de inmueble" version="7.0">
+	  <sheet>
+          <field name="image"
+                 widget="image"
+                 class="oe_left oe_avatar"
+                 options="{'preview_image': 'image', 'size': [90, 90]}"/>
+          <label for="proyecto_id" class="oe_edit_only"/>
+          <field name="proyecto_id" readonly="1"/>
+          <label for="name" class="oe_edit_only"/>
+          <h1><field name="name" placeholder="Tipo de inmueble"/></h1>
+          <label for="description" class="oe_edit_only"/>
+          <field name="description" placeholder="Descripción" nolabel="1" colspan="4"/>
+          <group colspan="2" col="4">
+              <field name="area_cubierta"/>
+              <field name="area_terraza"/>
+              <field name="area_balcon"/>
+              <field name="area_patio_privado"/>
+              <field name="rooms"/>
+              <field name="bathrooms"/>
+              <field name="precio"/>
+          </group>
+	  </sheet>
+	</form>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="view_cyg_tipo_inmueble_tree">
+      <field name="name">cyg.tipo_inmueble.tree</field>
+      <field name="model">cyg.tipo_inmueble</field>
+      <field name="arch" type="xml">
+          <tree string="Tipo de inmueble">
+              <field name="proyecto_id"/>
+              <field name="name"/>
+          </tree>
+      </field>
+    </record>
+    <record model="ir.actions.act_window" id="action_cyg_tipo_inmueble">
+      <field name="name">Tipo de inmueble</field>
+      <field name="res_model">cyg.tipo_inmueble</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="search_view_id" ref="view_cyg_tipo_inmueble_search"/>
+    </record>
+    <menuitem name="Tipo de inmueble" id="menu_cyg_tipo_inmueble"
+	      parent="cyg_base.cyg_conf_inmobiliario" action="action_cyg_tipo_inmueble"
+	      sequence="55"/>
+
+    <record model="ir.ui.view" id="view_cyg_proyecto_piso_search">
+      <field name="name">cyg.proyecto_piso.search</field>
+      <field name="model">cyg.proyecto_piso</field>
+      <field name="arch" type="xml">
+	<search>
+	  <field name="proyecto_id"/>
+	  <field name="name"/>
+      <field name="numero"/>
+	</search>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="view_cyg_proyecto_piso_form">
+      <field name="name">cyg.proyecto_piso.form</field>
+      <field name="model">cyg.proyecto_piso</field>
+      <field name="arch" type="xml">
+	<form string="Piso en proyecto" version="7.0">
+	  <sheet>
+          <label for="name" class="oe_edit_only"/>
+          <h1><field name="name" placeholder="Piso"/></h1>
+          <label for="numero" class="oe_edit_only"/>
+          <field name="numero" placeholder="Número" nolabel="1" colspan="4"/>
+          <label for="proyecto_id" class="oe_edit_only"/>
+          <field name="proyecto_id" readonly="1"/>
+        <group>
+            <field name="num_inmuebles"/>
+        </group>
+        <separator string="Inmuebles"/>
+	    <field name="inmueble_ids" nolabel="1" colspan="4"/>
+	  </sheet>
+	</form>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="view_cyg_proyecto_piso_tree">
+        <field name="name">cyg.proyecto_piso.tree</field>
+        <field name="model">cyg.proyecto_piso</field>
+        <field name="arch" type="xml">
+            <tree string="Piso en proyecto">
+                <field name="proyecto_id"/>
+                <field name="etapa_id"/>
+                <field name="numero"/>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_cyg_proyecto_inmueble_search">
+      <field name="name">cyg.proyecto_inmueble.search</field>
+      <field name="model">cyg.proyecto_inmueble</field>
+      <field name="arch" type="xml">
+	<search>
+	  <field name="proyecto_id"/>
+	  <field name="piso_id"/>
+	  <field name="name"/>
+      <field name="numero"/>
+      <field name="tipo_inmueble_id"/>
+	</search>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="view_cyg_proyecto_inmueble_form">
+      <field name="name">cyg.proyecto_inmueble.form</field>
+      <field name="model">cyg.proyecto_inmueble</field>
+      <field name="arch" type="xml">
+	<form string="Inmueble" version="7.0">
+        <header>
+            <field name="state" widget="statusbar"/>
+        </header>
+        <sheet>
+        	<div class="oe_right oe_button_box" name="buttons" groups="base.group_user">
+                      <button name="attachment_tree_view" string="Documentos adjuntos" type="object"/>
+            	  </div>
+            <div class="oe_title">
+                <field name='id' invisible="1"/>
+                <label for="proyecto_id"/>
+                <field name='proyecto_id' placeholder="Proyecto" attrs="{'readonly':[('id','!=',False)]}"/>
+                <label for="etapa_id"/>
+                <field name='etapa_id' placeholder="Etapa" attrs="{'readonly':[('id','!=',False)]}"
+                       domain="[('proyecto_id','=',proyecto_id)]"/>
+                <label for="name"/>
+                <field name="name" placeholder="Código"/>
+                <label for="numero"/>
+                <h1> <field name="numero" default_focus="1" placeholder="Número"/>  </h1>
+
+            </div>
+            <notebook>
+                <page string="Datos generales">
+                    <group colspan="4" col="4">
+                        <field name='piso_id' domain="[('proyecto_id','=',proyecto_id)]"/>
+                        <field name='tipo_inmueble_id' domain="[('proyecto_id','=',proyecto_id)]"
+                               on_change="onchange_tipo_inmueble(tipo_inmueble_id)"
+                               required="1"/>
+                        <field name="cash_management"/>
+                        <field name='precio_actual'
+                               attrs="{'readonly':[('tiene_precio','!=',False)]}"/>
+                        <button name="%(action_view_cambio_precio_inmueble_wiz)d" type="action" string="Cambio de precio"
+                                colspan="2"/>
+                        <field name="tiene_precio" invisible="1"/>
+                        <newline/>
+                        <field name="costo"/>
+                        <field name="alicuota"/>
+                        <field name='area_cubierta'/>
+                        <field name='area_balcon'/>
+                        <field name='area_terraza'/>
+                        <field name='area_patio_privado'/>
+                        <field name='rooms'/>
+                        <field name='bathrooms'/>
+                        <field name='predio'/>
+                        <field name='linderos'/>
+                        <field name='certificado_gravamen'/>
+                        <field name='fecha_gravamen'/>
+                    </group>
+                </page>
+                <page string="Parqueaderos y Bodegas">
+                    <separator string="Parqueaderos"/>
+                    <field name="parqueadero_ids" context="{'default_clase_inmueble':'parqueadero'}"
+                           editable="bottom">
+                        <tree>
+                            <field name="numero"/>
+                            <field name="name"/>
+                            <field name="clase_inmueble" invisible="1"/>
+                        </tree>
+                        <form>
+                            <field name="numero"/>
+                            <field name="name"/>
+                            <field name="parent_id" invisible="1"/>
+                            <field name="clase_inmueble" invisible="1"/>
+                        </form>
+                    </field>
+                    <separator string="Bodegas"/>
+                    <field name="bodega_ids" context="{'default_clase_inmueble':'bodega'}"
+                           editable="bottom">
+                        <tree>
+                            <field name="numero"/>
+                            <field name="name"/>
+                            <field name="clase_inmueble" invisible="1"/>
+                        </tree>
+                        <form>
+                            <field name="numero"/>
+                            <field name="name"/>
+                            <field name="parent_id" invisible="1"/>
+                            <field name="clase_inmueble" invisible="1"/>
+                        </form>
+                    </field>
+                </page>
+                <page string="Histórico precios">
+                    <field name="historico_precio_ids" colspan="4" nolabel="1">
+                        <tree>
+                            <field name="usuario_cambio" readonly="1"/>
+                            <field name="precio_anterior" readonly="1"/>
+                          <field name="precio_actual" readonly="1"/>
+                          <field name="date" readonly="1"/>
+                      </tree>
+                      <form>
+                          <field name="usuario_cambio" readonly="1"/>
+                          <field name="precio_anterior" readonly="1"/>
+                          <field name="precio_actual" readonly="1"/>
+                          <field name="date" readonly="1"/>
+                      </form>
+                  </field>
+                </page>
+                <page string="Actividades">
+                	<label string="Para añadir las actividades oprima el botón 'Buscar'" colspan="3"/>
+                	<button name='%(action_cyg_importar_inmueble_ac_wiz)d' type='action' string='Buscar' icon="gtk-find"/>
+                	<field name='actividades_ids' nolabel="1" colspan="4">
+                		<form string="Actividad" version="7.0">
+			                <header>
+			                    <field name="state" widget="statusbar"/>
+			                </header>
+			                <sheet>
+			                    <field name="id" invisible="1"/>
+			                    <group colspan="2" col="4">
+			                        <group colspan="4" col="6">
+			                            <field name="id" invisible="1"/>
+			                            <field name='actividad_id'
+			                                   on_change="onchange_actividad(actividad_id)"
+			                                   context="{'form_view_ref':'view_cyg_simple_actividad_form'}"/>
+			                            <field name='grupo_id' invisible="1"/>
+			                            <field name='fecha_ini' on_change="onchange_date(fecha_ini,fecha_fin)"/>
+			                            <field name='fecha_fin' on_change="onchange_date(fecha_ini,fecha_fin)"/>
+			                            <field name='dias_diferencia'/>
+			                            <field name='persona_entrega_id'/>
+			                            <field name='persona_recibe_id'/>
+			                            <field name='ubicacion'/>
+			                            <field name='dias_programados' invisible="1"/>
+			                            <field name='sequence_grupo' invisible="1"/>
+			                            <field name='sequence_actividad' invisible="1"/>
+			                            <newline/>
+			                            </group>
+			                        <separator string="Observaciones" colspan="4"/>
+			                        <field name='observacion' colspan="4" nolabel="1"/>
+			                        <separator string="Facturas" colspan="4"/>
+			                        <field name='factura_ids' nolabel="1" colspan="4"/>
+			                    </group>
+			                </sheet>
+            			</form>
+            			<tree string="Actividades">
+                            <field name="grupo_id"/>
+			                <field name='actividad_id' on_change="onchange_actividad(actividad_id)"/>
+			                <field name='dias_programados'/>
+			                <field name='fecha_ini'/>
+			                <field name='fecha_fin'/>
+			                <field name='dias_diferencia'/>
+			                <field name="observacion"/>
+			                <field name="state"/>
+			                <field name="sequence_grupo" invisible="1"/>
+			                <field name="sequence_actividad" invisible="1"/>
+			            </tree>
+                	</field>
+                </page>
+          </notebook>
+	    </sheet>
+	</form>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="view_cyg_proyecto_inmueble_tree">
+        <field name="name">cyg.proyecto_inmueble.tree</field>
+        <field name="model">cyg.proyecto_inmueble</field>
+        <field name="arch" type="xml">
+            <tree string="proyecto de inmueble">
+                <field name="proyecto_id"/>
+                <field name="etapa_id"/>
+                <field name="piso_id"/>
+                <field name="name"/>
+                <field name="numero"/>
+                <field name="tipo_inmueble_id"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+    <record model="ir.actions.act_window" id="action_cyg_proyecto_inmueble">
+        <field name="name">Inmueble</field>
+        <field name="res_model">cyg.proyecto_inmueble</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_cyg_proyecto_inmueble_search"/>
+    </record>
+    <menuitem name="Inmuebles" id="menu_cyg_proyecto_inmueble_td"
+              parent="menu_cyg_proyecto_inmobiliario" action="action_cyg_proyecto_inmueble"
+              groups="group_cyg_inmo_manager_proyectos,group_cyg_inmo_user_proyectos,group_cyg_inmo_read_proyectos,group_cyg_inmo_manager_trans_dominio,group_cyg_inmo_user_trans_domino,group_cyg_inmo_read_trans_domino"
+              sequence="55"/>
+
+    <menuitem name="Inmuebles" id="menu_cyg_proyecto_inmueble"
+              parent="menu_cyg_second_level_proyecto_inmobiliario" action="action_cyg_proyecto_inmueble"
+              sequence="55"/>
+
+    <record model="ir.ui.view" id="view_cyg_proyecto_etapa_search">
+        <field name="name">cyg.proyecto_etapa.search</field>
+        <field name="model">cyg.proyecto_etapa</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="proyecto_id"/>
+                <field name="name"/>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_cyg_proyecto_etapa_form">
+      <field name="name">cyg.proyecto_etapa.form</field>
+        <field name="model">cyg.proyecto_etapa</field>
+        <field name="arch" type="xml">
+            <form string="Etapa" version="7.0">
+                <sheet>
+                    <label for="proyecto_id" class="oe_edit_only"/>
+                    <field name="proyecto_id" readonly="0"/>
+                    <label for="name" class="oe_edit_only"/>
+                    <h1><field name="name" placeholder="Etapa"/></h1>
+                    <group colspan="2" col="4">
+                        <field name="pisos"/>
+                        <field name="unidades"/>
+                        <field name="presupuesto_id" colspan="4"
+                               domain="[('proyecto_id','=',proyecto_id),('codigo','=','cartera')]"/>
+                        <field name="piso_ids" nolabel="1" colspan="4">
+                            <tree>
+                                <field name="name"/>
+                                <field name="numero"/>
+                                <field name="num_inmuebles"/>
+                            </tree>
+                        </field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="view_cyg_proyecto_etapa_tree">
+        <field name="name">cyg.proyecto_etapa.tree</field>
+        <field name="model">cyg.proyecto_etapa</field>
+        <field name="arch" type="xml">
+            <tree string="Etapas">
+                <field name="name"/>
+                <field name="pisos"/>
+                <field name="unidades"/>
+                <field name="proyecto_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_cyg_proyecto_presupuesto_form">
+        <field name="name">cyg.proyecto.presupuesto.form</field>
+        <field name="model">cyg.proyecto_linea_presupuesto</field>
+        <field name="arch" type="xml">
+            <form string="Línea de presupuesto">
+                <field name="proyecto_id" invisible="1"/>
+                <newline/>
+                <field name="code"/>
+              <field name="name"/>
+              <field name="tipo_presupuesto_id" colspan="4" on_change="onchange_tipo_presupuesto(tipo_presupuesto_id)"/>
+              <field name="codigo" colspan="4" invisible="1"/>
+              <newline/>
+              <field name='director_id' domain="[('tercero','=',1)]"
+                     placeholder="Director"
+                     context="{'default_supplier':0,'default_customer':0,'default_tercero':1}"
+                     attrs="{'invisible':[('codigo','!=','directo')]}"/>
+              <field name='bodeguero_id' domain="[('tercero','=',1)]"
+                     placeholder="Bodeguero"
+                     context="{'default_supplier':0,'default_customer':0,'default_tercero':1}"
+                     attrs="{'invisible':[('codigo','!=','directo')]}"/>
+              <field name="ini_prog_obra" on_change="onchange_date(ini_prog_obra,fin_prog_obra,'prog')"
+                     attrs="{'invisible':[('codigo','!=','directo')]}"/>
+              <field name="fin_prog_obra" on_change="onchange_date(ini_prog_obra,fin_prog_obra,'prog')"
+                     attrs="{'invisible':[('codigo','!=','directo')]}"/>
+              <field name="ini_real_obra" on_change="onchange_date(ini_real_obra,fin_real_obra,'real')"
+                     attrs="{'invisible':[('codigo','!=','directo')]}"/>
+              <field name="fin_real_obra" on_change="onchange_date(ini_real_obra,fin_real_obra,'real')"
+                     attrs="{'invisible':[('codigo','!=','directo')]}"/>
+              <field name="punto_equi_prog" attrs="{'invisible':[('codigo','not in',('directo','indirecto','cartera'))]}"/>
+              <field name="punto_equi_real" attrs="{'invisible':[('codigo','not in',('directo','indirecto','cartera'))]}"/>
+              <field name="venta_prog" attrs="{'invisible':[('codigo','not in',('','cartera'))]}"/>
+              <field name="venta_real" attrs="{'invisible':[('codigo','not in',('','cartera'))]}"/>
+              <field name="ini_oficina" on_change="onchange_date(ini_oficina,fin_oficina,'real')"
+                     attrs="{'invisible':[('codigo','!=','oficina')]}"/>
+              <field name="fin_oficina" on_change="onchange_date(ini_oficina,fin_oficina,'real')"
+                     attrs="{'invisible':[('codigo','!=','oficina')]}"/>
+          </form>
+        </field>
+    </record>
+
+  </data>
+</openerp>

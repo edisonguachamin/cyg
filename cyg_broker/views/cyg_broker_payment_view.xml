@@ -1,0 +1,111 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data>
+	<record model="ir.ui.view" id="view_cyg_broker_payment_tree">
+      <field name="name">cyg.broker.payment.tree</field>
+      <field name="model">cyg.broker.payment</field>
+      <field name="arch" type="xml">
+		<tree string="Pagos" create="false" edit="false">
+		  	<field name="name"/>
+		  	<field name="user_id"/>
+		 	<field name="amount" required="1" sum="Pagado"/>
+		 	<field name="date_payment"/>
+		 	<field name="bank_id" />
+		 	<field name="name"/>
+		 	<field name="type"/>
+		 	<field name="state"/>
+		</tree>
+      </field>
+    </record>
+	
+	
+    <record model="ir.ui.view" id="view_cyg_broker_payment_search">
+      <field name="name">cyg.broker.payment.search</field>
+      <field name="model">cyg.broker.payment</field>
+      <field name="arch" type="xml">
+		<search>
+		  <field name="name"/>
+		  <field name="comprobante"/>
+		  <field name="amount"/>
+		  <field name="user_id"/>
+		  <field name="date"/>
+		  
+		</search>
+      </field>
+    </record>
+    
+    <record model="ir.ui.view" id="view_cyg_broker_payment_form">
+      <field name="name">cyg.broker.payment.form</field>
+      <field name="model">cyg.broker.payment</field>
+      <field name="arch" type="xml">
+	<form string="Pago" version="7.0" create="false">
+		<header>
+	  		<button name="button_validar" states="draft" string="Validar" type="object" class="oe_highlight"/>
+	  		<field name="state" widget="statusbar"/>
+	  	</header>
+	  	<sheet>
+	  		<div class="oe_right oe_button_box" name="buttons" groups="base.group_user">
+                 <button name="attachment_tree_view" string="Documentos adjuntos" type="object"/>
+            </div>
+			<group col="4">
+			  <field name="name" class="oe_inline" readonly="1"/>
+			  <field name="user_id" readonly="1"/>
+			  <field name="date" readonly="1"/>
+			  <field name="date_payment" attrs="{'required': [('state','=','draft')],'readonly':[('state','!=','draft')]}" on_change="onchange_fecha_pago(date_payment,'date_payment')"/>
+			  <field name="comprobante" />
+			  <field name="type" readonly="1"/>
+			  <field name="bank_id" on_change="onchange_banco(bank_id)" />
+			  <field name="nro_cuenta" />
+			  <field name="broker_cliente_id" invisible="1" options="{'no_open': True}"/>
+			  <field name="broker_reasegurador_id" invisible="1" options="{'no_open': True}"/>
+			  <field name="amount" attrs="{'required': [('state','=','draft')],'readonly':[('state','!=','draft')]}"/>
+		  	</group>
+		  	<field name="payment_lines_ids" nolabel="1" readonly="1">
+		  		<form>
+		  			 <field name="name"/>
+		  			 <field name="cuota"/>
+		  			 <field name="valor_cuota_cliente"/>
+		  			 <field name="valor_pagado_cliente"/>
+		  			 <field name="valor_pendiente_cliente"/>
+		  		</form>
+		  		<tree>
+		  			 <field name="name"/>
+		  			 <field name="cuota"/>
+		  			 <field name="valor_cuota_cliente"/>
+		  			 <field name="valor_pagado_cliente"/>
+		  			 <field name="valor_pendiente_cliente"/>
+		  		</tree>
+		    </field>
+		    <div class="oe_clear"/>
+            <field name="note" class="oe_inline" placeholder="Notas Adicionales..."/>
+	  </sheet>
+	</form>
+      </field>
+    </record>
+    
+    <record model="ir.actions.act_window" id="action_cyg_broker_payment">
+    	<field name="name">Pagos</field>
+	    <field name="res_model">cyg.broker.payment</field>
+	    <field name="view_type">form</field>
+	    <field name="view_mode">tree,form</field>
+	    <field name="search_view_id" ref="view_cyg_broker_payment_search"/>
+	</record>
+	    
+    <record id="action_cyg_broker_payment_cuota_tree" model="ir.actions.act_window.view">
+        <field name="sequence" eval="0"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_cyg_broker_payment_tree"/>
+        <field name="act_window_id" ref="action_cyg_broker_payment"/>
+    </record>
+        
+    <record id="action_cyg_broker_payment_form" model="ir.actions.act_window.view">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_cyg_broker_payment_form"/>
+        <field name="act_window_id" ref="action_cyg_broker_payment"/>
+    </record>
+	    
+    
+    
+    </data>
+</openerp>

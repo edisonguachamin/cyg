@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="view_cyg_payment_extra_descripcion_search">
+	      <field name="name">cyg.payment.extra.descripcion.search</field>
+	      <field name="model">cyg.payment.extra.descripcion</field>
+	      <field name="type">search</field>
+	      <field name="arch" type="xml">
+			<search>
+			  <field name="name"/>
+			</search>
+	      </field>
+	    </record>
+	    
+	    <record model="ir.ui.view" id="view_cyg_payment_extra_descripcion_tree">
+	      <field name="name">cyg.payment.extra.descripcion.tree</field>
+	      <field name="model">cyg.payment.extra.descripcion</field>
+	      <field name="arch" type="xml">
+			<tree  string="Descripción">
+			  <field name="name"/>
+			  
+			</tree>
+	      </field>
+	    </record>
+	    
+	    <record model="ir.ui.view" id="view_cyg_payment_extra_descripcion_form">
+	      <field name="name">cyg.payment.extra.descripcion.form</field>
+	      <field name="model">cyg.payment.extra.descripcion</field>
+	      <field name="type">form</field>
+	      <field name="arch" type="xml">
+			<form string="Descripción" version="7.0">
+			<sheet>
+				<group>
+				  <field name="name" on_change="onchange_mayusculas(name,'name')"/>
+			  	</group>
+			</sheet>
+			</form>
+	      </field>
+	    </record>
+	    <record id="action_cyg_payment_extra_descripcion" model="ir.actions.act_window">
+            <field name="name">Pago Extra Descripción</field>
+            <field name="res_model">cyg.payment.extra.descripcion</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click para una Descripción de pago extra
+              </p>
+              <p>
+                Defina las Descripciones de pagos extras
+              </p>
+            </field>
+        </record>
+        
+    </data>
+</openerp>
+        

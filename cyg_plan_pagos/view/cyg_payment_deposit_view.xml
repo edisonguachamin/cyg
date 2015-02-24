@@ -1,0 +1,247 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data>
+
+    <record model="ir.ui.view" id="view_cyg_payment_deposit_search">
+      <field name="name">cyg.payment.deposit.search</field>
+      <field name="model">cyg.payment.deposit</field>
+      <field name="arch" type="xml">
+		<search>
+		  <field name="name"/>
+		  <field name="comprobante"/>
+		  <field name="proyecto_id"/>
+		  <field name="inmueble_id"/>
+		  <field name="partner_id"/>
+		  <field name="amount"/>
+		  <field name="user_id"/>
+		  <field name="date_payment"/>
+		  <group expand="0" string="Agrupar por...">
+                  <filter string="Cliente" icon="terp-personal" domain="[]" context="{'group_by':'partner_id'}"/>
+                  <filter string="Proyecto" icon="terp-go-home" domain="[]" context="{'group_by':'proyecto_id'}"/>
+                  <filter string="Inmueble" icon="STOCK_UNINDENT" domain="[]" context="{'group_by':'inmueble_id'}"/>
+                  <filter string="Fecha de Pago" domain="[]" context="{'group_by':'date_payment'}"/>
+          </group>
+		</search>
+      </field>
+    </record>
+    
+    <record model="ir.ui.view" id="view_cyg_payment_deposit_tree">
+      <field name="name">cyg.payment.deposit.tree</field>
+      <field name="model">cyg.payment.deposit</field>
+      <field name="arch" type="xml">
+		<tree string="Pagos de Inmuebles" create="false" edit="false">
+		  	<field name="user_id"/>
+		 	<field name="partner_id"/>
+		 	<field name="proyecto_id"/>
+		 	<field name="etapa_id"/>
+		 	<field name="inmueble_id"/>
+		 	<field name="amount" required="1" sum="Pagado"/>
+		 	<field name="date_payment"/>
+		 	<field name="name"/>
+		 	<field name="type"/>
+		 	<field name="state"/>
+		</tree>
+      </field>
+    </record>
+    
+    <!-- Abono -->
+    <record model="ir.ui.view" id="view_cyg_payment_deposit_form">
+      <field name="name">cyg.payment.deposit.form</field>
+      <field name="model">cyg.payment.deposit</field>
+      <field name="arch" type="xml">
+		<form string="Pago Descuento" version="7.0" create="false">
+			<header>
+				<button name="button_validar" states="draft" string="Validar" type="object" class="oe_highlight"/>
+		  		<field name="state" widget="statusbar"/>
+		  	</header>
+		  	<sheet>
+			  	<div class="oe_right oe_button_box" name="buttons" groups="base.group_user">
+	                 <button name="attachment_tree_view" string="Documentos adjuntos" type="object"/>
+	            </div>
+				<group col="4">
+				  <field name="name" class="oe_inline" readonly="1"/>
+				  <field name="type" readonly="1"/>
+				  <field name="user_id" readonly="1"/>
+				  <field name="date" readonly="1"/>
+				  <field name="date_payment" string="Fecha de Abono" required="1" on_change="onchange_fecha_pago(date_payment,'date_payment')"/>
+				  <field name="proyecto_id" readonly="1" />
+				  <field name="inmueble_id" readonly="1"  options="{'no_open': True}"/>
+				  <field name="partner_id" readonly="1"  options='{"no_open":True}'/>
+				  <field name="sale_id" readonly="1" string="Pedido de Venta" />
+				  <field name="cuota_id" readonly="1" string="Cuota" />
+				  <field name="amount" string="Valor autorizado" required="1"/>
+			  	</group>
+			  	<group >
+			  		<field name="abono_propuesto" on_change="onchange_descuento(abono_propuesto,tasa_interes,dias_anticipados)"/>
+			  		<field name="tasa_interes" on_change="onchange_descuento(abono_propuesto,tasa_interes,dias_anticipados)"/>
+			  		<field name="dias_anticipados" on_change="onchange_descuento(abono_propuesto,tasa_interes,dias_anticipados)"/>
+			  		<field name="descuento_calculado" />
+			  	</group>
+			  	<field name="payment_deposit_line_ids" nolabel="1" readonly="1">
+			  		<form>
+			  			 <field name="name"/>
+			  			 <field name="cuota_id"/>
+			  			 <field name="fecha"/>
+			  			 <field name="valor_cuota"/>
+			  			 <field name="valor_mora"/>
+			  			 <field name="amount"/>
+			  			 <field name="valor_pendiente_cuota"/>
+			  			 <field name="valor_pendiente_mora"/>
+			  		</form>
+			  		<tree>
+			  			 <field name="name"/>
+			  			 <field name="cuota_id"/>
+			  			 <field name="fecha"/>
+			  			 <field name="valor_cuota"/>
+			  			 <field name="valor_mora"/>
+			  			 <field name="amount"/>
+			  			 <field name="valor_pendiente_cuota"/>
+			  			 <field name="valor_pendiente_mora"/>
+			  		</tree>
+			    </field>
+			    <div class="oe_clear"/>
+	            <field name="note" class="oe_inline" placeholder="Notas Adicionales..."/>
+		  </sheet>
+		</form>
+      </field>
+    </record>
+    
+    <!-- Mora -->
+    <record model="ir.ui.view" id="view_cyg_payment_deposit_mora_form">
+      <field name="name">cyg.payment.deposit.mora.form</field>
+      <field name="model">cyg.payment.deposit</field>
+      <field name="arch" type="xml">
+		<form string="Pago de Mora" version="7.0" create="false">
+			<header>
+				<button name="button_validar" states="draft" string="Validar" type="object" class="oe_highlight"/>
+		  		<field name="state" widget="statusbar"/>
+		  	</header>
+		  	<sheet>
+				<group col="4">
+				  <field name="name" class="oe_inline" readonly="1"/>
+				  <field name="type" readonly="1"/>
+				  <field name="user_id" readonly="1"/>
+				  <field name="date" readonly="1"/>
+				  <field name="date_payment" required="1" on_change="onchange_fecha_pago(date_payment,'date_payment')"/>
+				  <field name="comprobante" />
+				  <field name="proyecto_id" readonly="1" />
+				  <field name="inmueble_id" readonly="1"  options="{'no_open': True}"/>
+				  <field name="cuota_id" readonly="1" string="Cuota" />
+				  <field name="date_interes" string="Fecha de Vencimiento" readonly="1"/>
+				  <field name="amount_interes_mora" string="Valor devengado a la fecha" readonly="1"/>
+				  <field name="amount" string="Valor efectivamente recaudado" required="1"/>
+				  <field name="partner_id" invisible="1"  options='{"no_open":True}'/>
+			  	</group>
+			  	<field name="payment_deposit_line_ids" nolabel="1" readonly="1">
+			  		<form>
+			  			 <field name="name"/>
+			  			 <field name="cuota_id"/>
+			  			 <field name="fecha"/>
+			  			 <field name="valor_cuota"/>
+			  			 <field name="valor_mora"/>
+			  			 <field name="amount"/>
+			  			 <field name="valor_pendiente_cuota"/>
+			  			 <field name="valor_pendiente_mora"/>
+			  		</form>
+			  		<tree>
+			  			 <field name="name"/>
+			  			 <field name="cuota_id"/>
+			  			 <field name="fecha"/>
+			  			 <field name="valor_cuota"/>
+			  			 <field name="valor_mora"/>
+			  			 <field name="amount"/>
+			  			 <field name="valor_pendiente_cuota"/>
+			  			 <field name="valor_pendiente_mora"/>
+			  		</tree>
+			    </field>
+			    <div class="oe_clear"/>
+	            <field name="note" class="oe_inline" placeholder="Notas Adicionales..."/>
+		  </sheet>
+		</form>
+      </field>
+    </record>
+    
+    <!-- Pagos Extras -->
+    <record model="ir.ui.view" id="view_cyg_payment_deposit_extra_form">
+      <field name="name">cyg.payment.deposit.extra.form</field>
+      <field name="model">cyg.payment.deposit</field>
+      <field name="arch" type="xml">
+		<form string="Pago Extra" version="7.0" create="false">
+			<header>
+				<button name="button_validar" states="draft" string="Validar" type="object" class="oe_highlight"/>
+		  		<field name="state" widget="statusbar"/>
+		  	</header>
+		  	<sheet>
+			  	<div class="oe_right oe_button_box" name="buttons" groups="base.group_user">
+	                 <button name="attachment_tree_view" string="Documentos adjuntos" type="object"/>
+	            </div>
+				<group col="4">
+				  <field name="name" class="oe_inline" readonly="1"/>
+				  <field name="type" readonly="1"/>
+				  <field name="user_id" readonly="1"/>
+				  <field name="date" readonly="1"/>
+				  <field name="date_payment" string="Fecha de Pago Extra" required="1" on_change="onchange_fecha_pago(date_payment,'date_payment')"/>
+				  <field name="comprobante" readonly="0"/>
+				  <field name="proyecto_id" readonly="1" />
+				  <field name="inmueble_id" readonly="1"  options="{'no_open': True}"/>
+				  <field name="partner_id" readonly="1"  options='{"no_open":True}'/>
+				  <field name="sale_id" readonly="1" string="Pedido de Venta" />
+				  <field name="cuota_id" readonly="1" string="Cuota" />
+				  <field name="amount" string="Valor extra" required="1"/>
+			  	</group>
+			  	<field name="payment_deposit_line_ids" nolabel="1" >
+			  		<form>
+			  			 <field name="name" required='1' readonly="1"/>
+			  			 <field name="cuota_id" readonly="1"/>
+			  			 <field name="fecha" readonly="1"/>
+			  			 <field name="comprobante" readonly="0"/>
+			  			 <field name="valor_cuota" readonly="1"/>
+			  			 <field name="valor_extra" readonly="1"/>
+			  		</form>
+			  		<tree>
+			  			 <field name="name"/>
+			  			 <field name="cuota_id"/>
+			  			 <field name="fecha"/>
+			  			 <field name="comprobante" readonly="0"/>
+			  			 <field name="valor_cuota"/>
+			  			 <field name="valor_extra"/>
+			  		</tree>
+			    </field>
+			    <div class="oe_clear"/>
+	            <field name="note" class="oe_inline" placeholder="Notas Adicionales..."/>
+		  </sheet>
+		</form>
+      </field>
+    </record>
+    
+    <record model="ir.actions.act_window" id="action_cyg_payment_deposit">
+	      <field name="name">Pagos de Abonos/Moras</field>
+	      <field name="res_model">cyg.payment.deposit</field>
+	      <field name="view_type">form</field>
+	      <field name="view_mode">tree,form</field>
+	      <field name="search_view_id" ref="view_cyg_payment_deposit_search"/>
+	    </record>
+	    
+	    <record id="action_cyg_payment_deposit_tree" model="ir.actions.act_window.view">
+            <field name="sequence" eval="0"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_cyg_payment_deposit_tree"/>
+            <field name="act_window_id" ref="action_cyg_payment_deposit"/>
+        </record>
+        
+        <record id="action_cyg_payment_deposit_form" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_cyg_payment_deposit_form"/>
+            <field name="act_window_id" ref="action_cyg_payment_deposit"/>
+        </record>
+	    
+	    <menuitem id="menu_cyg_payment_deposit" name="Abonos/Moras"
+		      action="action_cyg_payment_deposit"
+		      parent="cyg_sale.cyg_inmobiliario_sales"
+		      sequence="30"
+		      groups="base.group_sale_salesman,base.group_sale_manager,cyg_sale.group_cyg_usuario_externo"
+		      />
+    
+    </data>
+</openerp>

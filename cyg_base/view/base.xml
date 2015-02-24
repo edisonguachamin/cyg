@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+
+    <menuitem id="cyg_raiz_inmobiliario" name="Comercial"
+	      sequence="5"
+	      />
+    
+    <menuitem id="cyg_conf_inmobiliario" name="Inmobiliario"
+	      parent="base.menu_config"
+	      sequence="100"
+	      />
+
+
+    <record model="ir.ui.view" id="view_cyg_estado_civil_search">
+      <field name="name">cyg.estado_civil.search</field>
+      <field name="model">cyg.estado_civil</field>
+      <field name="arch" type="xml">
+	<search>
+	  <field name="name"/>
+	</search>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="view_cyg_estado_civil_form">
+      <field name="name">cyg.estado_civil.form</field>
+      <field name="model">cyg.estado_civil</field>
+      <field name="arch" type="xml">
+	<form string="Estado civil">
+	  <field name="name"/>
+	  <field name="description"/>
+	</form>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="view_cyg_estado_civil_tree">
+      <field name="name">cyg.estado_civil.tree</field>
+      <field name="model">cyg.estado_civil</field>
+      <field name="arch" type="xml">
+	<tree string="Estado civil">
+	  <field name="name"/>
+
+	</tree>
+      </field>
+    </record>
+    <record model="ir.actions.act_window" id="action_cyg_estado_civil">
+      <field name="name">Estado civil</field>
+      <field name="res_model">cyg.estado_civil</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="search_view_id" ref="view_cyg_estado_civil_search"/>
+    </record>
+    <menuitem name="Estado civil" id="menu_cyg_estado_civil"
+	      parent="cyg_conf_inmobiliario" action="action_cyg_estado_civil"
+	      sequence="30"/>
+
+
+
+    <menuitem name="Distribución geográfica" id="menu_cyg_dist_geo"
+	      parent="cyg_conf_inmobiliario"
+	      sequence="20"/>
+
+    <record model="ir.ui.view" id="view_cyg_res_country_search">
+      <field name="name">cyg.res.country.search</field>
+      <field name="model">res.country</field>
+      <field name="type">search</field>
+      <field name="arch" type="xml">
+	<search>
+	  <field name="name"/>
+	  <field name="code"/>
+	</search>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="view_cyg_res_country_tree">
+      <field name="name">cyg.res.country.tree</field>
+      <field name="model">res.country</field>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+	<tree string="Paises">
+	  <field name="name"/>
+	  <field name="code"/>
+	</tree>
+      </field>
+    </record>
+    <record model="ir.actions.act_window" id="action_cyg_res_country">
+      <field name="name">Paises</field>
+      <field name="res_model">res.country</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="search_view_id" ref="view_cyg_res_country_search"/>
+    </record>
+    <menuitem name="Paises" id="menu_cyg_res_country"
+	      parent="menu_cyg_dist_geo" action="action_cyg_res_country"
+	      sequence="110"/>
+
+    <record model="ir.ui.view" id="view_cyg_res_country_state_search">
+      <field name="name">cyg.res.country.state.search</field>
+      <field name="model">res.country.state</field>
+      <field name="type">search</field>
+      <field name="arch" type="xml">
+	<search>
+	  <field name="country_id"/>
+	  <field name="name"/>
+	  <field name="code"/>
+	</search>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="view_cyg_res_country_state_tree">
+      <field name="name">cyg.res.country.state.tree</field>
+      <field name="model">res.country.state</field>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+	<tree string="Provincias">
+	  <field name="country_id"/>
+	  <field name="name"/>
+	  <field name="code"/>
+	</tree>
+      </field>
+    </record>
+    <record model="ir.actions.act_window" id="action_cyg_res_country_state">
+      <field name="name">Provincias</field>
+      <field name="res_model">res.country.state</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref="view_cyg_res_country_state_search"/>
+      <field name="search_view_id" ref="view_cyg_res_country_state_search"/>
+    </record>
+    <menuitem name="Provincias" id="menu_cyg_res_country_state"
+	      parent="menu_cyg_dist_geo" action="action_cyg_res_country_state"
+	      sequence="120"/>
+
+    <record model="ir.ui.view" id="view_cyg_res_country_city_search">
+      <field name="name">cyg.res.country.city.search</field>
+      <field name="model">res.country.city</field>
+      <field name="type">search</field>
+      <field name="arch" type="xml">
+	<search>
+	  <field name="state_id"/>
+	  <field name="name"/>
+	  <field name="code"/>
+	</search>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="view_cyg_res_country_city_form">
+      <field name="name">cyg.res.country.city.form</field>
+      <field name="model">res.country.city</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+	<form string="Ciudades">
+	  <group colspan="4" col="2">
+	    <field name="name"/>
+	    <field name="code"/>
+	    <field name="country_id"/>
+	    <field name="state_id"/>
+	  </group>
+	</form>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="view_cyg_res_country_city_tree">
+      <field name="name">cyg.res.country.city.tree</field>
+      <field name="model">res.country.city</field>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+	<tree string="Ciudades">
+	  <field name="country_id"/>
+	  <field name="state_id"/>
+	  <field name="name"/>
+	  <field name="code"/>
+	</tree>
+      </field>
+    </record>
+    <record model="ir.actions.act_window" id="action_cyg_res_country_city">
+      <field name="name">Ciudades</field>
+      <field name="res_model">res.country.city</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref="view_cyg_res_country_city_tree"/>
+      <field name="search_view_id" ref="view_cyg_res_country_city_search"/>
+    </record>
+    <menuitem name="Ciudades" id="menu_cyg_res_country_city"
+	      parent="menu_cyg_dist_geo" action="action_cyg_res_country_city"
+	      sequence="130"/>
+
+    <record model="ir.ui.view" id="view_cyg_res_country_parish_search">
+      <field name="name">cyg.res.country.parish.search</field>
+      <field name="model">res.country.parish</field>
+      <field name="type">search</field>
+      <field name="arch" type="xml">
+	<search>
+	  <field name="city_id"/>
+	  <field name="name"/>
+	  <field name="code"/>
+	</search>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="view_cyg_res_country_parish_form">
+      <field name="name">cyg.res.country.parish.form</field>
+      <field name="model">res.country.parish</field>
+      <field name="type">form</field>
+      <field name="arch" type="xml">
+	<form string="Parroquias">
+	  <group colspan="4" col="2">
+	    <field name="name"/>
+	    <field name="code"/>
+	    <field name="country_id"/>
+	    <field name="state_id"/>
+	    <field name="city_id"/>
+	  </group>
+	</form>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="view_cyg_res_country_parish_tree">
+      <field name="name">cyg.res.country.parish.tree</field>
+      <field name="model">res.country.parish</field>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+          <tree string="Parroquias">
+              <field name="country_id"/>
+              <field name="state_id"/>
+              <field name="city_id"/>
+              <field name="name"/>
+              <field name="code"/>
+          </tree>
+      </field>
+    </record>
+    <record model="ir.actions.act_window" id="action_cyg_res_country_parish">
+      <field name="name">Parroquias</field>
+      <field name="res_model">res.country.parish</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref="view_cyg_res_country_parish_tree"/>
+      <field name="search_view_id" ref="view_cyg_res_country_parish_search"/>
+    </record>
+    <menuitem name="Parroquias" id="menu_cyg_res_country_parish"
+	      parent="menu_cyg_dist_geo" action="action_cyg_res_country_parish"
+	      sequence="140"/>
+
+
+  </data>
+</openerp>

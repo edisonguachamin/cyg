@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+    	
+    	<record forcecreate="1" id="seq_type_cyg_inmueble_cuota" model="ir.sequence.type">
+            <field name="name">Inmueble Cuota</field>
+            <field name="code">cyg.inmueble.cuota</field>
+        </record>
+        
+        <record forcecreate="1" id="seq_cyg_inmueble_cuota" model="ir.sequence">
+            <field name="name">Inmueble Cuota</field>
+            <field name="code">cyg.inmueble.cuota</field>
+            <field eval="5" name="padding"/>
+            <field name="prefix">CUOTA-%(year)s/</field>
+            <field name="company_id" ref="base.main_company" />
+        </record>
+        
+        <record forcecreate="1" id="seq_type_cyg_seguimiento" model="ir.sequence.type">
+            <field name="name">Inmueble Seguimiento</field>
+            <field name="code">cyg.inmueble.seguimiento</field>
+        </record>
+        
+        <record forcecreate="1" id="seq_cyg_seguimiento" model="ir.sequence">
+            <field name="name">Inmueble Seguimiento</field>
+            <field name="code">cyg.inmueble.seguimiento</field>
+            <field eval="5" name="padding"/>
+            <field name="prefix">SEG-%(year)s/</field>
+            <field name="company_id" ref="base.main_company" />
+        </record>
+        
+        <record forcecreate="1" id="seq_type_cyg_desistimiento" model="ir.sequence.type">
+            <field name="name">Inmueble Desistimiento</field>
+            <field name="code">cyg.inmueble.desistimiento</field>
+        </record>
+        
+        <record forcecreate="1" id="seq_cyg_desistimiento" model="ir.sequence">
+            <field name="name">Inmueble Desistimiento</field>
+            <field name="code">cyg.inmueble.desistimiento</field>
+            <field eval="5" name="padding"/>
+            <field name="prefix">DESISTIMIENTO-%(year)s/</field>
+            <field name="company_id" ref="base.main_company" />
+        </record>
+        
+    </data>
+</openerp>

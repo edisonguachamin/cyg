@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+    	<record forcecreate="1" id="seq_type_cyg_proyect" model="ir.sequence.type">
+            <field name="name">Proyectos Hallazgos</field>
+            <field name="code">cyg.project.hallazgos</field>
+        </record>
+        
+        <record forcecreate="1" id="seq_cyg_broker" model="ir.sequence">
+            <field name="name">Proyectos Hallazgos</field>
+            <field name="code">cyg.project.hallazgos</field>
+            <field eval="5" name="padding"/>
+            <field name="prefix">NC-%(year)s-%(month)s-</field>
+            <field eval="1" name="number_next"/>
+	    	<field eval="1" name="number_increment"/>
+            <field name="company_id" ref="base.main_company" />
+        </record>
+        
+        <record forcecreate="1" id="seq_type_cyg_charter" model="ir.sequence.type">
+            <field name="name">Proyectos Charter</field>
+            <field name="code">cyg.project.charter</field>
+        </record>
+        
+        <record forcecreate="1" id="seq_cyg_charter" model="ir.sequence">
+            <field name="name">Proyectos Charter</field>
+            <field name="code">cyg.project.charter</field>
+            <field eval="5" name="padding"/>
+            <field name="prefix">PROY-%(year)s-%(month)s-</field>
+            <field eval="1" name="number_next"/>
+	    	<field eval="1" name="number_increment"/>
+            <field name="company_id" ref="base.main_company" />
+        </record>
+        
+        <record forcecreate="1" id="seq_type_cyg_cambios" model="ir.sequence.type">
+            <field name="name">Proyectos Cambios</field>
+            <field name="code">cyg.project.cambios</field>
+        </record>
+        
+        <record forcecreate="1" id="seq_cyg_cambios" model="ir.sequence">
+            <field name="name">Proyectos Cambios</field>
+            <field name="code">cyg.project.cambios</field>
+            <field eval="5" name="padding"/>
+            <field name="prefix">CAMBIO-%(year)s-%(month)s-</field>
+            <field eval="1" name="number_next"/>
+	    	<field eval="1" name="number_increment"/>
+            <field name="company_id" ref="base.main_company" />
+        </record>
+        
+        <record forcecreate="1" id="seq_type_cyg_lecciones" model="ir.sequence.type">
+            <field name="name">Proyectos Lecciones</field>
+            <field name="code">cyg.project.lecciones</field>
+        </record>
+        
+        <record forcecreate="1" id="seq_cyg_lecciones" model="ir.sequence">
+            <field name="name">Proyectos Lecciones</field>
+            <field name="code">cyg.project.lecciones</field>
+            <field eval="5" name="padding"/>
+            <field name="prefix">LECCION-%(year)s-%(month)s-</field>
+            <field eval="1" name="number_next"/>
+	    	<field eval="1" name="number_increment"/>
+            <field name="company_id" ref="base.main_company" />
+        </record>
+    	        
+    </data>
+</openerp>

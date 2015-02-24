@@ -1,0 +1,487 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+  		<record id="cyg_categoria_capitulo" model="product.category">
+            <field name="name">CERRAJERIA</field>
+            <field name="type">view</field>
+        </record>
+        
+        <!-- ANALISIS -->
+        <record id="cyg_categoria_analisis_01" model="product.category">
+            <field name="name">CERRADURA PUERTA PRINCIPAL DE SEGURIDAD</field>
+            <field name="parent_id" ref="cyg_categoria_capitulo"/>
+            <field name="type">view</field>
+        </record>
+        
+        <record id="cyg_categoria_equipos_A1" model="product.category">
+  			<field name="parent_id" ref="cyg_categoria_analisis_01"/>
+            <field name="name">EQUIPOS Y HERRAMIENTAS</field>
+            <field name="type">view</field>
+        </record>
+        
+        		<record id="product_template_1" model="product.template">
+		            <field name="name">HERRAMIENTAS VARIAS</field>
+		            <field name="categ_id" ref="cyg_categoria_equipos_A1"/>
+		            <field name="list_price">450.0</field>
+		            <field name="standard_price">300.0</field>
+		            <field name="type">product</field>
+		            <field name="procure_method">make_to_order</field>
+		            <field name="supply_method">buy</field>
+		            <field name="uom_id" ref="product.product_uom_unit"/>
+		            <field name="uom_po_id" ref="product.product_uom_unit"/>
+		            <field name="description_sale">HERRAMIENTAS VARIAS</field>
+		        </record>
+		        <record id="product_product_1" model="product.product">
+		            <field name="product_tmpl_id" ref="product_template_1"/>
+		            <field name="default_code">EH001</field>
+		            <field name="rendimiento">0.1050</field>
+		        </record>
+		        <record id="product_template_2" model="product.template">
+		            <field name="name">EQUIPO DE TOPOGRAFIA</field>
+		            <field name="categ_id" ref="cyg_categoria_equipos_A1"/>
+		            <field name="list_price">1450.0</field>
+		            <field name="standard_price">1300.0</field>
+		            <field name="type">product</field>
+					<field name="supply_method">buy</field>
+		            <field name="uom_id" ref="product.product_uom_unit"/>
+		            <field name="uom_po_id" ref="product.product_uom_unit"/>
+		            <field name="description_sale">EQUIPO DE TOPOGRAFIA</field>
+		        </record>
+		        <record id="product_product_2" model="product.product">
+		            <field name="product_tmpl_id" ref="product_template_2"/>
+		            <field name="default_code">EH002</field>
+		            <field name="rendimiento">0.1050</field>
+		        </record>
+        <record id="cyg_categoria_materiales_A2" model="product.category">
+            <field name="name">MATERIALES</field>
+            <field name="parent_id" ref="cyg_categoria_analisis_01"/>
+            <field name="type">view</field>
+        </record>
+        		<record id="product_template_3" model="product.template">
+		            <field name="name">CLAVOS MULTIUSO CON CABEZA (1" A 8")</field>
+		            <field name="categ_id" ref="cyg_categoria_materiales_A2"/>
+		            <field name="list_price">50.0</field>
+		            <field name="standard_price">30.0</field>
+		            <field name="type">product</field>
+					<field name="supply_method">buy</field>
+		            <field name="uom_id" ref="product.product_uom_unit"/>
+		            <field name="uom_po_id" ref="product.product_uom_unit"/>
+		            <field name="description_sale">CLAVOS MULTIUSO CON CABEZA (1" A 8")</field>
+		        </record>
+		        <record id="product_product_3" model="product.product">
+		            <field name="product_tmpl_id" ref="product_template_3"/>
+		            <field name="default_code">M001</field>
+		        </record>
+		        <record id="product_template_4" model="product.template">
+		            <field name="name">TIRAS DE MADERA DE EUCALIPTO 4x5cm</field>
+		            <field name="categ_id" ref="cyg_categoria_materiales_A2"/>
+		            <field name="list_price">543.0</field>
+		            <field name="standard_price">530.0</field>
+		            <field name="type">product</field>
+					<field name="supply_method">buy</field>
+		            <field name="uom_id" ref="product.product_uom_unit"/>
+		            <field name="uom_po_id" ref="product.product_uom_unit"/>
+		            <field name="description_sale">TIRAS DE MADERA DE EUCALIPTO 4x5cm</field>
+		        </record>
+		        <record id="product_product_2" model="product.product">
+		            <field name="product_tmpl_id" ref="product_template_4"/>
+		            <field name="default_code">M002</field>
+		        </record>
+        <record id="cyg_categoria_transporte_A3" model="product.category">
+            <field name="name">TRANSPORTE</field>
+            <field name="parent_id" ref="cyg_categoria_analisis_01"/>
+            <field name="type">view</field>
+        </record>
+        		<record id="product_template_8" model="product.template">
+		            <field name="name">CARRO</field>
+		            <field name="categ_id" ref="cyg_categoria_transporte_A3"/>
+		            <field name="list_price">7.00</field>
+		            <field name="standard_price">8.00</field>
+		            <field name="type">product</field>
+					<field name="supply_method">buy</field>
+		            <field name="uom_id" ref="product.product_uom_unit"/>
+		            <field name="uom_po_id" ref="product.product_uom_unit"/>
+		            <field name="description_sale">CARRO</field>
+		        </record>
+		        <record id="product_product_8" model="product.product">
+		            <field name="product_tmpl_id" ref="product_template_8"/>
+		            <field name="default_code">TR001</field>
+		        </record>
+		        <record id="cyg_categoria_mano_de_obra_A4" model="product.category">
+		            <field name="name">MANO DE OBRA</field>
+		            <field name="parent_id" ref="cyg_categoria_analisis_01"/>
+		            <field name="type">view</field>
+		        </record>
+        		<record id="product_template_5" model="product.template">
+		            <field name="name">PEON</field>
+		            <field name="categ_id" ref="cyg_categoria_mano_de_obra_A4"/>
+		            <field name="list_price">2.56</field>
+		            <field name="standard_price">3.5</field>
+		            <field name="type">product</field>
+					<field name="supply_method">buy</field>
+		            <field name="uom_id" ref="product.product_uom_unit"/>
+		            <field name="uom_po_id" ref="product.product_uom_unit"/>
+		            <field name="description_sale">PEON</field>
+		        </record>
+		        <record id="product_product_5" model="product.product">
+		            <field name="product_tmpl_id" ref="product_template_5"/>
+		            <field name="default_code">MO001</field>
+		            <field name="rendimiento">0.1050</field>
+		        </record>
+		        <record id="product_template_6" model="product.template">
+		            <field name="name">MAESTRO DE OBRA</field>
+		            <field name="categ_id" ref="cyg_categoria_mano_de_obra_A4"/>
+		            <field name="list_price">2.71</field>
+		            <field name="standard_price">2.75</field>
+		            <field name="type">product</field>
+<field name="supply_method">buy</field>
+		            <field name="uom_id" ref="product.product_uom_unit"/>
+		            <field name="uom_po_id" ref="product.product_uom_unit"/>
+		            <field name="description_sale">MAESTRO DE OBRA</field>
+		        </record>
+		        <record id="product_product_6" model="product.product">
+		            <field name="product_tmpl_id" ref="product_template_6"/>
+		            <field name="default_code">MO002</field>
+		            <field name="rendimiento">0.0105</field>
+		        </record>
+		        <record id="product_template_7" model="product.template">
+		            <field name="name">Topógrafo 1: experiencia de hasta 5 años (Estr. Oc. C2)</field>
+		            <field name="categ_id" ref="cyg_categoria_mano_de_obra_A4"/>
+		            <field name="list_price">2.71</field>
+		            <field name="standard_price">2.75</field>
+		            <field name="type">product</field>
+<field name="supply_method">buy</field>
+		            <field name="supply_method">buy</field>
+		            <field name="uom_id" ref="product.product_uom_unit"/>
+		            <field name="uom_po_id" ref="product.product_uom_unit"/>
+		            <field name="description_sale">Experiencia de hasta 5 años (Estr. Oc. C2)</field>
+		        </record>
+		        <record id="product_product_7" model="product.product">
+		            <field name="product_tmpl_id" ref="product_template_7"/>
+		            <field name="default_code">MO003</field>
+		            <field name="rendimiento">0.1050</field>
+		        </record>
+  
+        
+        <record id="cyg_categoria_analisis_02" model="product.category">
+            <field name="name">CERRADURA TIPO A LLAVE-LLAVE</field>
+            <field name="parent_id" ref="cyg_categoria_capitulo"/>
+            <field name="type">view</field>
+        </record>
+  
+  		<record id="cyg_categoria_equipos_B1" model="product.category">
+  			<field name="parent_id" ref="cyg_categoria_analisis_02"/>
+            <field name="name">EQUIPOS Y HERRAMIENTAS</field>
+            <field name="type">view</field>
+        </record>
+        <record id="cyg_categoria_materiales_B2" model="product.category">
+            <field name="name">MATERIALES</field>
+            <field name="parent_id" ref="cyg_categoria_analisis_02"/>
+            <field name="type">view</field>
+        </record>
+        <record id="cyg_categoria_transporte_B3" model="product.category">
+            <field name="name">TRANSPORTE</field>
+            <field name="type">view</field>
+            <field name="parent_id" ref="cyg_categoria_analisis_02"/>
+        </record>
+        <record id="cyg_categoria_mano_de_obra_B4" model="product.category">
+            <field name="name">MANO DE OBRA</field>
+            <field name="parent_id" ref="cyg_categoria_analisis_02"/>
+            <field name="type">view</field>
+        </record>
+  
+        
+        <record id="cyg_categoria_analisis_03" model="product.category">
+            <field name="name">CERRADURA TIPO A LLAVE-SEGURO</field>
+            <field name="parent_id" ref="cyg_categoria_capitulo"/>
+            <field name="type">view</field>
+        </record>
+  		<record id="cyg_categoria_equipos_C1" model="product.category">
+  			<field name="parent_id" ref="cyg_categoria_analisis_03"/>
+            <field name="name">EQUIPOS Y HERRAMIENTAS</field>
+            <field name="type">view</field>
+        </record>
+        <record id="cyg_categoria_materiales_C2" model="product.category">
+            <field name="name">MATERIALES</field>
+            <field name="parent_id" ref="cyg_categoria_analisis_03"/>
+            <field name="type">view</field>
+        </record>
+        <record id="cyg_categoria_transporte_C3" model="product.category">
+            <field name="name">TRANSPORTE</field>
+            <field name="type">view</field>
+            <field name="parent_id" ref="cyg_categoria_analisis_03"/>
+        </record>
+        <record id="cyg_categoria_mano_de_obra_C4" model="product.category">
+            <field name="name">MANO DE OBRA</field>
+            <field name="type">view</field>
+            <field name="parent_id" ref="cyg_categoria_analisis_03"/>
+        </record>
+        
+        <record id="cyg_categoria_analisis_04" model="product.category">
+            <field name="name">CERRADURA TIPO A BAÑO</field>
+            <field name="type">view</field>
+            <field name="parent_id" ref="cyg_categoria_capitulo"/>
+        </record>
+  		<record id="cyg_categoria_equipos_D1" model="product.category">
+  			<field name="parent_id" ref="cyg_categoria_analisis_04"/>
+            <field name="name">EQUIPOS Y HERRAMIENTAS</field>
+            <field name="type">view</field>
+        </record>
+        <record id="cyg_categoria_materiales_D2" model="product.category">
+            <field name="name">MATERIALES</field>
+            <field name="type">view</field>
+            <field name="parent_id" ref="cyg_categoria_analisis_04"/>
+        </record>
+        <record id="cyg_categoria_transporte_D3" model="product.category">
+            <field name="name">TRANSPORTE</field>
+            <field name="type">view</field>
+            <field name="parent_id" ref="cyg_categoria_analisis_04"/>
+        </record>
+        <record id="cyg_categoria_mano_de_obra_D4" model="product.category">
+            <field name="name">MANO DE OBRA</field>
+            <field name="type">view</field>
+            <field name="parent_id" ref="cyg_categoria_analisis_04"/>
+        </record>
+        
+        <record id="cyg_categoria_analisis_05" model="product.category">
+            <field name="name">CERRADURA TIPO A DE PASO</field>
+            <field name="type">view</field>
+            <field name="parent_id" ref="cyg_categoria_capitulo"/>
+        </record>
+  		<record id="cyg_categoria_equipos_E1" model="product.category">
+  			<field name="parent_id" ref="cyg_categoria_analisis_05"/>
+            <field name="name">EQUIPOS Y HERRAMIENTAS</field>
+            <field name="type">view</field>
+        </record>
+        <record id="cyg_categoria_materiales_E2" model="product.category">
+            <field name="name">MATERIALES</field>
+            <field name="type">view</field>
+            <field name="parent_id" ref="cyg_categoria_analisis_05"/>
+        </record>
+        <record id="cyg_categoria_transporte_E3" model="product.category">
+            <field name="name">TRANSPORTE</field>
+            <field name="type">view</field>
+            <field name="parent_id" ref="cyg_categoria_analisis_05"/>
+        </record>
+        <record id="cyg_categoria_mano_de_obra_E4" model="product.category">
+            <field name="name">MANO DE OBRA</field>
+            <field name="type">view</field>
+            <field name="parent_id" ref="cyg_categoria_analisis_05"/>
+        </record>
+        
+        <record id="cyg_categoria_analisis_06" model="product.category">
+            <field name="name">CERRADURA TIPO CAJA</field>
+            <field name="type">view</field>
+            <field name="parent_id" ref="cyg_categoria_capitulo"/>
+        </record>
+  		<record id="cyg_categoria_equipos_F1" model="product.category">
+  			<field name="parent_id" ref="cyg_categoria_analisis_06"/>
+            <field name="name">EQUIPOS Y HERRAMIENTAS</field>
+            <field name="type">view</field>
+        </record>
+        <record id="cyg_categoria_materiales_F2" model="product.category">
+            <field name="name">MATERIALES</field>
+            <field name="type">view</field>
+            <field name="parent_id" ref="cyg_categoria_analisis_06"/>
+        </record>
+        <record id="cyg_categoria_transporte_F3" model="product.category">
+            <field name="name">TRANSPORTE</field>
+            <field name="type">view</field>
+            <field name="parent_id" ref="cyg_categoria_analisis_06"/>
+        </record>
+        <record id="cyg_categoria_mano_de_obra_F4" model="product.category">
+            <field name="name">MANO DE OBRA</field>
+            <field name="type">view</field>
+            <field name="parent_id" ref="cyg_categoria_analisis_06"/>
+        </record>
+        
+        <record id="cyg_categoria_analisis_07" model="product.category">
+            <field name="name">CERRADURA ELECTRICA PARA PORTERO ELECTRICO</field>
+            <field name="type">view</field>
+            <field name="parent_id" ref="cyg_categoria_capitulo"/>
+        </record>
+
+         <record id="cyg_categoria_equipos_G1" model="product.category">
+  			<field name="parent_id" ref="cyg_categoria_analisis_07"/>
+            <field name="name">EQUIPOS Y HERRAMIENTAS</field>
+            <field name="type">view</field>
+        </record>
+        <record id="cyg_categoria_materiales_G2" model="product.category">
+            <field name="name">MATERIALES</field>
+            <field name="type">view</field>
+            <field name="parent_id" ref="cyg_categoria_analisis_07"/>
+        </record>
+        <record id="cyg_categoria_transporte_G3" model="product.category">
+            <field name="name">TRANSPORTE</field>
+            <field name="type">view</field>
+            <field name="parent_id" ref="cyg_categoria_analisis_07"/>
+        </record>
+        <record id="cyg_categoria_mano_de_obra_G4" model="product.category">
+            <field name="name">MANO DE OBRA</field>
+            <field name="type">view</field>
+            <field name="parent_id" ref="cyg_categoria_analisis_07"/>
+        </record>
+        
+        <record id="cyg_categoria_analisis_08" model="product.category">
+            <field name="name">PICAPORTES</field>
+            <field name="type">view</field>
+            <field name="parent_id" ref="cyg_categoria_capitulo"/>
+        </record>
+   		<record id="cyg_categoria_equipos_H1" model="product.category">
+  			<field name="parent_id" ref="cyg_categoria_analisis_08"/>
+            <field name="name">EQUIPOS Y HERRAMIENTAS</field>
+            <field name="type">view</field>
+        </record>
+        <record id="cyg_categoria_materiales_H2" model="product.category">
+            <field name="name">MATERIALES</field>
+            <field name="type">view</field>
+            <field name="parent_id" ref="cyg_categoria_analisis_08"/>
+        </record>
+        <record id="cyg_categoria_transporte_H3" model="product.category">
+            <field name="name">TRANSPORTE</field>
+            <field name="type">view</field>
+            <field name="parent_id" ref="cyg_categoria_analisis_08"/>
+        </record>
+        <record id="cyg_categoria_mano_de_obra_H4" model="product.category">
+            <field name="name">MANO DE OBRA</field>
+            <field name="type">view</field>
+            <field name="parent_id" ref="cyg_categoria_analisis_08"/>
+        </record>
+        
+        
+        <record id="cyg_categoria_analisis_09" model="product.category">
+            <field name="name">CERRADURA ELECTRONICA PUERTA EXTERIOR</field>
+            <field name="type">view</field>
+            <field name="parent_id" ref="cyg_categoria_capitulo"/>
+        </record>
+  		<record id="cyg_categoria_equipos_I1" model="product.category">
+  			<field name="parent_id" ref="cyg_categoria_analisis_09"/>
+            <field name="name">EQUIPOS Y HERRAMIENTAS</field>
+            <field name="type">view</field>
+        </record>
+        <record id="cyg_categoria_materiales_I2" model="product.category">
+            <field name="name">MATERIALES</field>
+            <field name="type">view</field>
+            <field name="parent_id" ref="cyg_categoria_analisis_09"/>
+        </record>
+        <record id="cyg_categoria_transporte_I3" model="product.category">
+            <field name="name">TRANSPORTE</field>
+            <field name="type">view</field>
+            <field name="parent_id" ref="cyg_categoria_analisis_09"/>
+        </record>
+        <record id="cyg_categoria_mano_de_obra_I4" model="product.category">
+            <field name="name">MANO DE OBRA</field>
+            <field name="type">view</field>
+            <field name="parent_id" ref="cyg_categoria_analisis_09"/>
+        </record>
+        
+        <record id="cyg_categoria_analisis_10" model="product.category">
+            <field name="name">CERRADURA ALTA SEGURIDAD TIPO MULTILOCK</field>
+            <field name="type">view</field>
+            <field name="parent_id" ref="cyg_categoria_capitulo"/>
+        </record>
+    	<record id="cyg_categoria_equipos_J1" model="product.category">
+  			<field name="parent_id" ref="cyg_categoria_analisis_10"/>
+            <field name="name">EQUIPOS Y HERRAMIENTAS</field>
+            <field name="type">view</field>
+        </record>
+        <record id="cyg_categoria_materiales_J2" model="product.category">
+            <field name="name">MATERIALES</field>
+            <field name="type">view</field>
+            <field name="parent_id" ref="cyg_categoria_analisis_10"/>
+        </record>
+        <record id="cyg_categoria_transporte_J3" model="product.category">
+            <field name="name">TRANSPORTE</field>
+            <field name="type">view</field>
+            <field name="parent_id" ref="cyg_categoria_analisis_10"/>
+        </record>
+        <record id="cyg_categoria_mano_de_obra_J4" model="product.category">
+            <field name="name">MANO DE OBRA</field>
+            <field name="type">view</field>
+            <field name="parent_id" ref="cyg_categoria_analisis_10"/>
+        </record>
+        
+        <record id="cyg_categoria_analisis_11" model="product.category">
+            <field name="name">BARRAS ANTIPANICO</field>
+            <field name="type">view</field>
+            <field name="parent_id" ref="cyg_categoria_capitulo"/>
+        </record>
+ 
+          <record id="cyg_categoria_equipos_K1" model="product.category">
+  			<field name="parent_id" ref="cyg_categoria_analisis_11"/>
+            <field name="name">EQUIPOS Y HERRAMIENTAS</field>
+            <field name="type">view</field>
+        </record>
+        <record id="cyg_categoria_materiales_K2" model="product.category">
+            <field name="name">MATERIALES</field>
+            <field name="type">view</field>
+            <field name="parent_id" ref="cyg_categoria_analisis_11"/>
+        </record>
+        <record id="cyg_categoria_transporte_K3" model="product.category">
+            <field name="name">TRANSPORTE</field>
+            <field name="type">view</field>
+            <field name="parent_id" ref="cyg_categoria_analisis_11"/>
+        </record>
+        <record id="cyg_categoria_mano_de_obra_K4" model="product.category">
+            <field name="name">MANO DE OBRA</field>
+            <field name="type">view</field>
+            <field name="parent_id" ref="cyg_categoria_analisis_11"/>
+        </record>
+        
+        <record id="cyg_categoria_analisis_12" model="product.category">
+            <field name="name">CERRADURAS BODEGAS</field>
+            <field name="type">view</field>
+            <field name="parent_id" ref="cyg_categoria_capitulo"/>
+        </record>
+    <record id="cyg_categoria_equipos_L1" model="product.category">
+  			<field name="parent_id" ref="cyg_categoria_analisis_12"/>
+            <field name="name">EQUIPOS Y HERRAMIENTAS</field>
+            <field name="type">view</field>
+        </record>
+        <record id="cyg_categoria_materiales_L2" model="product.category">
+            <field name="name">MATERIALES</field>
+            <field name="type">view</field>
+            <field name="parent_id" ref="cyg_categoria_analisis_12"/>
+        </record>
+        <record id="cyg_categoria_transporte_L3" model="product.category">
+            <field name="name">TRANSPORTE</field>
+            <field name="type">view</field>
+            <field name="parent_id" ref="cyg_categoria_analisis_12"/>
+        </record>
+        <record id="cyg_categoria_mano_de_obra_L4" model="product.category">
+            <field name="name">MANO DE OBRA</field>
+            <field name="type">view</field>
+            <field name="parent_id" ref="cyg_categoria_analisis_12"/>
+        </record>
+        
+        <record id="cyg_categoria_analisis_13" model="product.category">
+            <field name="name">BARRAS ANTIPANICO</field>
+            <field name="type">view</field>
+            <field name="parent_id" ref="cyg_categoria_capitulo"/>
+        </record>
+  		<record id="cyg_categoria_equipos_M1" model="product.category">
+  			<field name="parent_id" ref="cyg_categoria_analisis_13"/>
+            <field name="name">EQUIPOS Y HERRAIMENTAS</field>
+            <field name="type">view</field>
+        </record>
+        <record id="cyg_categoria_materiales_M2" model="product.category">
+            <field name="name">MATERIALES</field>
+            <field name="type">view</field>
+            <field name="parent_id" ref="cyg_categoria_analisis_13"/>
+        </record>
+        <record id="cyg_categoria_transporte_M3" model="product.category">
+            <field name="name">TRANSPORTE</field>
+            <field name="type">view</field>
+            <field name="parent_id" ref="cyg_categoria_analisis_13"/>
+        </record>
+        <record id="cyg_categoria_mano_de_obra_M4" model="product.category">
+            <field name="name">MANO DE OBRA</field>
+            <field name="type">view</field>
+            <field name="parent_id" ref="cyg_categoria_analisis_13"/>
+        </record>
+        
+        
+        
+  </data>
+</openerp>
+  

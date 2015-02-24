@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="view_cyg_tasa_interes_search">
+	      <field name="name">cyg.tasa.interes.search</field>
+	      <field name="model">cyg.tasa.interes</field>
+	      <field name="type">search</field>
+	      <field name="arch" type="xml">
+			<search>
+			  <field name="name"/>
+			  <field name="tasa"/>
+			  <field name="anio"/>
+			</search>
+	      </field>
+	    </record>
+	    
+	    <record model="ir.ui.view" id="view_cyg_tasa_interes_tree">
+	      <field name="name">cyg.tasa.interes.tree</field>
+	      <field name="model">cyg.tasa.interes</field>
+	      <field name="arch" type="xml">
+			<tree  string="Tasa de Interes">
+			  <field name="name"/>
+			  <field name="tasa"/>
+			  <field name="anio"/>
+			</tree>
+	      </field>
+	    </record>
+	    
+	    <record model="ir.ui.view" id="view_cyg_tasa_interes_form">
+	      <field name="name">cyg.tasa.interes.form</field>
+	      <field name="model">cyg.tasa.interes</field>
+	      <field name="type">form</field>
+	      <field name="arch" type="xml">
+			<form string="Tasas de Interes" version="7.0">
+			<sheet>
+				<group>
+				  <field name="name" on_change="onchange_mayusculas(name,'name')"/>
+				  <field name="tasa" required="1" />
+				  <field name="anio" required="1" on_change="onchange_anio(anio)"/>
+			  	</group>
+			</sheet>
+			</form>
+	      </field>
+	    </record>
+	    <record id="action_cyg_tasa_interes" model="ir.actions.act_window">
+            <field name="name">Tasa de Interes</field>
+            <field name="res_model">cyg.tasa.interes</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click para crear tasas de interes que podra usar en su proyecto.
+              </p>
+              <p>
+                Defina las tasa de interes que usara despues en sus proyectos.
+              </p>
+            </field>
+        </record>
+        
+         <menuitem name="Tasa Interes" id="menu_cyg_tasa_interes"
+	      parent="cyg_base.cyg_conf_inmobiliario" action="action_cyg_tasa_interes"
+	      sequence="30"/>
+	      
+    </data>
+</openerp>

@@ -1,0 +1,11 @@
+Poner los campos en tree vista y los status
+Analisis de Causa ==== Se tiene que quitar el onchange
+Parte de Accion Correctiva propuesta. ===========Crear un one2many de las acciones correctivas siempre debe ser nueva.
+REVISAR el calculo de avance en hallazgo
+Validar las fechas en la ficha de proyecto
+Si pongo fecha de cierre se cambia de estado a cierre y no debe ser menor a ninguna de la otras fechas.
+
+-------------------------------------------------------------------------------------------------------
+Grupo de cobertura adicional (Nuevo Catalogo)
+Grupo de amparo adicional (Nuevo Catalogo)
+

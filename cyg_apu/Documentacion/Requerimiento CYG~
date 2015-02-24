@@ -1,0 +1,33 @@
+Presupuesto - Tiene varios presupuestos
+Categorias - Equipo, Mano de Obra, 
+- Modificar el formulario de ingreso de productos. acorde a donde le cree.
+Falta la opcion de 
+Cambiar nombre de rubro.  Nombre Analisis.
+- Se tiene que atar los apu a un listado de apus de proyecto antes 
+
+Quitar la tarifa de apu y enviar a presupuesto.
+Historico de Presupuesto.
+
+
+Presupuesto.
+Jalar los nombre de la ficha de proyecto. (Te trae todo excepto cartera)
+Configurar los proyectos dependiendo de los presupuestos que se define en el modulo de proyecto.
+Solo quedan 3 columnas quitar la parte de modulos de la hija de excel del presupuesto. 
+
+Poner un capitulo y cuenta contable y en base a eso e anade los apu.
+Poner el peso que tiene en porcentaje. --- en base al total y subtotal.
+
+
+--------------Preguntar-------------------
+Poner en la linea de productos ------El impuesto que esta configura en la ficha de los productos.
+Para luego calcular el impuesto total en los subtotales.
+------------------------------------------
+El calculo de % es es por linea de produto oso en los subtotales.
+*****************************************************************
+
+
+
+
+
+
+

@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_cyg_report_ftp_group_cyg_report_user,cyg_report_ftp_group_cyg_report_ftp_user,cyg_report.model_cyg_report_ftp,base.group_user,1,1,1,1,0
+access_cyg_report_ftp_group_cyg_report_manager,cyg_report_ftp_group_cyg_report_ftp_manager,cyg_report.model_cyg_report_ftp,base.group_system,1,1,1,1,1
+access_cyg_ftp_report_group_cyg_report_user,cyg_ftp_report_group_cyg_ftp_report_user,cyg_report.model_cyg_ftp_report,base.group_user,1,1,1,1,0
+access_cyg_ftp_report_group_cyg_report_manager,cyg_ftp_report_group_cyg_ftp_report_manager,cyg_report.model_cyg_ftp_report,base.group_system,1,1,1,1,1
+

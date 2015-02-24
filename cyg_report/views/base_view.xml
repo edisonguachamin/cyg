@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="view_cyg_report_ftp_search">
+	      <field name="name">cyg.report.ftp.search</field>
+	      <field name="model">cyg.report.ftp</field>
+	      <field name="type">search</field>
+	      <field name="arch" type="xml">
+			<search>
+			  <field name="name"/>
+			  <field name="company_id"/>
+			  <field name="active" />
+			</search>
+	      </field>
+	    </record>
+	    
+	    <record model="ir.ui.view" id="view_cyg_report_ftp_tree">
+	      <field name="name">cyg.report.ftp.tree</field>
+	      <field name="model">cyg.report.ftp</field>
+	      <field name="arch" type="xml">
+			<tree  string="Servidor de FTP">
+			  <field name="name"/>
+			  <field name="company_id"/>
+			  <field name="active" />
+			</tree>
+	      </field>
+	    </record>
+	    
+	    <record model="ir.ui.view" id="view_cyg_report_ftp_form">
+	      <field name="name">cyg.report.ftp.form</field>
+	      <field name="model">cyg.report.ftp</field>
+	      <field name="type">form</field>
+	      <field name="arch" type="xml">
+			<form string="" version="7.0">
+			<sheet>
+				<h1>
+					<label string="Defina la Url por Ejemplo:ftp://181.211.10.190 "/>
+				</h1>
+				<group>
+				  <field name="name" required="1"/>
+				  <field name="company_id" required="1" />
+				  <field name="active" />
+			  	</group>
+			</sheet>
+			</form>
+	      </field>
+	    </record>
+	    <record id="action_cyg_report_ftp" model="ir.actions.act_window">
+            <field name="name">Ftp Administracion DOMUS</field>
+            <field name="res_model">cyg.report.ftp</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click para crear servidores de ftp
+              </p>
+              <p>
+                Defina el servidor ftp correspondiente a cada modulo,
+                predetermine solo uno.
+              </p>
+            </field>
+        </record>
+        
+        <menuitem
+        name="FTP-CYG"
+        action="action_cyg_report_ftp"
+        id="menu_action_cyg_report_ftp"
+        icon="STOCK_EXECUTE"
+        parent="base.menu_reporting_config" sequence="10"/>
+   
+    </data>
+</openerp>
+        

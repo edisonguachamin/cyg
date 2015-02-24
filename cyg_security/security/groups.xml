@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data noupdate="0">
+
+      <record model="ir.module.category" id="module_category_domus">
+          <field name="name">DOMUS</field>
+          <field name="sequence" eval="100"/>
+          <field name="description">Sistema de Gestión Inmobiliaria</field>
+      </record>
+
+      <record id='cyg_base.group_cyg_base_manager' model='res.groups'>       <field name='name'>Administrador catalogos base</field>  <field name="category_id" ref="module_category_domus"/></record>
+      <record id='cyg_inmobiliario.group_cyg_inmo_manager_proyectos' model='res.groups'>       <field name='name'>Administrador de proyectos inmobiliarios</field>     <field name="category_id" ref="module_category_domus"/></record>
+      <record id='cyg_inmobiliario.group_cyg_inmo_user_proyectos' model='res.groups'>       <field name='name'>Usuario de proyectos inmobiliarios</field>     <field name="category_id" ref="module_category_domus"/></record>
+      <record id='cyg_inmobiliario.group_cyg_inmo_read_proyectos' model='res.groups'>       <field name='name'>Lector de proyectos inmobiliarios</field>     <field name="category_id" ref="module_category_domus"/></record>
+      <record id='cyg_inmobiliario.group_cyg_inmo_manager_trans_dominio' model='res.groups'>       <field name='name'>Administrador de transferencia de dominio</field>     <field name="category_id" ref="module_category_domus"/></record>
+      <record id='cyg_inmobiliario.group_cyg_inmo_user_trans_domino' model='res.groups'>       <field name='name'>Usuario de transferencia de dominio</field>     <field name="category_id" ref="module_category_domus"/></record>
+      <record id='cyg_inmobiliario.group_cyg_inmo_read_trans_domino' model='res.groups'>       <field name='name'>Lectura de transferencias de dominio</field>     <field name="category_id" ref="module_category_domus"/></record>
+      <record id='cyg_inmobiliario.group_cyg_inmo_usuario_externo_tranferencias' model='res.groups'>       <field name='name'>Usuario externo transferencias dominio</field>     <field name="category_id" ref="module_category_domus"/></record>
+      <record id='cyg_sale.group_cyg_inmo_user_seguimiento' model='res.groups'>       <field name='name'>Seguimiento de postventa</field>     <field name="category_id" ref="module_category_domus"/></record>
+      <record id='cyg_sale.group_cyg_usuario_externo' model='res.groups'>       <field name='name'>Usuario externo cotizaciones</field>     <field name="category_id" ref="module_category_domus"/></record>
+      <record id='cyg_plan_pagos.group_user_plan' model='res.groups'>       <field name='name'>Usuario de plan de pagos</field>     <field name="category_id" ref="module_category_domus"/></record>
+      <record id='cyg_plan_pagos.group_manager_plan' model='res.groups'>       <field name='name'>Administrador de plan de pagos</field>     <field name="category_id" ref="module_category_domus"/></record>
+
+  </data>
+</openerp>

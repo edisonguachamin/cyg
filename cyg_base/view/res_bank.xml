@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+    <record model="ir.ui.view" id="view_cyg_res_bank_search">
+      <field name="name">cyg.res_bank.search</field>
+      <field name="model">res.bank</field>
+      <field name="arch" type="xml">
+		<search>
+		  <field name="name"/>
+		</search>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="view_cyg_res_bank_form">
+      <field name="name">cyg.res_bank.form</field>
+      <field name="model">res.bank</field>
+      <field name="arch" type="xml">
+		<form string="Entidades bancarias">
+		  <field name="name"/>
+		  <field name="bic"/>
+		</form>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="view_cyg_res_bank_tree">
+      <field name="name">cyg.res_bank.tree</field>
+      <field name="model">res.bank</field>
+      <field name="arch" type="xml">
+		<tree string="Entidades bancarias">
+		  <field name="name"/>
+		  <field name="bic"/>
+		</tree>
+      </field>
+    </record>
+    <record model="ir.actions.act_window" id="action_cyg_res_bank">
+      <field name="name">Entidades bancarias</field>
+      <field name="res_model">res.bank</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="search_view_id" ref="view_cyg_res_bank_search"/>
+    </record>
+    <menuitem name="Entidades bancarias" id="menu_cyg_res_bank"
+	      parent="cyg_conf_inmobiliario" action="action_cyg_res_bank"
+	      sequence="10"/>
+
+    <menuitem action="base.action_res_partner_bank_type_form"
+            id="cyg_menu_action_res_partner_bank_typeform"
+            parent="cyg_conf_inmobiliario"
+            groups="base.group_no_one"
+            name="Tipos de cuentas bancarias"
+            sequence="15"/>
+
+</data>
+</openerp>

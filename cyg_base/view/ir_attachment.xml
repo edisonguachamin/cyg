@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="cyg_view_ir_attachment_form_inherit" model="ir.ui.view">
+            <field name="name">cyg.view.ir.attachment.form.inherit</field>
+            <field name="model">ir.attachment</field>
+            <field name="inherit_id" ref="base.view_attachment_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="/form/sheet/group/group/field[@name='company_id']" position="after">
+                        <button name="goto_document" type="object" String="Ir al ficha"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+    </data>
+</openerp>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+		<record id="view_create_product_apu" model="ir.ui.view">
+            <field name="name">cyg.add.product.wiz.form</field>
+            <field name="model">cyg.add.product.wiz</field>
+            <field name="arch" type="xml">
+            <form string="Buscar productos" version="7.0">
+                <group>
+                    <field name="category_id" string="Categoria del Rubro" domain="['|','|','|',('name','ilike','EQUIPOS Y HERRAMIENTAS'),('name','ilike','MATERIALES'),('name','ilike','TRANSPORTE'),('name','ilike','MANO DE OBRA')]" />
+                </group>
+                <footer>
+                    <button name="search_entries" string="Buscar " type="object" class="oe_highlight"/>
+                    or
+                    <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+            </field>
+        </record>
+
+        <record id="view_create_product_apu_lines" model="ir.ui.view">
+            <field name="name">cyg.add.product.wiz.form</field>
+            <field name="model">cyg.add.product.wiz</field>
+            <field name="arch" type="xml">
+                <form string="Buscar" version="7.0">
+                    <group string="Productos">
+                        <field name="lines" string="Lista de Productos" nolabel="1"/>
+                    </group>
+                    <footer>
+                        <button name="add_product" string="Agregar" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_create_product_apu" model="ir.actions.act_window">
+            <field name="name">Agregar Productos</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">cyg.add.product.wiz</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_create_product_apu"/>
+            <field name="target">new</field>
+        </record>
+     </data>
+</openerp>
+        

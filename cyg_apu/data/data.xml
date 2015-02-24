@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+  		<record id="product_uom_m2" model="product.uom">
+            <field name="category_id" ref="product.uom_categ_length"/>
+            <field name="name">m2</field>
+            <field name="factor_inv" eval="10.000"/>
+            <field name="uom_type">bigger</field>
+        </record>
+        
+  		<record id="product_uom_m3" model="product.uom">
+            <field name="category_id" ref="product.uom_categ_length"/>
+            <field name="name">m3</field>
+            <field name="factor_inv" eval="10.000"/>
+            <field name="uom_type">bigger</field>
+        </record>
+        <record id="product_uom_mlitre" model="product.uom">
+            <field name="name">M Liter(s)</field>
+            <field name="category_id" ref="product.product_uom_categ_vol"/>
+            <field name="factor_inv" eval="1.000"/>
+            <field name="factor">1.0</field>
+        </record>
+        <record id="product_uom_pto" model="product.uom">
+            <field name="category_id" ref="product.product_uom_categ_unit"/>
+            <field name="name">Pto</field>
+            <field name="factor" eval="1.0"/>
+            <field name="rounding" eval="1.0"/>
+        </record>
+        
+  		<!-- Jornada de Trabajo -->
+  		<record id="cyg_jornada_apu" model="cyg.jornada">
+            <field name="name">8 h/d</field>
+            <field name="hora">8</field>
+        </record>
+  		<!-- Categorias -->
+  		<record id="cyg_product_category_apu" model="product.category">
+            <field name="name">APU</field>
+        </record>
+  		
+  		<record id="cyg_categoria_equipos" model="product.category">
+            <field name="name">EQUIPOS Y HERRAMIENTAS</field>
+            <field name="parent_id" ref="cyg_product_category_apu"/>
+        </record>
+        
+        		<record id="cyg_product_template_eq_01" model="product.template">
+		            <field name="name">HERRAMIENTAS VARIAS</field>
+		            <field name="categ_id" ref="cyg_categoria_equipos"/>
+		            <field name="list_price">450.0</field>
+		            <field name="standard_price">300.0</field>
+		            <field name="type">product</field>
+		            <field name="procure_method">make_to_order</field>
+		            <field name="supply_method">buy</field>
+		            <field name="uom_id" ref="product.product_uom_unit"/>
+		            <field name="uom_po_id" ref="product.product_uom_unit"/>
+		            <field name="description_sale">HERRAMIENTAS VARIAS</field>
+		        </record>
+		        <record id="cyg_product_product_eq_02" model="product.product">
+		            <field name="product_tmpl_id" ref="cyg_product_template_eq_01"/>
+		            <field name="default_code">EH001</field>
+		            <field name="rendimiento">0.1050</field>
+		        </record>
+		        <record id="cyg_product_template_eq_02" model="product.template">
+		            <field name="name">EQUIPO DE TOPOGRAFIA</field>
+		            <field name="categ_id" ref="cyg_categoria_equipos"/>
+		            <field name="list_price">1450.0</field>
+		            <field name="standard_price">1300.0</field>
+		            <field name="type">product</field>
+					<field name="supply_method">buy</field>
+		            <field name="uom_id" ref="product.product_uom_unit"/>
+		            <field name="uom_po_id" ref="product.product_uom_unit"/>
+		            <field name="description_sale">EQUIPO DE TOPOGRAFIA</field>
+		        </record>
+		        <record id="cyg_product_product_eq_02" model="product.product">
+		            <field name="product_tmpl_id" ref="cyg_product_template_eq_02"/>
+		            <field name="default_code">EH002</field>
+		            <field name="rendimiento">0.1050</field>
+		        </record>
+        <record id="cyg_categoria_materiales" model="product.category">
+            <field name="name">MATERIALES</field>
+            <field name="parent_id" ref="cyg_product_category_apu"/>
+        </record>
+        		<record id="cyg_product_template_ma_01" model="product.template">
+		            <field name="name">CLAVOS MULTIUSO CON CABEZA (1" A 8")</field>
+		            <field name="categ_id" ref="cyg_categoria_materiales"/>
+		            <field name="list_price">50.0</field>
+		            <field name="standard_price">30.0</field>
+		            <field name="type">product</field>
+					<field name="supply_method">buy</field>
+		            <field name="uom_id" ref="product.product_uom_unit"/>
+		            <field name="uom_po_id" ref="product.product_uom_unit"/>
+		            <field name="description_sale">CLAVOS MULTIUSO CON CABEZA (1" A 8")</field>
+		        </record>
+		        <record id="cyg_product_product_ma_01" model="product.product">
+		            <field name="product_tmpl_id" ref="cyg_product_template_ma_01"/>
+		            <field name="default_code">M001</field>
+		        </record>
+		        <record id="cyg_product_template_ma_02" model="product.template">
+		            <field name="name">TIRAS DE MADERA DE EUCALIPTO 4x5cm</field>
+		            <field name="categ_id" ref="cyg_categoria_materiales"/>
+		            <field name="list_price">543.0</field>
+		            <field name="standard_price">530.0</field>
+		            <field name="type">product</field>
+					<field name="supply_method">buy</field>
+		            <field name="uom_id" ref="product.product_uom_unit"/>
+		            <field name="uom_po_id" ref="product.product_uom_unit"/>
+		            <field name="description_sale">TIRAS DE MADERA DE EUCALIPTO 4x5cm</field>
+		        </record>
+		        <record id="cyg_product_product_ma_02" model="product.product">
+		            <field name="product_tmpl_id" ref="cyg_product_template_ma_02"/>
+		            <field name="default_code">M002</field>
+		        </record>
+        
+        <record id="cyg_categoria_transporte" model="product.category">
+            <field name="name">TRANSPORTE</field>
+            <field name="parent_id" ref="cyg_product_category_apu"/>
+        </record>
+        		<record id="cyg_product_template_tr_01" model="product.template">
+		            <field name="name">CARRO</field>
+		            <field name="categ_id" ref="cyg_categoria_transporte"/>
+		            <field name="list_price">7.00</field>
+		            <field name="standard_price">8.00</field>
+		            <field name="type">product</field>
+					<field name="supply_method">buy</field>
+		            <field name="uom_id" ref="product.product_uom_unit"/>
+		            <field name="uom_po_id" ref="product.product_uom_unit"/>
+		            <field name="description_sale">CARRO</field>
+		        </record>
+		        <record id="cyg_product_product_tr_01" model="product.product">
+		            <field name="product_tmpl_id" ref="cyg_product_template_tr_01"/>
+		            <field name="default_code">TR001</field>
+		        </record>
+        
+        		
+        
+        <record id="cyg_categoria_mano" model="product.category">
+            <field name="name">MANO DE OBRA</field>
+            <field name="parent_id" ref="cyg_product_category_apu"/>
+        </record>
+
+        		<record id="cyg_product_template_mo_01" model="product.template">
+		            <field name="name">PEON</field>
+		            <field name="categ_id" ref="cyg_categoria_mano"/>
+		            <field name="list_price">2.56</field>
+		            <field name="standard_price">3.5</field>
+		            <field name="type">product</field>
+					<field name="supply_method">buy</field>
+		            <field name="uom_id" ref="product.product_uom_unit"/>
+		            <field name="uom_po_id" ref="product.product_uom_unit"/>
+		            <field name="description_sale">PEON</field>
+		        </record>
+		        <record id="cyg_product_product_mo_01" model="product.product">
+		            <field name="product_tmpl_id" ref="cyg_product_template_mo_01"/>
+		            <field name="default_code">MO001</field>
+		            <field name="rendimiento">0.1050</field>
+		        </record>
+		        <record id="cyg_product_template_mo_02" model="product.template">
+		            <field name="name">MAESTRO DE OBRA</field>
+		            <field name="categ_id" ref="cyg_categoria_mano"/>
+		            <field name="list_price">2.71</field>
+		            <field name="standard_price">2.75</field>
+		            <field name="type">product</field>
+					<field name="supply_method">buy</field>
+		            <field name="uom_id" ref="product.product_uom_unit"/>
+		            <field name="uom_po_id" ref="product.product_uom_unit"/>
+		            <field name="description_sale">MAESTRO DE OBRA</field>
+		        </record>
+		        <record id="cyg_product_product_mo_02" model="product.product">
+		            <field name="product_tmpl_id" ref="cyg_product_template_mo_02"/>
+		            <field name="default_code">MO002</field>
+		            <field name="rendimiento">0.0105</field>
+		        </record>
+		        <record id="cyg_product_template_mo_03" model="product.template">
+		            <field name="name">Topógrafo 1: experiencia de hasta 5 años (Estr. Oc. C2)</field>
+		            <field name="categ_id" ref="cyg_categoria_mano"/>
+		            <field name="list_price">2.71</field>
+		            <field name="standard_price">2.75</field>
+		            <field name="type">product</field>
+					<field name="supply_method">buy</field>
+		            <field name="supply_method">buy</field>
+		            <field name="uom_id" ref="product.product_uom_unit"/>
+		            <field name="uom_po_id" ref="product.product_uom_unit"/>
+		            <field name="description_sale">Experiencia de hasta 5 años (Estr. Oc. C2)</field>
+		        </record>
+		        <record id="cyg_product_product_mo_03" model="product.product">
+		            <field name="product_tmpl_id" ref="cyg_product_template_mo_03"/>
+		            <field name="default_code">MO003</field>
+		            <field name="rendimiento">0.1050</field>
+		        </record>
+        
+        <record id="cyg_categoria_otros" model="product.category">
+            <field name="name">OTROS</field>
+            <field name="parent_id" ref="cyg_product_category_apu"/>
+        </record>	      
+        
+        
+  </data>
+</openerp>
+  

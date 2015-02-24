@@ -1,0 +1,33 @@
+<openerp>
+  <data>
+
+    <record id="cyg_ftp_browse_form" model="ir.ui.view">
+            <field name="name">FTP Report</field>
+            <field name="model">cyg.ftp.report</field>
+            <field name="arch" type="xml">
+                <form string="Reportes" version="7.0">
+                    <group>
+                        <field name="url" widget="url"/>
+                    </group>
+                    <footer>
+                        <button name="browse_ftp" string="_Browse" type="object" icon="gtk-ok" class="oe_highlight"  />
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_cyg_ftp_browse" model="ir.actions.act_window">
+            <field name="name">Report CYG</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">cyg.ftp.report</field>
+            <field name="view_id" ref="cyg_ftp_browse_form"/>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        
+        
+</data>
+</openerp>

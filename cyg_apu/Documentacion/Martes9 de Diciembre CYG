@@ -1,0 +1,26 @@
+Generar unas subcategorias solo para otros.
+Y estan deben ir a la seccion de otros en los APU. Anadir el campo de subcategorias en el one2many.
+
+APU:
+Anadir un codigo interno de rubro.
+Quitar el proyecto del form de apu.
+El codigo interno del rubro no se debe repetir en una base general.
+
+Poner desperdicio en materiales.
+Anadir el pocentage por linea en cada escenario.
+Valores de porcentages solo con decimales.
+
+Calculos de totales:
+Poner 12% de impuesto o cero.
+
+---------------------------
+Cambio de porcentage en productos podria ser por categoria.
+---------------------------
+Plan de cuentas aumentar campos (codigo, nombre paralelos)
+---------------------------
+Comenzar a devengar el presupuesto desde las ordenes de compra.
+-----------------------------
+Capitulo posicion presupuestaria. y la posicion de presupuesto 
+El insumo sera mi cuenta analitica.
+
+

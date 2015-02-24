@@ -1,0 +1,694 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="view_cyg_project_norma_search">
+	      <field name="name">cyg.project.norma.search</field>
+	      <field name="model">cyg.project.norma</field>
+	      <field name="type">search</field>
+	      <field name="arch" type="xml">
+			<search>
+			  <field name="name"/>
+			</search>
+	      </field>
+	    </record>
+	    
+	    <record model="ir.ui.view" id="view_cyg_project_norma_tree">
+	      <field name="name">cyg.project.norma.tree</field>
+	      <field name="model">cyg.project.norma</field>
+	      <field name="arch" type="xml">
+			<tree  string="Norma">
+			  <field name="name"/>
+			  <field name="code"/>
+			</tree>
+	      </field>
+	    </record>
+	    
+	    <record model="ir.ui.view" id="view_cyg_project_norma_form">
+	      <field name="name">cyg.project.norma.form</field>
+	      <field name="model">cyg.project.norma</field>
+	      <field name="type">form</field>
+	      <field name="arch" type="xml">
+			<form string="Normas" version="7.0">
+			<sheet>
+				<group>
+				  <field name="name" on_change="onchange_mayusculas(name,'name')"/>
+				  <field name="code" required="1" />
+				  <field name="descripcion" required="1" on_change="onchange_mayusculas(descripcion,'descripcion')"/>
+			  	</group>
+			</sheet>
+			</form>
+	      </field>
+	    </record>
+	    <record id="action_cyg_project_norma" model="ir.actions.act_window">
+            <field name="name">Norma</field>
+            <field name="res_model">cyg.project.norma</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click para crear norma
+              </p>
+              <p>
+                Defina las normas
+              </p>
+            </field>
+        </record>
+        <!-- #############################Categoria de Hallazgo######### -->
+        <record model="ir.ui.view" id="view_cyg_project_hallazgo_categoria_search">
+	      <field name="name">cyg.project.origen.search</field>
+	      <field name="model">cyg.project.hallazgo.categoria</field>
+	      <field name="type">search</field>
+	      <field name="arch" type="xml">
+			<search>
+			  <field name="name"/>
+			</search>
+	      </field>
+	    </record>
+	    
+	    <record model="ir.ui.view" id="view_cyg_project_hallazgo_categoria_tree">
+	      <field name="name">cyg.project.hallazgo.categoria.tree</field>
+	      <field name="model">cyg.project.hallazgo.categoria</field>
+	      <field name="arch" type="xml">
+			<tree  string="Categoria de Hallazgo">
+			  <field name="name"/>
+			  <field name="code"/>
+			</tree>
+	      </field>
+	    </record>
+	    
+	    <record model="ir.ui.view" id="view_cyg_project_hallazgo_categoria_form">
+	      <field name="name">cyg.project.hallazgo.categoria.form</field>
+	      <field name="model">cyg.project.hallazgo.categoria</field>
+	      <field name="type">form</field>
+	      <field name="arch" type="xml">
+			<form string="Categoría de Hallazgo" version="7.0">
+			<sheet>
+				<group>
+				  <field name="name" on_change="onchange_mayusculas(name,'name')"/>
+				  <field name="code" required="1" />
+				  <field name="descripcion" required="1" on_change="onchange_mayusculas(descripcion,'descripcion')"/>
+			  	</group>
+			</sheet>
+			</form>
+	      </field>
+	    </record>
+	    <record id="action_cyg_project_hallazgo_categoria" model="ir.actions.act_window">
+            <field name="name">Categoría de Hallazgo</field>
+            <field name="res_model">cyg.project.hallazgo.categoria</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click para crear una categoría de hallazgo
+              </p>
+              <p>
+                Defina las categorias de hallazgos
+              </p>
+            </field>
+        </record>
+        <!-- #############################ORIGEN###################### -->
+        <record model="ir.ui.view" id="view_cyg_project_origen_search">
+	      <field name="name">cyg.project.origen.search</field>
+	      <field name="model">cyg.project.origen</field>
+	      <field name="type">search</field>
+	      <field name="arch" type="xml">
+			<search>
+			  <field name="name"/>
+			</search>
+	      </field>
+	    </record>
+	    
+	    <record model="ir.ui.view" id="view_cyg_project_origen_tree">
+	      <field name="name">cyg.project.origen.tree</field>
+	      <field name="model">cyg.project.origen</field>
+	      <field name="arch" type="xml">
+			<tree  string="Origen">
+			  <field name="name"/>
+			  <field name="code"/>
+			</tree>
+	      </field>
+	    </record>
+	    
+	    <record model="ir.ui.view" id="view_cyg_project_origen_form">
+	      <field name="name">cyg.project.origen.form</field>
+	      <field name="model">cyg.project.origen</field>
+	      <field name="type">form</field>
+	      <field name="arch" type="xml">
+			<form string="Origen" version="7.0">
+			<sheet>
+				<group>
+				  <field name="name" on_change="onchange_mayusculas(name,'name')"/>
+				  <field name="code" required="1" />
+				  <field name="descripcion" required="1" on_change="onchange_mayusculas(descripcion,'descripcion')"/>
+			  	</group>
+			</sheet>
+			</form>
+	      </field>
+	    </record>
+	    <record id="action_cyg_project_origen" model="ir.actions.act_window">
+            <field name="name">Origen</field>
+            <field name="res_model">cyg.project.origen</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click para crear un Origen
+              </p>
+              <p>
+                Defina los origenes
+              </p>
+            </field>
+        </record>
+        <!-- #############################RESPONSABLE######################## -->
+        <record model="ir.ui.view" id="view_cyg_project_hallazgo_responsable_search">
+	      <field name="name">cyg.project.hallazgo.responsable.search</field>
+	      <field name="model">cyg.project.hallazgo.responsable</field>
+	      <field name="type">search</field>
+	      <field name="arch" type="xml">
+			<search>
+			  <field name="name"/>
+			</search>
+	      </field>
+	    </record>
+	    
+	    <record model="ir.ui.view" id="view_cyg_project_hallazgo_responsable_tree">
+	      <field name="name">cyg.project.hallazgo.responsable.tree</field>
+	      <field name="model">cyg.project.hallazgo.responsable</field>
+	      <field name="arch" type="xml">
+			<tree  string="responsable">
+			  <field name="name"/>
+			  <field name="code"/>
+			</tree>
+	      </field>
+	    </record>
+	    
+	    <record model="ir.ui.view" id="view_cyg_project_hallazgo_responsable_form">
+	      <field name="name">cyg.project.hallazgo.responsable.form</field>
+	      <field name="model">cyg.project.hallazgo.responsable</field>
+	      <field name="type">form</field>
+	      <field name="arch" type="xml">
+			<form string="responsables" version="7.0">
+			<sheet>
+				<group>
+				  <field name="name" on_change="onchange_mayusculas(name,'name')"/>
+				  <field name="code" required="1" />
+				  <field name="descripcion" required="1" on_change="onchange_mayusculas(descripcion,'descripcion')"/>
+			  	</group>
+			</sheet>
+			</form>
+	      </field>
+	    </record>
+	    <record id="action_cyg_project_hallazgo_responsable" model="ir.actions.act_window">
+            <field name="name">responsable</field>
+            <field name="res_model">cyg.project.hallazgo.responsable</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click para crear responsable
+              </p>
+              <p>
+                Defina las responsables
+              </p>
+            </field>
+        </record>
+        <!-- ################################AREA############################# -->
+        <record model="ir.ui.view" id="view_cyg_project_area_search">
+	      <field name="name">cyg.project.area.search</field>
+	      <field name="model">cyg.project.area</field>
+	      <field name="type">search</field>
+	      <field name="arch" type="xml">
+			<search>
+			  <field name="name"/>
+			</search>
+	      </field>
+	    </record>
+	    
+	    <record model="ir.ui.view" id="view_cyg_project_area_tree">
+	      <field name="name">cyg.project.area.tree</field>
+	      <field name="model">cyg.project.area</field>
+	      <field name="arch" type="xml">
+			<tree  string="área">
+			  <field name="name"/>
+			  <field name="code"/>
+			</tree>
+	      </field>
+	    </record>
+	    
+	    <record model="ir.ui.view" id="view_cyg_project_area_form">
+	      <field name="name">cyg.project.area.form</field>
+	      <field name="model">cyg.project.area</field>
+	      <field name="type">form</field>
+	      <field name="arch" type="xml">
+			<form string="areas" version="7.0">
+			<sheet>
+				<group>
+				  <field name="name" on_change="onchange_mayusculas(name,'name')"/>
+				  <field name="code" required="1" />
+				  <field name="descripcion" required="1" on_change="onchange_mayusculas(descripcion,'descripcion')"/>
+			  	</group>
+			</sheet>
+			</form>
+	      </field>
+	    </record>
+	    <record id="action_cyg_project_area" model="ir.actions.act_window">
+            <field name="name">Área</field>
+            <field name="res_model">cyg.project.area</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click para crear área
+              </p>
+              <p>
+                Defina las areas
+              </p>
+            </field>
+        </record>        <!--################################SITIO############################ 
+         -->
+         <record model="ir.ui.view" id="view_cyg_project_sitio_search">
+	      <field name="name">cyg.project.sitio.search</field>
+	      <field name="model">cyg.project.sitio</field>
+	      <field name="type">search</field>
+	      <field name="arch" type="xml">
+			<search>
+			  <field name="name"/>
+			</search>
+	      </field>
+	    </record>
+	    
+	    <record model="ir.ui.view" id="view_cyg_project_sitio_tree">
+	      <field name="name">cyg.project.sitio.tree</field>
+	      <field name="model">cyg.project.sitio</field>
+	      <field name="arch" type="xml">
+			<tree  string="Sitio">
+			  <field name="name"/>
+			  <field name="code"/>
+			</tree>
+	      </field>
+	    </record>
+	    
+	    <record model="ir.ui.view" id="view_cyg_project_norma_form">
+	      <field name="name">cyg.project.sitio.form</field>
+	      <field name="model">cyg.project.sitio</field>
+	      <field name="type">form</field>
+	      <field name="arch" type="xml">
+			<form string="Sitio" version="7.0">
+			<sheet>
+				<group>
+				  <field name="name" on_change="onchange_mayusculas(name,'name')"/>
+				  <field name="code" required="1" />
+				  <field name="descripcion" required="1" on_change="onchange_mayusculas(descripcion,'descripcion')"/>
+			  	</group>
+			</sheet>
+			</form>
+	      </field>
+	    </record>
+	    <record id="action_cyg_project_sitio" model="ir.actions.act_window">
+            <field name="name">Sitio</field>
+            <field name="res_model">cyg.project.sitio</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click para crear sitio
+              </p>
+              <p>
+                Defina los sitios
+              </p>
+            </field>
+        </record>
+        <!-- ##################### -->
+        <record model="ir.ui.view" id="view_cyg_project_clausula_search">
+	      <field name="name">cyg.project.clausula.search</field>
+	      <field name="model">cyg.project.clausula</field>
+	      <field name="type">search</field>
+	      <field name="arch" type="xml">
+			<search>
+			  <field name="name"/>
+			</search>
+	      </field>
+	    </record>
+	    
+	    <record model="ir.ui.view" id="view_cyg_project_clausula_tree">
+	      <field name="name">cyg.project.clausula.tree</field>
+	      <field name="model">cyg.project.clausula</field>
+	      <field name="arch" type="xml">
+			<tree  string="Clausula">
+			  <field name="name"/>
+			  <field name="norma_id" />
+			</tree>
+	      </field>
+	    </record>
+	    
+	    <record model="ir.ui.view" id="view_cyg_project_clausula_form">
+	      <field name="name">cyg.project.clausula.form</field>
+	      <field name="model">cyg.project.clausula</field>
+	      <field name="type">form</field>
+	      <field name="arch" type="xml">
+			<form string="Clausula" version="7.0">
+			<sheet>
+				<group>
+				  <field name="norma_id" required="1" />
+				  <field name="name" on_change="onchange_mayusculas(name,'name')"/>
+				  <field name="descripcion" required="1" on_change="onchange_mayusculas(descripcion,'descripcion')"/>
+			  	</group>
+			</sheet>
+			</form>
+	      </field>
+	    </record>
+	    <record id="action_cyg_project_clausula" model="ir.actions.act_window">
+            <field name="name">Clausula</field>
+            <field name="res_model">cyg.project.clausula</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click para crear cláusulas
+              </p>
+              <p>
+                Defina las cláusulas
+              </p>
+            </field>
+        </record>
+        <!-- ############################### -->
+        <record model="ir.ui.view" id="view_cyg_project_impacto_search">
+	      <field name="name">cyg.project.impacto.search</field>
+	      <field name="model">cyg.project.impacto</field>
+	      <field name="type">search</field>
+	      <field name="arch" type="xml">
+			<search>
+			  <field name="name"/>
+			</search>
+	      </field>
+	    </record>
+	    
+	    <record model="ir.ui.view" id="view_cyg_project_impacto_tree">
+	      <field name="name">cyg.project.impacto.tree</field>
+	      <field name="model">cyg.project.impacto</field>
+	      <field name="arch" type="xml">
+			<tree  string="Impacto">
+			  <field name="name"/>
+			  <field name="code"/>
+			</tree>
+	      </field>
+	    </record>
+	    
+	    <record model="ir.ui.view" id="view_cyg_project_impacto_form">
+	      <field name="name">cyg.project.impacto.form</field>
+	      <field name="model">cyg.project.impacto</field>
+	      <field name="type">form</field>
+	      <field name="arch" type="xml">
+			<form string="Impacto" version="7.0">
+			<sheet>
+				<group>
+				  <field name="name" on_change="onchange_mayusculas(name,'name')"/>
+				  <field name="code" required="1" />
+				  <field name="descripcion" required="1" on_change="onchange_mayusculas(descripcion,'descripcion')"/>
+			  	</group>
+			</sheet>
+			</form>
+	      </field>
+	    </record>
+	    <record id="action_cyg_project_impacto" model="ir.actions.act_window">
+            <field name="name">Impacto</field>
+            <field name="res_model">cyg.project.impacto</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click para crear impacto
+              </p>
+              <p>
+                Defina los impactos
+              </p>
+            </field>
+        </record>
+        <!-- ####################3 -->
+        <record model="ir.ui.view" id="view_cyg_project_causa_search">
+	      <field name="name">cyg.project.causa.search</field>
+	      <field name="model">cyg.project.causa</field>
+	      <field name="type">search</field>
+	      <field name="arch" type="xml">
+			<search>
+			  <field name="name"/>
+			</search>
+	      </field>
+	    </record>
+	    
+	    <record model="ir.ui.view" id="view_cyg_project_causa_tree">
+	      <field name="name">cyg.project.causa.tree</field>
+	      <field name="model">cyg.project.causa</field>
+	      <field name="arch" type="xml">
+			<tree  string="Causa">
+			  <field name="name"/>
+			  <field name="code"/>
+			</tree>
+	      </field>
+	    </record>
+	    
+	    <record model="ir.ui.view" id="view_cyg_project_causa_form">
+	      <field name="name">cyg.project.causa.form</field>
+	      <field name="model">cyg.project.causa</field>
+	      <field name="type">form</field>
+	      <field name="arch" type="xml">
+			<form string="Causas" version="7.0">
+			<sheet>
+				<group>
+				  <field name="name" on_change="onchange_mayusculas(name,'name')"/>
+				  <field name="code" required="1" />
+				  <field name="descripcion" required="1" on_change="onchange_mayusculas(descripcion,'descripcion')"/>
+			  	</group>
+			</sheet>
+			</form>
+	      </field>
+	    </record>
+	    <record id="action_cyg_project_causa" model="ir.actions.act_window">
+            <field name="name">Causas</field>
+            <field name="res_model">cyg.project.causa</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click para crear causas
+              </p>
+              <p>
+                Defina las causas
+              </p>
+            </field>
+        </record>
+        <!-- ###########3 -->
+        <record model="ir.ui.view" id="view_cyg_project_avance_search">
+	      <field name="name">cyg.project.avance.search</field>
+	      <field name="model">cyg.project.avance</field>
+	      <field name="type">search</field>
+	      <field name="arch" type="xml">
+			<search>
+			  <field name="name"/>
+			</search>
+	      </field>
+	    </record>
+	    
+	    <record model="ir.ui.view" id="view_cyg_project_avance_tree">
+	      <field name="name">cyg.project.avance.tree</field>
+	      <field name="model">cyg.project.avance</field>
+	      <field name="arch" type="xml">
+			<tree  string="Avance">
+			  <field name="name"/>
+			  <field name="code"/>
+			</tree>
+	      </field>
+	    </record>
+	    
+	    <record model="ir.ui.view" id="view_cyg_project_avance_form">
+	      <field name="name">cyg.project.avance.form</field>
+	      <field name="model">cyg.project.avance</field>
+	      <field name="type">form</field>
+	      <field name="arch" type="xml">
+			<form string="Avance" version="7.0">
+			<sheet>
+				<group>
+				  <field name="name" on_change="onchange_mayusculas(name,'name')"/>
+				  <field name="code" required="1" />
+				  <field name="descripcion" required="1" on_change="onchange_mayusculas(descripcion,'descripcion')"/>
+			  	</group>
+			</sheet>
+			</form>
+	      </field>
+	    </record>
+	    <record id="action_cyg_project_avance" model="ir.actions.act_window">
+            <field name="name">Avance</field>
+            <field name="res_model">cyg.project.avance</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click para crear avances
+              </p>
+              <p>
+                Defina los avances
+              </p>
+            </field>
+        </record>
+        <!-- ############## -->
+        <record model="ir.ui.view" id="view_cyg_project_actividad_hallazgo_search">
+	      <field name="name">cyg.project.actividad.hallazgo.search</field>
+	      <field name="model">cyg.project.actividad.hallazgo</field>
+	      <field name="type">search</field>
+	      <field name="arch" type="xml">
+			<search>
+			  <field name="name"/>
+			</search>
+	      </field>
+	    </record>
+	    
+	    <record model="ir.ui.view" id="view_cyg_project_actividad_hallazgo_tree">
+	      <field name="name">cyg.project.actividad.hallazgo.tree</field>
+	      <field name="model">cyg.project.actividad.hallazgo</field>
+	      <field name="arch" type="xml">
+			<tree  string="Actividad">
+			  <field name="name"/>
+			  <field name="code"/>
+			</tree>
+	      </field>
+	    </record>
+	    
+	    <record model="ir.ui.view" id="view_cyg_project_actividad_hallazgo_form">
+	      <field name="name">cyg.project.actividad.hallazgo.form</field>
+	      <field name="model">cyg.project.actividad.hallazgo</field>
+	      <field name="type">form</field>
+	      <field name="arch" type="xml">
+			<form string="Actividad" version="7.0">
+			<sheet>
+				<group>
+				  <field name="name" on_change="onchange_mayusculas(name,'name')"/>
+				  <field name="code" required="1" />
+				  <field name="descripcion" required="1" on_change="onchange_mayusculas(descripcion,'descripcion')"/>
+			  	</group>
+			</sheet>
+			</form>
+	      </field>
+	    </record>
+	    <record id="action_cyg_project_actividad_hallazgo" model="ir.actions.act_window">
+            <field name="name">Actividad</field>
+            <field name="res_model">cyg.project.actividad.hallazgo</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click para crear actividad
+              </p>
+              <p>
+                Defina las actividades
+              </p>
+            </field>
+        </record>
+        <!-- ########################################################### -->
+        <record model="ir.ui.view" id="view_cyg_project_linea_negocio_search">
+	      <field name="name">cyg.project.linea.negocio.search</field>
+	      <field name="model">cyg.project.linea.negocio</field>
+	      <field name="type">search</field>
+	      <field name="arch" type="xml">
+			<search>
+			  <field name="name"/>
+			</search>
+	      </field>
+	    </record>
+	    
+	    <record model="ir.ui.view" id="view_cyg_project_linea_negocio_tree">
+	      <field name="name">cyg.project.linea.negocio.tree</field>
+	      <field name="model">cyg.project.linea.negocio</field>
+	      <field name="arch" type="xml">
+			<tree  string="linea_negocio">
+			  <field name="name"/>
+			  <field name="code"/>
+			</tree>
+	      </field>
+	    </record>
+	    
+	    <record model="ir.ui.view" id="view_cyg_project_linea_negocio_form">
+	      <field name="name">cyg.project.linea.negocio.form</field>
+	      <field name="model">cyg.project.linea.negocio</field>
+	      <field name="type">form</field>
+	      <field name="arch" type="xml">
+			<form string="Normas" version="7.0">
+			<sheet>
+				<group>
+				  <field name="name" on_change="onchange_mayusculas(name,'name')"/>
+				  <field name="code" required="1" />
+				  <field name="descripcion" required="1" on_change="onchange_mayusculas(descripcion,'descripcion')"/>
+			  	</group>
+			</sheet>
+			</form>
+	      </field>
+	    </record>
+	    <record id="action_cyg_project_linea_negocio" model="ir.actions.act_window">
+            <field name="name">Linea de Negocio</field>
+            <field name="res_model">cyg.project.linea.negocio</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click para crear línea de negocio
+              </p>
+              <p>
+                Defina las lineas de negocio
+              </p>
+            </field>
+        </record>
+        <!-- #########################Impacto Grupo de Inters -->
+        <record model="ir.ui.view" id="view_cyg_project_grupo_interes_impacto_search">
+	      <field name="name">cyg.project.origen.search</field>
+	      <field name="model">cyg.project.grupo.interes.impacto</field>
+	      <field name="type">search</field>
+	      <field name="arch" type="xml">
+			<search>
+			  <field name="name"/>
+			</search>
+	      </field>
+	    </record>
+	    
+	    <record model="ir.ui.view" id="view_cyg_project_grupo_interes_impacto_tree">
+	      <field name="name">cyg.project.grupo.interes.impacto.tree</field>
+	      <field name="model">cyg.project.grupo.interes.impacto</field>
+	      <field name="arch" type="xml">
+			<tree  string="Impacto">
+			  <field name="name"/>
+			  <field name="code"/>
+			</tree>
+	      </field>
+	    </record>
+	    
+	    <record model="ir.ui.view" id="view_cyg_project_grupo_interes_impacto_form">
+	      <field name="name">cyg.project.grupo.interes.impacto.form</field>
+	      <field name="model">cyg.project.grupo.interes.impacto</field>
+	      <field name="type">form</field>
+	      <field name="arch" type="xml">
+			<form string="Impacto" version="7.0">
+			<sheet>
+				<group>
+				  <field name="name" on_change="onchange_mayusculas(name,'name')"/>
+				  <field name="code" required="1" />
+				  <field name="descripcion" required="1" on_change="onchange_mayusculas(descripcion,'descripcion')"/>
+			  	</group>
+			</sheet>
+			</form>
+	      </field>
+	    </record>
+	    <record id="action_cyg_project_grupo_interes_impacto" model="ir.actions.act_window">
+            <field name="name">Impacto</field>
+            <field name="res_model">cyg.project.grupo.interes.impacto</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click para crear un impacto de grupo de interés
+              </p>
+              <p>
+                Defina los impactos de grupo de interés.
+              </p>
+            </field>
+        </record>
+    </data>
+</openerp>
+        

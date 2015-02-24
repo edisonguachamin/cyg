@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+  	<record model="ir.ui.view" id="view_cyg_inmueble_seguimiento_search">
+      <field name="name">cyg.inmueble.seguimiento.search</field>
+      <field name="model">cyg.inmueble.seguimiento</field>
+      <field name="arch" type="xml">
+		<search>
+		  <field name="name"/>
+		  <field name="partner_id"/>
+		</search>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="view_cyg_inmueble_seguimiento_form">
+      <field name="name">cyg.inmueble.seguimiento.form</field>
+      <field name="model">cyg.inmueble.seguimiento</field>
+      <field name="arch" type="xml">
+	<form string="Seguimiento de Entrega Inmuebles" version="7.0">
+	<header>
+	  		<button name="button_open" states="draft" string="Abrir" type="object" class="oe_highlight"/>
+	  		<button name="button_close" states="open" string="Cerrar" type="object" class="oe_highlight"/>
+	  		<field name="state" widget="statusbar" statusbar_visible="draft,open" statusbar_colors='{"open":"blue"}'/>
+	  	</header>
+	<sheet>
+		<group>
+		<group colspan="4" col="2">
+		  <field name="name" string="Nro de Orden" class="oe_inline" readonly="1"/>
+		  <field name="partner_id" on_change="onchange_inmueble(partner_id,inmueble_id)" domain="[('customer','=',True)]" required="1" options='{"no_open":True}'/>
+		  <field name="inmueble_id" domain="[('partner_id','=',partner_id),('state','=','vendido')]" on_change="onchange_inmueble(partner_id,inmueble_id)" required="1" attrs="{'invisible':[('partner_id','=',False)]}" options='{"no_open":True}'/>
+		  <field name="sale_id" attrs="{'invisible':[('inmueble_id','=',False)]}" on_change="onchange_inmueble(partner_id,inmueble_id)" required="1" options='{"no_open":True}' />
+		  <field name="proyecto_id"/>
+		  <field name="etapa_id2"/>
+		  <field name="fecha_inicial" required="1"/>
+		  <field name="fecha_final"/>
+		</group>
+		<group col="4" colspan="4">
+			<group col="2" colspan="2">
+			  <separator string="Datos Inconveniente" colspan="2"/>
+			  <field name="fisuras"/>
+			  <field name="obs_1" attrs="{'invisible':[('fisuras','!=',True)]}" colspan="3" nolabel="1" placeholder="Observacion" />
+		      <field name="albanileria"/>
+			  <field name="obs_2" attrs="{'invisible':[('albanileria','!=',True)]}" nolabel="1" colspan="3" placeholder="Observacion"/>
+			  <field name="aluminio"/>
+			  <field name="obs_3" attrs="{'invisible':[('aluminio','!=',True)]}" nolabel="1" colspan="3" placeholder="Observacion"/>
+			  <field name="cubierta"/>
+			  <field name="obs_4" attrs="{'invisible':[('cubierta','!=',True)]}" nolabel="1" colspan="3" placeholder="Observacion"/>
+			  <field name="instalacion_electrica"/>
+			  <field name="obs_5" attrs="{'invisible':[('instalacion_electrica','!=',True)]}" nolabel="1" colspan="3" placeholder="Observacion"/>
+			  <field name="gas_centralizado"/>
+			  <field name="obs_6" attrs="{'invisible':[('gas_centralizado','!=',True)]}" nolabel="1" colspan="3" placeholder="Observacion"/>
+			  <field name="jardineria"/>
+			  <field name="obs_7" attrs="{'invisible':[('jardineria','!=',True)]}" nolabel="1" colspan="3" placeholder="Observacion"/>
+			  <field name="mesones"/>
+			  <field name="obs_8" attrs="{'invisible':[('mesones','!=',True)]}" nolabel="1" colspan="3" placeholder="Observacion"/>
+			  <field name="ceramica"/>
+			  <field name="obs_9" attrs="{'invisible':[('ceramica','!=',True)]}" nolabel="1" colspan="3" placeholder="Observacion"/>
+		   </group>
+		   <group col="2" colspan="2">
+		   		<separator string="Instalaciones Sanitarias" colspan="2"/>
+		  		<field name="tuberia_fria"/>
+		  	  	<field name="obs_11" attrs="{'invisible':[('tuberia_fria','!=',True)]}" nolabel="1" colspan="3" placeholder="Observacion"/>
+		  	    <field name="tuberia_caliente" />
+		  	    <field name="obs_12" attrs="{'invisible':[('tuberia_caliente','!=',True)]}" colspan="3" nolabel="1" placeholder="Observacion"/>
+		  	    <separator string="Piso" colspan="2"/>
+		  	    <field name="madera"/>
+			  	<field name="obs_18" attrs="{'invisible':[('madera','!=',True)]}" colspan="3" nolabel="1" placeholder="Observacion"/>
+			  	<field name="piso_ceramica"/>
+			  	<field name="obs_19" attrs="{'invisible':[('piso_ceramica','!=',True)]}" colspan="3" nolabel="1" placeholder="Observacion"/>
+			  	<field name="alfombra"/>
+			  	<field name="obs_20" attrs="{'invisible':[('alfombra','!=',True)]}" colspan="3" nolabel="1" placeholder="Observacion"/>
+			  	<separator string="Pintura" colspan="2"/>
+			  	<field name="pintura_interiores"/>
+			  	<field name="obs_21" attrs="{'invisible':[('pintura_interiores','!=',True)]}" colspan="3" nolabel="1" placeholder="Observacion"/>
+			  	<field name="pintura_exteriores"/>
+			  	<field name="obs_22" attrs="{'invisible':[('pintura_exteriores','!=',True)]}" colspan="3" nolabel="1" placeholder="Observacion"/>
+		  	</group>
+		  </group>
+		  <group col="4" colspan="4">
+			  <group col="2" colspan="2">
+			  	<separator string="Carpinteria Madera" colspan="2"/>
+			  	<field name="cocina"/>
+			  	<field name="obs_13" attrs="{'invisible':[('cocina','!=',True)]}" colspan="3" nolabel="1" placeholder="Observacion"/>
+			  	<field name="dormintorio"/>
+			  	<field name="obs_14" attrs="{'invisible':[('dormintorio','!=',True)]}" colspan="3" nolabel="1" placeholder="Observacion"/>
+			  	<field name="banio" />
+			  	<field name="obs_15" attrs="{'invisible':[('banio','!=',True)]}" colspan="3" nolabel="1" placeholder="Observacion"/>
+			  	<field name="puertas" />
+			  	<field name="obs_16" attrs="{'invisible':[('puertas','!=',True)]}" colspan="3" nolabel="1" placeholder="Observacion"/>
+			  	<field name="barrederas"/>
+			  	<field name="obs_17" attrs="{'invisible':[('barrederas','!=',True)]}" colspan="3" nolabel="1" placeholder="Observacion"/>
+			  </group>
+			  <group col="2" colspan="2">
+			  	<separator string="Humedad" colspan="2"/>
+			  	<field name="humedad_paredes"/>
+			  	<field name="obs_23" attrs="{'invisible':[('humedad_paredes','!=',True)]}" colspan="3" nolabel="1" placeholder="Observacion"/>
+			  	<field name="humedad_techos"/>
+			  	<field name="obs_24" attrs="{'invisible':[('humedad_techos','!=',True)]}" colspan="3" nolabel="1" placeholder="Observacion"/>
+			  	<field name="humedad_pisos"/>
+			  	<field name="obs_25" attrs="{'invisible':[('humedad_pisos','!=',True)]}" colspan="3" nolabel="1" placeholder="Observacion"/>
+			  </group>
+		  </group>
+		  <separator string="Seguimiento" colspan="4"/>
+		  <field name="seguimiento_lines_ids" nolabel="1" colspan="4" contex="{''}">
+		  		<tree editable="bottom">
+		  			<field name="fecha_inicial" required="1"/>
+		  			<field name="fecha_final"/>
+		  			<field name="tipo_id"/>
+		  			<field name="detalle_id"/>
+		  			<field name="aplican_garantias"/>
+		  			<field name="autoriza_id"/>
+		  			<field name="state"/>
+		  		</tree>
+		  </field>
+	  	</group>
+	  	</sheet>
+	</form>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="view_cyg_inmueble_seguimiento_tree">
+      <field name="name">cyg.inmueble.seguimiento.tree</field>
+      <field name="model">cyg.inmueble.seguimiento</field>
+      <field name="arch" type="xml">
+		<tree string="seguimiento de Entrega de Inmuebles">
+		  <field name="name"/>
+		  <field name="inmueble_id" />
+		  <field name="partner_id" />
+		  <field name="sale_id" />
+		  <field name="fecha_inicial" />
+		  <field name="fecha_final"/>
+		</tree>
+      </field>
+    </record>
+    
+    <record model="ir.actions.act_window" id="action_cyg_inmueble_seguimiento">
+	      <field name="name">Seguimiento</field>
+	      <field name="res_model">cyg.inmueble.seguimiento</field>
+	      <field name="view_type">form</field>
+	      <field name="view_mode">tree,form</field>
+	      <field name="search_view_id" ref="view_cyg_inmueble_seguimiento_search"/>
+	    </record>
+	    
+	    <record id="action_cyg_inmueble_seguimiento_tree" model="ir.actions.act_window.view">
+            <field name="sequence" eval="0"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_cyg_inmueble_seguimiento_tree"/>
+            <field name="act_window_id" ref="action_cyg_inmueble_seguimiento"/>
+        </record>
+        
+        <record id="action_cyg_inmueble_seguimiento_form" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_cyg_inmueble_seguimiento_form"/>
+            <field name="act_window_id" ref="action_cyg_inmueble_seguimiento"/>
+        </record>
+    
+    <menuitem id="menu_cyg_inmueble_seguimiento" name="Seguimiento de Entregas"
+		      action="action_cyg_inmueble_seguimiento"
+		      parent="cyg_inmobiliario.menu_cyg_proyecto_inmobiliario"
+		      sequence="100"
+		      groups="base.group_sale_salesman,base.group_sale_manager"
+		      />
+		      
+	<record id="view_cyg_inmobiliario_seguimiento" model="ir.ui.view">
+            <field name="name">cyg.inmobiliario.seguimiento</field>
+            <field name="model">cyg.proyecto_inmueble</field>
+            <field name="inherit_id" ref="cyg_inmobiliario.view_cyg_proyecto_inmueble_form"/>
+            <field name="arch" type="xml">
+                <notebook position="inside">
+	               <page string="Post-venta" attrs="{'invisible':[('state','!=','vendido')]}">
+	                  <group colspan="4" col="4">
+                          <field name="partner_id"/>
+                          <field name="fecha_entrega"/>
+                          <field name="sale_id" readonly="1"/>
+                          <field name="seguimiento_inmueble_ids" nolabel="1" readonly="0" colspan="4" context="{'default_proyecto_id':proyecto_id,'default_etapa_id2':etapa_id,'default_inmueble_id':id,'default_partner_id':partner_id,'default_sale_id':sale_id}">
+                          	<form string="Seguimiento de Entrega Inmuebles" version="7.0">
+								<header>
+							  		<button name="button_open" states="draft" string="Abrir" type="object" class="oe_highlight"/>
+							  		<button name="button_close" states="open" string="Cerrar" type="object" class="oe_highlight"/>
+							  		<field name="state" widget="statusbar" statusbar_visible="draft,open" statusbar_colors='{"open":"blue"}'/>
+								  	</header>
+								<sheet>
+									<group>
+									<group colspan="4" col="4">
+									  <field name="name" string="Nro de Orden" class="oe_inline" readonly="1"/>
+									  <field name="partner_id" readonly="1" options='{"no_open":True}'/>
+									  <field name="inmueble_id" readonly="1" options='{"no_open":True}'/>
+									  <field name="sale_id" readonly="1" options='{"no_open":True}' />
+									  <field name="proyecto_id" />
+									  <field name="etapa_id2" />
+									  <field name="fecha_inicial" attrs="{'readonly':[('state','!=','draft')]}"/>
+									  <field name="fecha_final"  attrs="{'readonly':[('state','!=','open')]}"/>
+									</group>
+									<group col="4" colspan="4">
+										<group col="2" colspan="2">
+										  <separator string="Datos Inconveniente" colspan="2"/>
+										  <field name="fisuras"/>
+										  <field name="obs_1" attrs="{'invisible':[('fisuras','!=',True)]}" colspan="3" nolabel="1" placeholder="Observacion" />
+									      <field name="albanileria"/>
+										  <field name="obs_2" attrs="{'invisible':[('albanileria','!=',True)]}" nolabel="1" colspan="3" placeholder="Observacion"/>
+										  <field name="aluminio"/>
+										  <field name="obs_3" attrs="{'invisible':[('aluminio','!=',True)]}" nolabel="1" colspan="3" placeholder="Observacion"/>
+										  <field name="cubierta"/>
+										  <field name="obs_4" attrs="{'invisible':[('cubierta','!=',True)]}" nolabel="1" colspan="3" placeholder="Observacion"/>
+										  <field name="instalacion_electrica"/>
+										  <field name="obs_5" attrs="{'invisible':[('instalacion_electrica','!=',True)]}" nolabel="1" colspan="3" placeholder="Observacion"/>
+										  <field name="gas_centralizado"/>
+										  <field name="obs_6" attrs="{'invisible':[('gas_centralizado','!=',True)]}" nolabel="1" colspan="3" placeholder="Observacion"/>
+										  <field name="jardineria"/>
+										  <field name="obs_7" attrs="{'invisible':[('jardineria','!=',True)]}" nolabel="1" colspan="3" placeholder="Observacion"/>
+										  <field name="mesones"/>
+										  <field name="obs_8" attrs="{'invisible':[('mesones','!=',True)]}" nolabel="1" colspan="3" placeholder="Observacion"/>
+										  <field name="ceramica"/>
+										  <field name="obs_9" attrs="{'invisible':[('ceramica','!=',True)]}" nolabel="1" colspan="3" placeholder="Observacion"/>
+									   </group>
+									   <group col="2" colspan="2">
+									   		<separator string="Instalaciones Sanitarias" colspan="2"/>
+									  		<field name="tuberia_fria"/>
+									  	  	<field name="obs_11" attrs="{'invisible':[('tuberia_fria','!=',True)]}" nolabel="1" colspan="3" placeholder="Observacion"/>
+									  	    <field name="tuberia_caliente" />
+									  	    <field name="obs_12" attrs="{'invisible':[('tuberia_caliente','!=',True)]}" colspan="3" nolabel="1" placeholder="Observacion"/>
+									  	    <separator string="Piso" colspan="2"/>
+									  	    <field name="madera"/>
+										  	<field name="obs_18" attrs="{'invisible':[('madera','!=',True)]}" colspan="3" nolabel="1" placeholder="Observacion"/>
+										  	<field name="piso_ceramica"/>
+										  	<field name="obs_19" attrs="{'invisible':[('piso_ceramica','!=',True)]}" colspan="3" nolabel="1" placeholder="Observacion"/>
+										  	<field name="alfombra"/>
+										  	<field name="obs_20" attrs="{'invisible':[('alfombra','!=',True)]}" colspan="3" nolabel="1" placeholder="Observacion"/>
+										  	<separator string="Pintura" colspan="2"/>
+										  	<field name="pintura_interiores"/>
+										  	<field name="obs_21" attrs="{'invisible':[('pintura_interiores','!=',True)]}" colspan="3" nolabel="1" placeholder="Observacion"/>
+										  	<field name="pintura_exteriores"/>
+										  	<field name="obs_22" attrs="{'invisible':[('pintura_exteriores','!=',True)]}" colspan="3" nolabel="1" placeholder="Observacion"/>
+									  	</group>
+									  </group>
+									  <group col="4" colspan="4">
+										  <group col="2" colspan="2">
+										  	<separator string="Carpinteria Madera" colspan="2"/>
+										  	<field name="cocina"/>
+										  	<field name="obs_13" attrs="{'invisible':[('cocina','!=',True)]}" colspan="3" nolabel="1" placeholder="Observacion"/>
+										  	<field name="dormintorio"/>
+										  	<field name="obs_14" attrs="{'invisible':[('dormintorio','!=',True)]}" colspan="3" nolabel="1" placeholder="Observacion"/>
+										  	<field name="banio" />
+										  	<field name="obs_15" attrs="{'invisible':[('banio','!=',True)]}" colspan="3" nolabel="1" placeholder="Observacion"/>
+										  	<field name="puertas" />
+										  	<field name="obs_16" attrs="{'invisible':[('puertas','!=',True)]}" colspan="3" nolabel="1" placeholder="Observacion"/>
+										  	<field name="barrederas"/>
+										  	<field name="obs_17" attrs="{'invisible':[('barrederas','!=',True)]}" colspan="3" nolabel="1" placeholder="Observacion"/>
+										  </group>
+										  <group col="2" colspan="2">
+										  	<separator string="Humedad" colspan="2"/>
+										  	<field name="humedad_paredes"/>
+										  	<field name="obs_23" attrs="{'invisible':[('humedad_paredes','!=',True)]}" colspan="3" nolabel="1" placeholder="Observacion"/>
+										  	<field name="humedad_techos"/>
+										  	<field name="obs_24" attrs="{'invisible':[('humedad_techos','!=',True)]}" colspan="3" nolabel="1" placeholder="Observacion"/>
+										  	<field name="humedad_pisos"/>
+										  	<field name="obs_25" attrs="{'invisible':[('humedad_pisos','!=',True)]}" colspan="3" nolabel="1" placeholder="Observacion"/>
+										  </group>
+									  </group>
+									  <separator string="Seguimiento" colspan="4"/>
+									  <field name="seguimiento_lines_ids" nolabel="1" colspan="4">
+									  		<tree editable="bottom">
+									  			<field name="fecha_inicial" required="0"/>
+									  			<field name="fecha_final" required="0"/>
+									  			<field name="state"/>
+									  			<field name="tipo_id" invisible="1"/>
+									  			<field name="detalle_id" required="1"/>
+									  			<field name="aplican_garantias"/>
+									  			<field name="autoriza_id" required="0"/>
+									  		</tree>
+									  </field>
+								  	</group>
+								  	</sheet>
+								</form>
+								<tree>
+									<field name="name"/>
+									<field name="inmueble_id" />
+									<field name="partner_id" />
+									<field name="sale_id" />
+									<field name="fecha_inicial" />
+									<field name="fecha_final"/>
+									<field name="state"/>
+								</tree>
+                          </field>
+                      </group>
+	               </page>
+         		</notebook>
+            </field>
+        </record>
+    </data>
+</openerp>

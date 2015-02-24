@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+		 
+		 <report
+            auto="False"
+            id="cotizacion"
+            model="sale.order"
+            name="cotizacion"  
+            rml="cyg_sale/reportes/report_cotizacion.rml"
+            string="Cotización"
+            usage="default"
+            attachment="(object.state in ('done')) and ('Cotizacion'+(object.name or '').replace('/','')+'.pdf')"
+            attachment_use="True"
+            multi="True"
+          />
+          
+          <report
+            auto="False"
+            id="cyg_cuota"
+            model="cyg.inmueble.cuota"
+            name="cyg_cuota"  
+            rml="cyg_sale/reportes/report_cuota.rml"
+            string="Comprobante de Cuota"
+            usage="default"
+            attachment="(object.state in ('done')) and ('Comprobante'+(object.name or '').replace('/','')+'.pdf')"
+            attachment_use="True"
+            multi="True"
+          />
+          
+          <report auto="False" 
+          		  id="sale.report_sale_order" 
+          		  model="sale.order" name="sale.order" 
+          		  rml="cyg_sale/reportes/report_cotizacion.rml" 
+          		  string="Cotización"
+          		  usage="default"
+          		  attachment="(object.state in ('done')) and ('Cotizacion'+(object.name or '').replace('/','')+'.pdf')"
+          		  attachment_use="True"
+          		  multi="True"/>
+          
+    </data>
+</openerp>

@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+	<record model="ir.ui.view" id="view_cyg_cotizacion_search">
+      <field name="name">cyg.cotizacion.search</field>
+      <field name="model">sale.order</field>
+      <field name="arch" type="xml">
+		<search>
+		  <field name="partner_id"/>
+		  <field name="date_order"/>
+            <field name="proyecto_id"/>
+            <field name="etapa_id"/>
+            <field name="proyecto_id"/>
+		</search>
+      </field>
+    </record>
+    
+	 <record model="ir.ui.view" id="view_cyg_cotizacion_tree">
+      <field name="name">cyg.cotizacion.tree</field>
+      <field name="model">sale.order</field>
+      <field name="arch" type="xml">
+			<tree string="Cotización">
+                <field name="proyecto_id"/>
+                <field name="etapa_id"/>
+                <field name="inmueble"/>
+                <field name="partner_id"/>
+                <field name="date_order"/>
+                <field name="state"/>
+                <field name="name"/>
+                <field name="is_generate" invisible="1" />
+			</tree>
+      </field>
+    </record>
+    
+    <record id="cyg_view_order_form" model="ir.ui.view">
+            <field name="name">cyg.sale.order.form</field>
+            <field name="model">sale.order</field>
+            <field name="arch" type="xml">
+                <form string="Presupuesto" version="7.0">
+                    <header>
+                    	<button name="button_send_to_approval" states="draft,no_approval" string="Enviar a Aprobacion" class="oe_highlight" type="object" groups="base.group_user"/>
+                    	<button name="button_approval" states="sent" string="Aprobar" class="oe_highlight" type="object" groups="base.group_sale_manager,base.group_sale_salesman_all_leads"/>
+                    	<button name="button_no_approval_sale" states="sent" string="No Aprobar" class="oe_highlight" type="object" groups="base.group_sale_manager,base.group_sale_salesman_all_leads"/>
+                    	<button name="button_confirm_sale" states="approval" string="Confirmar Venta" class="oe_highlight" type="object" groups="base.group_sale_manager,base.group_sale_salesman_all_leads"/>
+                    	<button name="%(cotizacion)d" string="Imprimir" type="action" icon="gtk-print" class="oe_highlight"/>
+                    	<button name="button_desistir_sale" states="done" string="Desistir Venta" type="object" class="oe_highlight" groups="base.group_sale_manager,base.group_sale_salesman_all_leads"/>
+                    	<button name="button_draft_sale" states="cancel,no_approval" string="Volver a Borrador" type="object" groups="base.group_user"/>
+                    	<button name="button_cancel_sale" states="draft,sent,approval" string="Cancelar" type="object" groups="base.group_sale_manager,base.group_sale_salesman_all_leads"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,sent,done" statusbar_colors='{"sent":"blue"}'/>
+                </header>
+                <sheet>
+                    <h1>
+                        <label string="Cotización " attrs="{'invisible': [('state','not in',('draft','sent'))]}"/>
+                        <label string="Venta " attrs="{'invisible': [('state','not in',('done'))]}"/>
+                        <field name="name" class="oe_inline" readonly="1"/>
+                    </h1>
+                    <div class="oe_right oe_button_box" name="buttons" groups="base.group_user">
+                    	<button name="cuotas_tree_view" string="Cuotas" type="object" attrs="{'invisible': [('state','not in',['done','desistido'])]}"/>
+                    	<button name="pagos_tree_view" string="Pagos" type="object" attrs="{'invisible': [('state','!=','done')]}"/>
+                      	<button name="attachment_tree_view" string="Documentos adjuntos" type="object"/>
+                  	</div>
+                  	
+                    <group>
+                        <group>
+                            <field name="partner_id" on_change="onchange_partner_id(partner_id, context)" domain="[('customer','=',True)]" context="{'search_default_customer':1, 'show_address': 1}" options='{"always_reload": True}'/>
+                            <field name="proyecto_id" string= "Proyecto" attrs="{'required':[('state','=','draft')],'readonly':[('state','not in',['draft','no_approval'])]}"/>
+                            <field name="etapa_id" string= "Etapa" domain="[('proyecto_id','=',proyecto_id)]" attrs="{'required':[('state','=','draft')],'readonly':[('state','not in',['draft','no_approval'])]}"/>
+                            <field name="date_order"/>
+                            <field name="shop_id" string="Punto de atención" on_change="onchange_shop_id(shop_id, context)" context="{'form_view_ref':'cyg_sale.cyg_view_sale_shop_form1'}"/>
+                            <field name="partner_invoice_id" groups="sale.group_delivery_invoice_address" context="{'default_type':'invoice'}"/>
+                            <field name="partner_shipping_id" groups="sale.group_delivery_invoice_address" context="{'default_type':'delivery'}"/>
+                            <field domain="[('type','=','sale')]" name="pricelist_id" groups="product.group_sale_pricelist"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="user_id" string="Vendedor" attrs="{'readonly':[('state','not in',['draft','no_approval'])]}"/>
+                            <field name="desistir_id"/>
+                            <!--  <field name="valor_devuelto"/>-->
+                        	<!--  <field name="fecha_devolucion"/>-->
+                        </group>
+                        <group>
+                        	<field name="canal_ids" nolabel="1">
+	                        	<form string="Canal" version="7.0">
+	                                     <group colspan="4">
+	                                         <field name="canal_id" />
+	                                         <field name="canal_nombre" />
+	                                     </group>
+	                             </form>
+	                             <tree string="Canales" editable="bottom">
+	                                 <field name="canal_id" />
+	                                 <field name="canal_nombre" />
+	                             </tree>
+                        	</field>
+                        </group>
+                    </group>
+                    <notebook colspan="5">
+                        <page string="Inmuebles" >
+                        	<group colspan="4" col="4">
+                        		<group colspan="2">
+                        			<separator colspan="2" string="Inmuebles"/>
+		                            <field name="inmuebles_ids" nolabel="1" attrs="{'readonly':[('state','not in',['draft','no_approval'])]}"
+                                            context="{'default_project_id':proyecto_id,'default_etapa_id':etapa_id}">
+		                                <form string="Inmuebles" version="7.0">
+	                                        <group colspan="4">
+	                                            <field name="project_id" invisible="1"/>
+                                                <field name="etapa_id" invisible="1"/>
+	                                            <field name="inmueble_id" on_change="onchange_inmueble(inmueble_id)" required="1"
+                                                          domain="[('proyecto_id','=',project_id),('etapa_id','=',etapa_id)]"/>
+	                                            <field name="tipo" />
+	                                            <field name="name" string="Nro" invisible="1"/>
+	                                            <field name="precio" invisible="0"/>
+	                                        </group>
+		                                </form>
+		                                <tree string="inmuebles" editable="bottom">
+                                            <field name="project_id" invisible="1"/>
+                                            <field name="etapa_id" invisible="1"/>
+		                                    <field name="inmueble_id" on_change="onchange_inmueble(inmueble_id)" required="1"
+                                                   domain="[('state','=','disponible'),('proyecto_id','=',project_id),('etapa_id','=',etapa_id)]"/>
+		                                    <field name="cantidad" invisible="1" />
+		                                    <field name="tipo" />
+		                                    <field name="name" string="Nro" invisible="1"/>
+		                                    <field name="precio" invisible="0"/>
+		                                    <field name="precio_venta" invisible="1"/>
+		                                </tree>
+		                            </field>
+		                        </group>
+	                          	<group colspan="2">
+	                          		<separator colspan="2" string="Extras"/>
+		                            <field name="extras_ids" nolabel="1" attrs="{'readonly':[('state','not in',['draft','no_approval'])]}"
+                                           context="{'default_project_id':proyecto_id}">
+		                                <form string="Extras" version="7.0">
+		                                        <group colspan="4">
+                                                    <field name="project_id" invisible="1"/>
+		                                            <field name="extra_id" required="1"
+                                                           domain="[('proyecto_id','=',project_id)]"/>
+		                                            <field name="precio" />
+		                                        </group>
+		                                </form>
+		                                <tree string="Extra" editable="bottom">
+                                            <field name="project_id" invisible="1"/>
+		                                    <field name="extra_id" on_change="onchange_extra(extra_id)"
+                                                   required="1" domain="[('project_id','=',project_id)]"
+                                                   context="{'default_project_id':project_id}"/>
+		                                    <field name="cantidad" />
+		                                    <field name="precio" />
+		                                    <field name="price_subtotal" />
+		                                </tree>
+		                            </field>
+	                           </group>
+                            </group>
+                            <group class="oe_subtotal_footer oe_right" colspan="2" name="extras_total">
+          						<field name="inmueble_total" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                                <field name="extra_total"  widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                                <!--  <field name="cuotas_total"  widget='monetary' options="{'currency_field': 'currency_id'}"/>-->
+                                <div class="oe_subtotal_footer_separator oe_inline">
+                                    <label for="total" />
+                                    <button name="button_dummy"
+                                        states="draft,sent" string="(update)" type="object" class="oe_edit_only oe_link"/>
+                                </div>
+                                <field name="total" nolabel="1" class="oe_subtotal_footer_separator" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                                <field name="amount_pending" widget="monetary" options="{'currency_field': 'currency_id'}" class="oe_inline" readonly="1"/>
+                                
+                            </group>
+                            <div class="oe_clear"/>
+                            <field name="note" class="oe_inline" placeholder="Terms and conditions..."/>
+                        </page>
+                        <page string="Plan de Pagos">
+                            <group string=" Plan de pagos propuesto " col="3">
+                                <label string="Escriba los porcentajes valores entre 0 y 100" colspan="4"/>
+                                <field name="pocreserva" class="oe_inline" on_change="onchange_porcentaje_cliente(pocreserva,pocentrada,pocfinanciamiento,total)" attrs="{'readonly':[('state','not in',['draft','no_approval'])]}"/>
+                                <field name="creserva" nolabel="1" readonly="1" class="oe_inline" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                                <field name="pocentrada" class="oe_inline" on_change="onchange_porcentaje_cliente(pocreserva,pocentrada,pocfinanciamiento,total)" attrs="{'readonly':[('state','not in',['draft','no_approval'])]}"/>
+                                <field name="centrada" nolabel="1"  readonly="1" class="oe_inline" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                       			<field name="pocfinanciamiento" class="oe_inline" on_change="onchange_porcentaje_cliente(pocreserva,pocentrada,pocfinanciamiento,total)" attrs="{'readonly':[('state','not in',['draft','no_approval'])]}"/>
+                       			<field name="cfinanciamiento" nolabel="1"  readonly="1" class="oe_inline" widget='monetary' options="{'currency_field': 'currency_id'}" />
+                       		</group>
+                       		<button name="button_porcentage" class="oe_inline" states="draft,no_approval" string="Calcular" type="object"/>
+                       		<group >
+                       			<label for="fecha_inicial"/>
+                       			<div>
+	                       			<field name="fecha_inicial" on_change="onchange_fechas(fecha_entrega,fecha_inicial)" class="oe_inline" attrs="{'required':[('state','=','draft')],'readonly':[('state','not in',['draft','no_approval'])]}"/>
+	                       		</div>
+	                       		<label for="fecha_entrega"/>
+	                       		<div>
+	                                <field name="fecha_entrega" class="oe_inline" on_change="onchange_fechas(fecha_entrega,fecha_inicial)" attrs="{'readonly':[('state','not in',['draft','no_approval'])]}"/>
+	                            </div>
+	                            <label for="meses"/>
+	                            <div>
+	                        		<field name="meses" class="oe_inline" on_change="onchange_meses(meses,fecha_inicial)" attrs="{'readonly':[('state','not in',['draft','no_approval'])]}"/>
+	                        	</div>
+                       		</group>
+		                    <button name="button_table" class="oe_inline" states="draft,no_approval" string="Generar Tabla de Pagos" type="object"/>
+                       		<group col="7" colspan="4">
+                        		<group col="4" string="Simulacion credito Hipotecario" colspan="2">
+		                        	<field name="capital" on_change="onchange_capital(capital)" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+		                        	<field name="diez" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+		                        	<field name="solca" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+		                        	<field name="quince" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+		                        	<field name="plazo" />
+		                        	<field name="veinte" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+		                        	<field name="taza" />
+		                        	<field name="veinte_cinco" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+		                        	<button name="button_credito" string="Simular" type="object"/>
+		                        	<newline/>
+		                        	<field name="cuota_mensual"  widget='monetary' options="{'currency_field': 'currency_id'}"/>
+		                        	<field name="ingreso_mensual"  widget='monetary' options="{'currency_field': 'currency_id'}"/>
+		                        	<newline/>
+	                            	<field name="banco_preferencia" placeholder="Banco de Preferencia..." nolabel="1" colspan="4"/>
+	                   			</group>
+	                   			<group col="3" colspan="2" string="Plan de pagos original">
+                        			<field name="poreserva" class="oe_inline" on_change="onchange_porcentaje_propuesto(poreserva,poentrada,pofinanciamiento,total)" attrs="{'readonly':[('state','not in',['draft','no_approval'])]}"/>
+                        			<field name="reserva" nolabel="1" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                        			<field name="poentrada" class="oe_inline" on_change="onchange_porcentaje_propuesto(poreserva,poentrada,pofinanciamiento,total)" attrs="{'readonly':[('state','not in',['draft','no_approval'])]}"/>
+                        			<field name="entrada" nolabel="1" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                        			<field name="pofinanciamiento" class="oe_inline" on_change="onchange_porcentaje_propuesto(poreserva,poentrada,pofinanciamiento,total)" attrs="{'readonly':[('state','not in',['draft','no_approval'])]}"/>
+                        			<field name="financiamiento" nolabel="1" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                        		</group>
+                       		</group>
+                       		<newline/>
+                        	<group colspan="4" string="Cuotas">
+                        		<field name="is_generate" invisible="1" />
+	                        	<field name="cuotas_ids" nolabel="1" attrs="{'readonly':[('state','not in',['draft','no_approval'])]}">
+	                                <form string="Cuota" version="7.0">
+                                        <group colspan="4">
+                                            <field name="name" />
+                                            <field name="concepto" />
+                                            <field name="cuota" />
+                                            <field name="cliente" />
+                                            <field name="pendiente" />
+                                        </group>
+	                                </form>
+	                                <tree string="cuota" editable="bottom">
+	                                    <field name="name" />
+	                                    <field name="fecha" required="1" context="{'partner_id':parent.partner_id,'project_id':parent.proyecto_id,'etapa_id':parent.etapa_id}" on_change="onchange_date(fecha,context)"/>
+	                                    <field name="partner_id" invisible="1"/>
+                                        <field name="project_id" invisible="1"/>
+                                        <field name="etapa_id" invisible="1"/>
+                                        <field name="concepto" />
+                                        <field name="cuota" />
+                                        <field name="promotor" on_change="on_change_valores(cliente,promotor)" string="Promotor" sum="promotor"/>
+                                        <!--  <field name="cliente" context="{'valor':parent.total}" on_change="on_change_valores_cliente(cliente,context)" string="Cliente" sum="cliente"/>-->
+                                        <field name="cliente" on_change="on_change_valores(cliente,promotor)" string="Cliente" sum="cliente"/>
+                                        <field name="acumulado" string="Diferencia" sum="acumulado"/>
+                                        <field name="pendiente" invisible="1"/>
+                                        <field name="vencido" invisible="1"/>
+                                        <field name="referencia" invisible="1" />
+	                                </tree>
+		                        </field>
+		                        <!--  
+		                        <group class="oe_subtotal_footer oe_right" colspan="2" name="cuotas_total">
+                                <field name="cuota_cliente" nolabel="1" class="oe_subtotal_footer_separator" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                                <field name="cuota_promotor" nolabel="1" class="oe_subtotal_footer_separator" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                                </group>
+                                -->
+		                    </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_cyg_cotizacion">
+	      <field name="name">Cotizacion</field>
+	      <field name="res_model">sale.order</field>
+	      <field name="view_type">form</field>
+	      <field name="view_mode">tree,form</field>
+	      <field name="context">{'default_cyg_cotizacion':'create_cotizacion'}</field>
+	      <field name="search_view_id" ref="view_cyg_cotizacion_search"/>
+	    </record>
+	    
+	    <record id="action_cyg_cotizacion_tree" model="ir.actions.act_window.view">
+            <field name="sequence" eval="0"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_cyg_cotizacion_tree"/>
+            <field name="act_window_id" ref="action_cyg_cotizacion"/>
+        </record>
+        
+        <record id="action_cyg_cotizacion_form" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="cyg_view_order_form"/>
+            <field name="act_window_id" ref="action_cyg_cotizacion"/>
+        </record>
+        
+        <menuitem id="cyg_inmobiliario_sales" name="Ventas"
+	      parent="cyg_base.cyg_raiz_inmobiliario"
+	      sequence="0"
+	      />
+	    
+	    <menuitem id="menu_cyg_cotizazion" name="Cotizaciones"
+		      action="action_cyg_cotizacion"
+		      parent="cyg_inmobiliario_sales"
+		      sequence="0"
+		      groups="base.group_sale_salesman,base.group_sale_manager"
+		      />
+		
+		<record model="ir.actions.act_window" id="action_cyg_ventas">
+	      <field name="name">Ventas</field>
+	      <field name="res_model">sale.order</field>
+	      <field name="view_type">form</field>
+	      <field name="view_mode">tree,form</field>
+	      <field name="domain">[('state','in',['done','paid','overpaid'])]</field>
+	      
+	      <field name="search_view_id" ref="view_cyg_cotizacion_search"/>
+	    </record>
+	    
+	     <record id="action_cyg_ventas_tree" model="ir.actions.act_window.view">
+            <field name="sequence" eval="0"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_cyg_cotizacion_tree"/>
+            <field name="act_window_id" ref="action_cyg_ventas"/>
+        </record>
+        
+        <record id="action_cyg_ventas_form" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="cyg_view_order_form"/>
+            <field name="act_window_id" ref="action_cyg_ventas"/>
+        </record>
+		
+		<menuitem id="menu_cyg_ventas" name="Ventas"
+		      action="action_cyg_ventas"
+		      parent="cyg_inmobiliario_sales"
+		      sequence="10"
+		      groups="base.group_sale_salesman,base.group_sale_manager,cyg_sale.group_cyg_usuario_externo"
+		      />
+
+
+        <record id="cyg_view_sale_shop_form1" model="ir.ui.view">
+            <field name="name">cyg.view.sale.shop.form</field>
+            <field name="model">sale.shop</field>
+            <field name="arch" type="xml">
+                <form string="Punto de atención" version="7.0">
+                    <label for="name" class="oe_edit_only"/>
+                    <h1>
+                        <field name="name" required="1"/>
+                    </h1>
+                    <field name="payment_default_id" invisible="1"/>
+                </form>
+            </field>
+        </record>
+		
+    
+    </data>
+</openerp>

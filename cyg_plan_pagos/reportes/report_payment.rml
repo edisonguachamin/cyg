@@ -1,0 +1,240 @@
+<?xml version="1.0"?>
+<document filename="Cotizacion.pdf">
+  <template title="Test" author="CYQ" allowSplitting="20">
+    <pageTemplate id="first">
+      <pageGraphics>
+		<setFont name="Helvetica-Bold" size="10"/>
+		<!-- <image x="14cm" y="27.60cm" height="5cm" width="5cm" file="../images/logo.png"/> -->
+				<image x="14cm" y="27.60cm" height="5cm" width="5cm">[[ o.proyecto_id and o.proyecto_id.image ]]</image>
+				<setFont name="Helvetica-Bold" size="8"/>
+		<drawCentredString x="10.5cm" y="27.5cm">COMPROBANTE DE PAGO</drawCentredString>
+		<drawCentredString x="10.5cm" y="28.0cm">[[ o.user_id.company_id and o.user_id.company_id.name or '']]</drawCentredString>
+		<setFont name="Helvetica" textColor = "red" size="8"/>
+		<drawCentredString x="3cm" y="29.0cm">Usuario: [[ o.user_id and o.user_id.name ]]</drawCentredString>
+		<drawCentredString x="3cm" y="28.6cm">[[  o.user_id and o.user_id.company_id and o.user_id.company_id.phone or '' ]] / [[ o.user_id and o.user_id.mobile ]]</drawCentredString>
+		<fill color="blue"/>
+		<drawCentredString x="3cm" y="28.3cm">[[ o.user_id and o.user_id.email ]]</drawCentredString>
+	  </pageGraphics>
+	  <frame id="first" x1="0.0cm" y1="0.5cm" width="21cm" height="27cm"/>
+    </pageTemplate>
+  </template>
+  <stylesheet>
+    <blockTableStyle id="Header">
+      <lineStyle kind="GRID" colorName="black"/>
+    </blockTableStyle>
+    
+    <blockTableStyle id="Header_inmuebles">
+      <lineStyle kind="LINEBELOW" colorName="#000000 " start="0,0" stop="3,-1"/>
+      <lineStyle kind="LINEABOVE" colorName="#000000 " start="0,0" stop="3,-1"/>
+      <lineStyle kind="LINEBEFORE" colorName="#000000 " start="0,0" stop="4,0"/>
+    </blockTableStyle>
+    
+    <blockTableStyle id="Header_entrega">
+      <lineStyle kind="LINEBELOW" colorName="#000000 " start="1,0" stop="2,-1"/>
+      <lineStyle kind="LINEABOVE" colorName="#000000 " start="1,0" stop="2,-1"/>
+      <lineStyle kind="LINEBEFORE" colorName="#000000 " start="1,0" stop="3,-1"/>
+    </blockTableStyle>
+    
+    <blockTableStyle id="Header_extra">
+      <blockSpan start="0,0" stop="1,0"/>
+      
+    </blockTableStyle>
+    
+    <blockTableStyle id="Header_extra_detail">
+      <lineStyle kind="LINEBELOW" colorName="#000000 " start="0,0" stop="1,-1"/>
+      <lineStyle kind="LINEABOVE" colorName="#000000 " start="0,0" stop="1,-1"/>
+      <lineStyle kind="LINEBEFORE" colorName="#000000 " start="0,0" stop="2,-1"/>
+    </blockTableStyle>
+    
+    <blockTableStyle id="Header_total_extra">
+      <lineStyle kind="LINEBELOW" colorName="#000000 " start="0,0" stop="1,-1"/>
+      <lineStyle kind="LINEABOVE" colorName="#000000 " start="0,0" stop="1,-1"/>
+      <lineStyle kind="LINEBEFORE" colorName="#000000 " start="0,0" stop="2,-1"/>
+    </blockTableStyle>
+    
+    <blockTableStyle id="Header_total">
+      <lineStyle kind="LINEBELOW" colorName="#000000 " start="2,0" stop="3,-1"/>
+      <lineStyle kind="LINEABOVE" colorName="#000000 " start="2,0" stop="2,-1"/>
+      <lineStyle kind="LINEBEFORE" colorName="#000000 " start="2,0" stop="4,-1"/>
+    </blockTableStyle>
+    
+     <blockTableStyle id="Header_area">
+      <blockBackground colorName="#C0C0C0" start="1,0" stop="2,0"/>
+      <lineStyle kind="LINEBELOW" colorName="#000000 " start="1,0" stop="2,0"/>
+      <lineStyle kind="LINEABOVE" colorName="#000000 " start="1,0" stop="2,0"/>
+      <lineStyle kind="LINEBEFORE" colorName="#000000 " start="1,0" stop="3,0"/>
+      <blockSpan start="4,0" stop="6,0"/>
+      <blockBackground colorName="#C0C0C0" start="4,0" stop="6,0"/>
+      <lineStyle kind="LINEBELOW" colorName="#000000 " start="0,1" stop="2,-1"/>
+      <lineStyle kind="LINEABOVE" colorName="#000000 " start="0,1" stop="2,-1"/>
+      <lineStyle kind="LINEBEFORE" colorName="#000000 " start="0,1" stop="3,-1"/>
+      <blockSpan start="4,4" stop="6,4"/>
+      <blockBackground colorName="#C0C0C0" start="4,4" stop="6,4"/>
+      <lineStyle kind="LINEBELOW" colorName="#000000 " start="4,0" stop="6,-1"/>
+      <lineStyle kind="LINEABOVE" colorName="#000000 " start="4,0" stop="6,-1"/>
+      <lineStyle kind="LINEBEFORE" colorName="#000000 " start="4,0" stop="7,-1"/>
+      
+    </blockTableStyle>
+    
+    <blockTableStyle id="Header_plan">
+      <blockSpan start="0,0" stop="2,0"/>
+      <lineStyle kind="LINEBELOW" colorName="#000000 " start="0,0" stop="2,-1"/>
+      <lineStyle kind="LINEABOVE" colorName="#000000 " start="0,0" stop="2,-1"/>
+      <lineStyle kind="LINEBEFORE" colorName="#000000 " start="0,0" stop="3,-1"/>
+      <blockSpan start="4,0" stop="6,0"/>
+      <lineStyle kind="LINEBELOW" colorName="#000000 " start="4,0" stop="6,-1"/>
+      <lineStyle kind="LINEABOVE" colorName="#000000 " start="4,0" stop="6,-1"/>
+      <lineStyle kind="LINEBEFORE" colorName="#000000 " start="4,0" stop="7,-1"/>
+      
+    </blockTableStyle>
+    
+    <blockTableStyle id="Header_table">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+      <blockSpan start="0,0" stop="1,0"/>
+      <lineStyle kind="LINEBELOW" colorName="black" start="0,0" stop="1,-1"/>
+      <lineStyle kind="LINEABOVE" colorName="black" start="0,0" stop="1,-1"/>
+      <lineStyle kind="LINEBEFORE" colorName="black" start="0,0" stop="2,-1"/>
+      
+      <lineStyle kind="LINEBELOW" colorName="black" start="3,1" stop="4,4"/>
+      <lineStyle kind="LINEABOVE" colorName="black" start="3,1" stop="4,4"/>
+      <lineStyle kind="LINEBEFORE" colorName="black" start="3,1" stop="5,4"/>
+      
+      <lineStyle kind="LINEBELOW" colorName="black" start="6,1" stop="7,4"/>
+      <lineStyle kind="LINEABOVE" colorName="black" start="6,1" stop="7,4"/>
+      <lineStyle kind="LINEBEFORE" colorName="black" start="6,1" stop="8,4"/>
+      <blockSpan start="7,1" stop="7,2"/>
+      <blockSpan start="6,1" stop="6,2"/>
+      
+      <blockSpan start="6,3" stop="6,4"/>
+      <blockSpan start="7,3" stop="7,4"/>
+      
+    </blockTableStyle>
+
+
+	<blockTableStyle id="Header_pagos">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+      <blockBackground colorName="#C0C0C0" start="0,0" stop="4,-1"/>
+      <lineStyle kind="GRID" colorName="black"/>
+    </blockTableStyle>
+
+    <blockTableStyle id="Move_Line_Header">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+      <lineStyle kind="GRID" colorName="black"/>
+    </blockTableStyle>
+
+   
+    <blockTableStyle id="Header_firmas">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+      <lineStyle kind="LINEABOVE" colorName="black" start="2,0" stop="2,0"/>
+    </blockTableStyle>
+
+
+    <blockTableStyle id="Totales">
+      <blockAlignment value="LEFT"/>
+      <blockValign value="TOP"/>
+      
+    </blockTableStyle>
+
+    <initialize>
+      <paraStyle name="all" alignment="justify"/>
+    </initialize>
+    <!--Cabeceras pto 7-->
+    <paraStyle name="terp_header_LEFT" fontName="Helvetica-Bold" fontSize="6.0" leading="8.00" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="terp_header_RIGHT" fontName="Helvetica-Bold" fontSize="6.0" leading="8.00" alignment="RIGHT" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="terp_header_Centre" fontName="Helvetica-Bold" fontSize="6.00" leading="8.00" alignment="CENTER" spaceBefore="0.0" spaceAfter="0.0"/>
+    
+    <!--Cabeceras pto 8-->
+    <paraStyle name="tblheader_Left" fontName="Helvetica-Bold" fontSize="8.0" leading="10" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="tblheader_Centre" fontName="Helvetica-Bold" fontSize="8.0" leading="10" alignment="CENTER" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="tblheader_Right" fontName="Helvetica-Bold" fontSize="8.0" leading="10" alignment="RIGHT" spaceBefore="0.0" spaceAfter="0.0"/>
+    
+    <!--Letra Normal pto 8-->
+    <paraStyle name="tbldetalle_Left" fontName="Helvetica" fontSize="5.0" leading="7" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="tbldetalle_Center" fontName="Helvetica" fontSize="5.0" leading="6" alignment="CENTER" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="tbldetalle_Right" fontName="Helvetica" fontSize="6.0" leading="7" alignment="RIGHT" spaceBefore="0.0" spaceAfter="0.0"/>
+
+    <!--Letra Normal pto 9-->
+    <paraStyle name="tbldetalle_Centre_9" fontName="Helvetica" fontSize="9.0" leading="11" alignment="CENTER" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="tbldetalle_Left_9" fontName="Helvetica" fontSize="9.0" leading="11" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="tbldetalle_Bold_9" fontName="Helvetica-Bold" fontSize="9.0" leading="11" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
+
+
+    <!--Letra otra-->
+    <paraStyle name="terp_header_Right" fontName="Helvetica" fontSize="8.00" leading="9" alignment="RIGHT" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="terp_header_Left" fontName="Helvetica" fontSize="8.0" leading="9" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="tbldetalle_address" fontName="Helvetica" fontSize="8.0" leading="9" alignment="JUSTIFY" spaceBefore="0.0" spaceAfter="0.0"/>
+    
+    <paraStyle name="tbldetalle_left" fontName="Helvetica" fontSize="6.0" leading="8.00" alignment="LEFT" spaceBefore="0.0" spaceAfter="0.0"/>
+    
+    <paraStyle name="tbldetalle_center" fontName="Helvetica" fontSize="6.0" leading="7" alignment="CENTER" spaceBefore="0.0" spaceAfter="0.0"/>
+    <paraStyle name="tbldetalle_right" fontName="Helvetica" fontSize="6.0" leading="7" alignment="RIGHT" spaceBefore="0.0" spaceAfter="0.0"/>
+
+  </stylesheet>
+  <story>
+  	<para>[[ repeatIn(objects,'o') ]]</para>
+    <blockTable colWidths="3cm,3cm,3cm,3cm" style="Header">
+        <tr>
+          <td><para style="terp_header_LEFT">Nro Comprobante</para></td>
+          <td><para style="terp_header_LEFT">[[ o.name ]]</para></td>
+          <td><para style="terp_header_RIGHT">Fecha de Registro</para></td>
+          <td><para style="terp_header_LEFT">[[ time.strftime('%d-%m-%Y',time.strptime(o.date, '%Y-%m-%d')) ]]</para></td>
+        </tr>
+        <tr>
+          <td><para style="terp_header_LEFT">Fecha de Pago </para></td>
+          <td><para style="terp_header_LEFT">[[ time.strftime('%d-%m-%Y',time.strptime(o.date_payment, '%Y-%m-%d')) ]]</para></td>
+          <td><para style="terp_header_RIGHT">Usuario</para></td>
+          <td><para style="terp_header_LEFT">[[ o.user_id and o.user_id.name ]]</para></td>
+        </tr>
+        <tr>
+          <td><para style="terp_header_LEFT">Tipo de Pago </para></td>
+          <td><para style="terp_header_LEFT">[[ o.type_id and  o.type_id.name ]]</para></td>
+          <td><para style="terp_header_RIGHT">Banco</para></td>
+          <td><para style="terp_header_LEFT">[[ o.bank_id and o.bank_id.bank and o.bank_id.bank.name ]] [[ o.bank_id and o.bank_id.acc_number ]]</para></td>
+        </tr>
+        <tr>
+          <td><para style="terp_header_LEFT">Cliente </para></td>
+          <td><para style="terp_header_LEFT">[[ o.partner_id and o.partner_id.name ]]</para></td>
+          <td><para style="terp_header_RIGHT">Proyecto</para></td>
+          <td><para style="terp_header_LEFT">[[ o.inmueble_id and o.inmueble_id.proyecto_id and o.inmueble_id.proyecto_id.name or '/' ]]</para></td>
+        </tr>
+        <tr>
+          <td><para style="terp_header_LEFT">Inmueble </para></td>
+          <td><para style="terp_header_LEFT">[[ o.inmueble_id and o.inmueble_id.numero ]]</para></td>
+          <td><para style="terp_header_RIGHT">Etapa</para></td>
+          <td><para style="terp_header_LEFT">[[ o.inmueble_id and o.inmueble_id.etapa_id and  o.inmueble_id.etapa_id.name or '/']]</para></td>
+        </tr>
+        <tr>
+          <td><para style="terp_header_LEFT">Pedido </para></td>
+          <td><para style="terp_header_LEFT">[[ o.sale_order_id and o.sale_order_id.name ]]</para></td>
+          <td><para style="terp_header_RIGHT">Valor Pagado</para></td>
+          <td><para style="terp_header_LEFT">$ [[ o.amount or '0.00']]</para></td>
+        </tr>
+    </blockTable>
+    <spacer length="5"/>
+    <blockTable colWidths="3cm,3cm,3cm,2cm,2.5cm" style="Header" >
+        <tr>
+          <td><para style="tbldetalle_left">Cuota</para></td>
+          <td><para style="tbldetalle_left">Vencimiento</para></td>
+          <td><para style="tbldetalle_left">Valor Cuota</para></td>
+          <td><para style="tbldetalle_Right">Valor Pagado</para></td>
+          <td><para style="tbldetalle_Right">Valor Pendiente</para></td>
+        </tr>
+      </blockTable>
+    <section>
+    	<para style="terp_default_1">[[repeatIn(o.payment_lines_ids,'line')]]</para>
+    	<blockTable colWidths="3cm,3cm,3cm,2cm,2.5cm" style="Header" >
+        <tr>
+          <td><para style="tbldetalle_left">[[ line.name ]] </para></td>
+          <td><para style="tbldetalle_left">[[ line.fecha ]] </para></td>
+          <td><para style="tbldetalle_left">$ [[ line.valor_cuota_cliente or '0.00']] </para></td>
+          <td><para style="tbldetalle_Right">$ [[ line.valor_pagado_cliente or '0.00' ]] </para></td>
+          <td><para style="tbldetalle_Right">$ [[ line.valor_pendiente_cliente or '0.00' ]] </para></td>
+        </tr>
+      </blockTable>
+    </section>
+  </story>
+</document>
