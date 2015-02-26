@@ -82,7 +82,6 @@
 					  <field name="concepto" required="1" attrs="{'readonly':[('state','!=','draft')]}"/>
 					  <field name="fecha" context="{'valor':1}" required="1" on_change="onchange_date(fecha)" attrs="{'readonly':['|',('parcial','=',True),('state','=','paid')]}"/>
 				      <field name="cliente" string="Valor Cuota" required="1" attrs="{'readonly':['|',('parcial','=',True),('state','=','paid')]}"/>
-				      
 				  </group>
 				  <group colspan="2" attrs="{'invisible':[('state','=','draft')]}">
 				  	  <separator colspan="2" string="Pago"/>
